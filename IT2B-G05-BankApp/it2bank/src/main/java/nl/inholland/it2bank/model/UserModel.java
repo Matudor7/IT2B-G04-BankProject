@@ -1,29 +1,36 @@
 package nl.inholland.it2bank.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Column(nullable = false)
     private String firstName;
     private String lastName;
-    private Long bsn;
-    private Integer phoneNumber;
+    private long bsn;
+    private String phoneNumber;
     private String email;
     private String password;
+    private int roleId;
 
-    @ManyToOne //User has only one role, whilst a role can belong to multiple users
-    private UserRoles role;
+    public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, int roleId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.bsn = bsn;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
+        this.roleId = roleId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -41,19 +48,19 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Long getBsn() {
+    public long getBsn() {
         return bsn;
     }
 
-    public void setBsn(Long bsn) {
+    public void setBsn(long bsn) {
         this.bsn = bsn;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -73,11 +80,11 @@ public class User {
         this.password = password;
     }
 
-    public UserRoles getRole() {
-        return role;
+    public int getRole() {
+        return roleId;
     }
 
-    public void setRole(UserRoles role) {
-        this.role = role;
+    public void setRole(int role) {
+        this.roleId = roleId;
     }
 }
