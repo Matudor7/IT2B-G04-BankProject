@@ -1,6 +1,7 @@
 package nl.inholland.it2bank.service;
 
 import nl.inholland.it2bank.model.TransactionModel;
+import nl.inholland.it2bank.model.dto.TransactionDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +17,19 @@ public class TransactionService {
     }
 
     public List<TransactionModel> getAllTransactions() {return (List<TransactionModel>) transactionRepository.findAll(); }
+
+    public TransactionModel addTransaction(TransactionDTO transactionDto) {return transactionRepository.save(this.mapObjectToTransaction(transactionDto)); }
+
+    private TransactionModel mapObjectToTransaction(TransactionDTO transactionDto){
+        TransactionModel transaction = new TransactionModel();
+
+        transaction.setUserPerforming(transactionDto.userPerforming());
+        transaction.setAccountFrom(transactionDto.accountFrom());
+        transaction.setAccountTo(transactionDto.accountTo());
+        transaction.setAmount(transactionDto.amount());
+        transaction.setTime(transactionDto.time());
+        transaction.setComment(transactionDto.comment());
+
+        return transaction;
+    }
 }
