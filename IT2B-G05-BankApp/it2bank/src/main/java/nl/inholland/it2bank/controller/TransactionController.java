@@ -3,7 +3,6 @@ package nl.inholland.it2bank.controller;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.dto.TransactionDTO;
 import nl.inholland.it2bank.service.TransactionService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
