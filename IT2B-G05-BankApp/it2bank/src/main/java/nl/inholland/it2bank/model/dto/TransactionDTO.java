@@ -5,5 +5,5 @@ import nl.inholland.it2bank.model.UserModel;
 
 import java.sql.Time;
 
-public record TransactionDTO(UserModel userPerforming, AccountModel accountFrom, AccountModel accountTo, double amount, Time time, String comment) {
+public record TransactionDTO(int userPerforming, String accountFrom, String accountTo, double amount, Time time, String comment) {
 }
