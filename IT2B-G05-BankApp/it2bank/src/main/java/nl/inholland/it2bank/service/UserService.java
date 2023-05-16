@@ -54,8 +54,4 @@ public class UserService {
     public void updateUser(long id, UserModel newUser){
         //TO-DO: do
     }
-
-    public void createUser(){
-        
-    }
 }
