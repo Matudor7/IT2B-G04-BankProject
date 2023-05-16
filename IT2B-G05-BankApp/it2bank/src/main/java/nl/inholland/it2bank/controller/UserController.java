@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users",
-        method = {RequestMethod.POST})
+        method = {RequestMethod.PUT})
 @Log
 public class UserController {
 
