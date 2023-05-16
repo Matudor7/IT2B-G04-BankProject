@@ -10,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping(value = "/users",
+        method = {RequestMethod.POST})
 @Log
 public class UserController {
 
@@ -53,10 +54,9 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> updateUserById(@PathVariable long id){
+    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
         try{
-            UserModel user = userService.getUserById(id);
-            userService.updateUser(user);
+            userService.updateUser(id, newUser);
             return ResponseEntity.status(204).body(null);
         }catch(Exception e){
             return ResponseEntity.status(400).body(null);

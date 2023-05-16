@@ -5,6 +5,7 @@ import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class UserService {
     }
 
     public void updateUser(long id, UserModel newUser){
-        userRepository.findById(id);
+        //TO-DO: do
+    }
+
+    public void createUser(){
+        
     }
 }
