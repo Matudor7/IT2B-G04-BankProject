@@ -35,4 +35,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.addUser(userDto));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Object> removeUserById(@PathVariable long id){
+        try{
+            userService.deleteUser(userService.getUserById(id).getId());
+            return ResponseEntity.ok().body(null);
+        }catch(Exception e){
+            return ResponseEntity.status(400).body(null);
+        }
+    }
 }
