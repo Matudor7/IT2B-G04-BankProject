@@ -12,13 +12,15 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private List<UserModel> users;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public List<UserModel> getAllUsers(){
-        return (List<UserModel>) userRepository.findAll();
+        users = (List<UserModel>) userRepository.findAll();
+        return users;
     }
 
     public UserModel addUser(UserDTO userDto){
@@ -46,5 +48,9 @@ public class UserService {
 
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public void updateUser(long id, UserModel newUser){
+        userRepository.findById(id);
     }
 }
