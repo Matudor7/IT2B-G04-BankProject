@@ -56,8 +56,17 @@ public class UserController {
     @PutMapping("{id}")
     public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
         try{
-            userService.updateUser(id, newUser);
-            return ResponseEntity.status(204).body(null);
+            UserModel existingUser = userService.getUserById(id);
+
+            existingUser.setFirstName(newUser.getFirstName());
+            existingUser.setLastName(newUser.getLastName());
+            existingUser.setBsn(newUser.getBsn());
+            existingUser.setEmail(newUser.getEmail());
+            existingUser.setPhoneNumber(newUser.getPhoneNumber());
+            existingUser.setPassword(newUser.getPassword());
+            existingUser.setRoleId(newUser.getRoleId());
+
+            return ResponseEntity.status(200).body(existingUser);
         }catch(Exception e){
             return ResponseEntity.status(400).body(null);
         }
