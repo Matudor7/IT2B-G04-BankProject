@@ -1,6 +1,7 @@
 package nl.inholland.it2bank.controller;
 
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,13 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
         try{
-            userService.deleteUser(userService.getUserById(id).getId());
-            return ResponseEntity.ok().body(null);
+            UserModel user = userService.getUserById(id);
+            if(user.getRoleId() == 3){
+                userService.deleteUser(user.getId());
+                return ResponseEntity.ok().body(null);
+            } else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
         }catch(Exception e){
             return ResponseEntity.status(400).body(null);
         }
