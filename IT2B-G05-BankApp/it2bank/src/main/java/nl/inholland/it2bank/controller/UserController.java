@@ -1,6 +1,7 @@
 package nl.inholland.it2bank.controller;
 
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping(value = "/users",
+        method = {RequestMethod.PUT})
 @Log
 public class UserController {
 
@@ -34,5 +36,39 @@ public class UserController {
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.addUser(userDto));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Object> removeUserById(@PathVariable long id){
+        try{
+            UserModel user = userService.getUserById(id);
+            if(user.getRoleId() == 3){
+                userService.deleteUser(user.getId());
+                return ResponseEntity.ok().body(null);
+            } else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(400).body(null);
+        }
+    }
+
+    @PutMapping("edit/{id}")
+    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
+        try{
+            UserModel existingUser = userService.getUserById(id);
+
+            existingUser.setFirstName(newUser.getFirstName());
+            existingUser.setLastName(newUser.getLastName());
+            existingUser.setBsn(newUser.getBsn());
+            existingUser.setEmail(newUser.getEmail());
+            existingUser.setPhoneNumber(newUser.getPhoneNumber());
+            existingUser.setPassword(newUser.getPassword());
+            existingUser.setRoleId(newUser.getRoleId());
+
+            return ResponseEntity.status(200).body(userService.saveUser(existingUser));
+        }catch(Exception e){
+            return ResponseEntity.status(400).body(null);
+        }
     }
 }

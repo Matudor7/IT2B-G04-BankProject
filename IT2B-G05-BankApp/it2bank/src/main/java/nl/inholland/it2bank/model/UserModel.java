@@ -80,11 +80,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public int getRole() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRole(int role) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 }

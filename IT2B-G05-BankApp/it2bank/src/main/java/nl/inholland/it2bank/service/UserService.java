@@ -4,7 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -12,13 +14,15 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private List<UserModel> users;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public List<UserModel> getAllUsers(){
-        return (List<UserModel>) userRepository.findAll();
+        users = (List<UserModel>) userRepository.findAll();
+        return users;
     }
 
     public UserModel addUser(UserDTO userDto){
@@ -34,7 +38,7 @@ public class UserService {
         user.setEmail(userDto.email());
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
-        user.setRole(userDto.roleId());
+        user.setRoleId(userDto.roleId());
 
         return user;
     }
@@ -46,5 +50,9 @@ public class UserService {
 
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public UserModel saveUser(UserModel user){
+        return userRepository.save(user);
     }
 }
