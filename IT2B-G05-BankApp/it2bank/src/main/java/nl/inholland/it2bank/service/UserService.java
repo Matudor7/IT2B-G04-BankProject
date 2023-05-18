@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -49,5 +50,9 @@ public class UserService {
 
     public void deleteUser(long id){
         userRepository.deleteById(id);
+    }
+
+    public UserModel saveUser(UserModel user){
+        return userRepository.save(user);
     }
 }

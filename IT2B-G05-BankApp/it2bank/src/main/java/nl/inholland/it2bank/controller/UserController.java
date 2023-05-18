@@ -53,7 +53,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("edit/{id}")
     public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
         try{
             UserModel existingUser = userService.getUserById(id);
@@ -66,7 +66,7 @@ public class UserController {
             existingUser.setPassword(newUser.getPassword());
             existingUser.setRoleId(newUser.getRoleId());
 
-            return ResponseEntity.status(200).body(existingUser);
+            return ResponseEntity.status(200).body(userService.saveUser(existingUser));
         }catch(Exception e){
             return ResponseEntity.status(400).body(null);
         }
