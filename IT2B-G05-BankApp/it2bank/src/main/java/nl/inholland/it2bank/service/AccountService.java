@@ -20,6 +20,8 @@ public class AccountService {
 
     public AccountModel addAccount(AccountDTO accountDto) {return accountRepository.save(this.mapObjectToAccount(accountDto)); }
 
+    public String findAccountByIban(String finalIban) { return null; }// this method is still in working
+
     private AccountModel mapObjectToAccount(AccountDTO accountDto){
         AccountModel account = new AccountModel();
 
