@@ -6,21 +6,18 @@ import nl.inholland.it2bank.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
 
-    private final AccountRepository accountRepository;
-
-    public AccountService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    private AccountRepository accountRepository;
 
     public List<AccountModel> getAllAccounts() { return (List<AccountModel>) accountRepository.findAll(); }
 
     public AccountModel addAccount(AccountDTO accountDto) {return accountRepository.save(this.mapObjectToAccount(accountDto)); }
 
-    public String findAccountByIban(String finalIban) { return null; }// this method is still in working
+    public Optional<AccountModel> findAccountByIban(String finalIban) { return accountRepository.findByIban(finalIban); }// this method is still in work
 
     private AccountModel mapObjectToAccount(AccountDTO accountDto){
         AccountModel account = new AccountModel();

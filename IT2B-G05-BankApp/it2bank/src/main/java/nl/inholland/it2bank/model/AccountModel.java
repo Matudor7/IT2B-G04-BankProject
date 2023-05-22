@@ -2,6 +2,7 @@ package nl.inholland.it2bank.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class AccountModel {
 
+    @Id
     public String getIban() {
         return iban;
     }

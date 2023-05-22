@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 @Service
-public class AccountIbanService {
+public class AccountIbanService extends AccountService{
     @Autowired
     private AccountService accountService;
 
