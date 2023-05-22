@@ -1,13 +1,13 @@
 package nl.inholland.it2bank.controller;
 
+
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.model.dto.AccountDTO;
 import nl.inholland.it2bank.service.AccountService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("accounts")
@@ -22,5 +22,11 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllAccounts() { return ResponseEntity.ok(accountService.getAllAccounts());}
+    public ResponseEntity<Object> getAllAccounts() { return ResponseEntity.ok(accountService.getAllAccounts()); }
+
+    @PostMapping
+    public ResponseEntity<Object> addAccount(@RequestBody AccountDTO accountDto){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(accountService.addAccount(accountDto));
+    }
 }

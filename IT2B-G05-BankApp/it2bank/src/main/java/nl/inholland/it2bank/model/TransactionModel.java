@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +20,17 @@ public class TransactionModel {
     private String accountFrom;
     private String accountTo;
     private double amount;
-    private Time time;
+    private LocalTime time;
     private String comment;
+
+    public TransactionModel(int userPerforming, String accountFrom, String accountTo, double amount, LocalTime time, String comment) {
+        this.userPerforming = userPerforming;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.amount = amount;
+        this.time = time;
+        this.comment = comment;
+    }
 
     public int getUserPerforming() {
         return userPerforming;
@@ -55,11 +64,11 @@ public class TransactionModel {
         this.amount = amount;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -68,15 +77,6 @@ public class TransactionModel {
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public TransactionModel(int userPerforming, String accountFrom, String accountTo, double amount, Time time, String comment) {
-        this.userPerforming = userPerforming;
-        this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
-        this.amount = amount;
-        this.time = time;
         this.comment = comment;
     }
 }
