@@ -17,7 +17,12 @@ public class AccountService {
 
     public AccountModel addAccount(AccountDTO accountDto) {return accountRepository.save(this.mapObjectToAccount(accountDto)); }
 
-    public Optional<AccountModel> findAccountByIban(String finalIban) { return accountRepository.findByIban(finalIban); }// this method is still in work
+    public Optional<AccountModel> findAccountByIban(String finalIban) { return accountRepository.findByIban(finalIban); }
+
+    public AccountModel updateAccount(AccountModel account) {
+        return Optional.of(accountRepository.save(account)).orElseThrow(
+                () -> new IllegalArgumentException("Something went wrong trying to update your account."));
+    }
 
     private AccountModel mapObjectToAccount(AccountDTO accountDto){
         AccountModel account = new AccountModel();

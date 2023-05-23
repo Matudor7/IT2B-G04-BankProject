@@ -5,6 +5,7 @@ import nl.inholland.it2bank.model.dto.TransactionDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -16,7 +17,9 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public List<TransactionModel> getAllTransactions() {return (List<TransactionModel>) transactionRepository.findAll(); }
+    //public List<TransactionModel> getAllTransactions() {return (List<TransactionModel>) transactionRepository.findAll(); }
+
+    public List<TransactionModel> findByAttributes(int userPerforming, String accountFrom, String accountTo, double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
 
     public TransactionModel addTransaction(TransactionDTO transactionDto) {return transactionRepository.save(this.mapObjectToTransaction(transactionDto)); }
 

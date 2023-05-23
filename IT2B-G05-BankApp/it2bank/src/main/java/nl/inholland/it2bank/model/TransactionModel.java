@@ -16,7 +16,7 @@ public class TransactionModel {
     private long id;
 
     @Column(nullable = false)
-    private int userPerforming;
+    private Integer userPerforming;
     private String accountFrom;
     private String accountTo;
     private double amount;
@@ -36,7 +36,7 @@ public class TransactionModel {
         return userPerforming;
     }
 
-    public void setUserPerforming(int userPerforming) {
+    public void setUserPerforming(Integer userPerforming) {
         this.userPerforming = userPerforming;
     }
 
