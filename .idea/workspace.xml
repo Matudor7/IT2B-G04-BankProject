@@ -7,7 +7,8 @@
     <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/TransactionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/TransactionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
