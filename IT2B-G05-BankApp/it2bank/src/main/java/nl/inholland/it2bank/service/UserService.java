@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
+import nl.inholland.it2bank.util.JwtTokenProvider;
 import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class UserService {
     public String login(String username, String password) throws Exception {
         // See if a user with the provided username exists or throw exception
         UserModel user = this.userRepository
-                .findByUsername(username)
+                .findByEmail(username)
                 .orElseThrow(() -> new AuthenticationException("User not found"));
 
         // Check if the password hash matches
