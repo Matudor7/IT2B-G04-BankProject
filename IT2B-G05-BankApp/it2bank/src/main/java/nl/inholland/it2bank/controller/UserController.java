@@ -71,4 +71,10 @@ public class UserController {
             return ResponseEntity.status(400).body(null);
         }
     }
+    @PostMapping
+    public Object login(@RequestBody LoginDTO dto) throws Exception {
+        return new TokenDTO(
+                userService.login(dto.username(), dto.password())
+        );
+    }
 }

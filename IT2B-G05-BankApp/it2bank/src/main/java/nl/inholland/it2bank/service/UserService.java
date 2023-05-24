@@ -5,9 +5,11 @@ import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import org.apache.catalina.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 
 @Service
@@ -15,9 +17,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private List<UserModel> users;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     public List<UserModel> getAllUsers(){
@@ -54,5 +60,20 @@ public class UserService {
 
     public UserModel saveUser(UserModel user){
         return userRepository.save(user);
+    }
+
+    public String login(String username, String password) throws Exception {
+        // See if a user with the provided username exists or throw exception
+        UserModel user = this.userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new AuthenticationException("User not found"));
+
+        // Check if the password hash matches
+        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            // Return a JWT to the client
+            return jwtTokenProvider.createToken(user.getEmail(), user.getRoleId());
+        } else {
+            throw new AuthenticationException("Invalid username/password");
+        }
     }
 }
