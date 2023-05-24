@@ -2,6 +2,7 @@ package nl.inholland.it2bank.util;
 
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
+import nl.inholland.it2bank.model.UserRoles;
 import nl.inholland.it2bank.service.UserService;
 import nl.inholland.it2bank.util.JwtKeyProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +30,7 @@ public class JwtTokenProvider {
         this.jwtKeyProvider = jwtKeyProvider;
     }
 
-    public String createToken(String username, List<Role> roles) throws JwtException {
+    public String createToken(String username, int roleId) throws JwtException {
 
         /* The token will look something like this
 
@@ -50,13 +51,13 @@ public class JwtTokenProvider {
         // The username is the subject
         Claims claims = Jwts.claims().setSubject(username);
 
-        // And we add an array of the roles to the auth element of the Claims
+        // And we add an array of the roleId to the auth element of the Claims
         // Note that we only provide the role as information to the frontend
         // The actual role based authorization should always be done in the backend code
         claims.put("auth",
-                roles
+                roleId
                         .stream()
-                        .map(Role::name)
+                        .map(UserRoles::name)
                         .toList());
 
         // We decide on an expiration date
