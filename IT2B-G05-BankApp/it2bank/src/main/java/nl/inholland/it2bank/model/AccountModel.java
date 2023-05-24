@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.inholland.it2bank.service.IBANGenerator;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +18,8 @@ public class AccountModel {
     }
 
     public void setIban(String iban) {
-        this.iban = iban;
+        IBANGenerator ibanGenerator = new IBANGenerator();
+        this.iban = ibanGenerator.generateRandomIBAN();
     }
 
     public int getOwnerId() {
