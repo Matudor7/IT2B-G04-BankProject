@@ -2,7 +2,7 @@ package nl.inholland.it2bank.util;
 
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
-import nl.inholland.it2bank.model.UserRoles;
+import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.service.UserService;
 import nl.inholland.it2bank.util.JwtKeyProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtTokenProvider {
@@ -30,7 +31,7 @@ public class JwtTokenProvider {
         this.jwtKeyProvider = jwtKeyProvider;
     }
 
-    public String createToken(String username, int roleId) throws JwtException {
+    public String createToken(String email, int roleId) throws JwtException {
 
         /* The token will look something like this
 
@@ -49,16 +50,12 @@ public class JwtTokenProvider {
 
         // We create a new Claims object for the token
         // The username is the subject
-        Claims claims = Jwts.claims().setSubject(username);
+        Claims claims = Jwts.claims().setSubject(email);
 
-        // And we add an array of the roleId to the auth element of the Claims
+        // And we add an array of the roles to the auth element of the Claims
         // Note that we only provide the role as information to the frontend
         // The actual role based authorization should always be done in the backend code
-        claims.put("auth",
-                roleId
-                        .stream()
-                        .map(UserRoles::name)
-                        .toList());
+        claims.put("auth", roleId);
 
         // We decide on an expiration date
         Date now = new Date();
@@ -80,9 +77,9 @@ public class JwtTokenProvider {
         // We can then pass the UserDetails back to the caller
         try {
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(jwtKeyProvider.getPrivateKey()).build().parseClaimsJws(token);
-            String username = claims.getBody().getSubject();
-            UserDetails userDetails = memberDetailsService.loadUserByUsername(username);
-            return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+            String email = claims.getBody().getSubject();
+            UserModel user = userService.getUserByEmail(email);
+            return new UsernamePasswordAuthenticationToken(user, "", user.getRoleId());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Bearer token not valid");
         }

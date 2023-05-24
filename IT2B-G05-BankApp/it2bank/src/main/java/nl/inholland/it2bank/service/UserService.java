@@ -6,6 +6,7 @@ import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import nl.inholland.it2bank.util.JwtTokenProvider;
 import org.apache.catalina.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,10 +64,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String login(String username, String password) throws Exception {
+    public String login(String email, String password) throws Exception {
         // See if a user with the provided username exists or throw exception
         UserModel user = this.userRepository
-                .findByEmail(username)
+                .findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException("User not found"));
 
         // Check if the password hash matches
@@ -76,5 +77,12 @@ public class UserService {
         } else {
             throw new AuthenticationException("Invalid username/password");
         }
+    }
+
+    public UserModel getUserByEmail(String email){
+        UserModel user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return user;
     }
 }
