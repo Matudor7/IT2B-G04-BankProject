@@ -47,7 +47,7 @@ public class UserService {
         user.setEmail(userDto.email());
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
-        user.setRoleId(userDto.roleId());
+        user.setRole(userDto.role());
 
         return user;
     }
