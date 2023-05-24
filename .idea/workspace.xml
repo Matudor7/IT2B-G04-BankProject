@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/TransactionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +21,8 @@
       <list>
         <option value="Enum" />
         <option value="Record" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -45,12 +47,17 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/tdrns/Desktop/inHolland/Year 2/Banking Project/IT2B-G05-BankProject&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mario/Desktop/inHolland/Year 2/Java Advanced/guitarshop-api-lesson1-full_crud&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nl.inholland.it2bank.model.dto" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="It2bankApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.It2bankApplication" />
@@ -87,7 +94,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
