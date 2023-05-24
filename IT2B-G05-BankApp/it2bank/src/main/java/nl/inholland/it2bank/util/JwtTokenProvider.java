@@ -78,8 +78,8 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(jwtKeyProvider.getPrivateKey()).build().parseClaimsJws(token);
             String email = claims.getBody().getSubject();
-            UserModel user = userService.getUserByEmail(email);
-            return new UsernamePasswordAuthenticationToken(user, "", user.getRoleId());
+            UserDetails userDetails = userService.getUserByEmail(email);
+            return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Bearer token not valid");
         }

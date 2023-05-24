@@ -5,7 +5,8 @@ import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import nl.inholland.it2bank.util.JwtTokenProvider;
-import org.apache.catalina.User;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -73,16 +74,19 @@ public class UserService {
         // Check if the password hash matches
         if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             // Return a JWT to the client
-            return jwtTokenProvider.createToken(user.getEmail(), user.getRoleId());
+            return jwtTokenProvider.createToken(user.getEmail(), user.getRole()); //convert to int
         } else {
             throw new AuthenticationException("Invalid username/password");
         }
     }
 
-    public UserModel getUserByEmail(String email){
+    public UserDetails getUserByEmail(String email){
         UserModel user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return user;
+        return User.withUsername(email)
+                    .password(user.getPassword())
+                    .authorities(user.getRole())
+                    .build();
     }
 }
