@@ -25,7 +25,7 @@ public class AccountIbanService extends AccountService{
         }
         return finalIban;
     }
-//    public boolean isIbanPresent(String ibanGiven) {
-//        return ibanGiven != null;
-//    }
+   public boolean isIbanPresent(String ibanGiven) {
+       return ibanGiven != null;
+   }
 }
