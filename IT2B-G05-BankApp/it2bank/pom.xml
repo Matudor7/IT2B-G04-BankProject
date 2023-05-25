@@ -17,11 +17,6 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>com.googlecode.iban</groupId>
-			<artifactId>iban-generator</artifactId>
-			<version>1.2</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
