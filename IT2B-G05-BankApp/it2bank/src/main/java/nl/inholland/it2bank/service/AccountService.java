@@ -1,6 +1,7 @@
 package nl.inholland.it2bank.service;
 
 import nl.inholland.it2bank.model.AccountModel;
+import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.AccountDTO;
 import nl.inholland.it2bank.repository.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,17 @@ public class AccountService {
 
     private AccountRepository accountRepository;
 
+
+
     public List<AccountModel> getAllAccounts() { return (List<AccountModel>) accountRepository.findAll(); }
 
     public AccountModel addAccount(AccountDTO accountDto) {return accountRepository.save(this.mapObjectToAccount(accountDto)); }
 
-    public Optional<AccountModel> findAccountByIban(String finalIban) { return accountRepository.findByIban(finalIban); }
+    public Optional<AccountModel> getAccountByIban(String finalIban) { return accountRepository.findByIban(finalIban); }
+
+    public AccountModel saveAccount(AccountModel account){
+        return accountRepository.save(account);
+    }
 
     public AccountModel updateAccount(AccountModel account) {
         return Optional.of(accountRepository.save(account)).orElseThrow(
