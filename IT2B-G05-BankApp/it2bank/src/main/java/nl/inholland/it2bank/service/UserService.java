@@ -20,10 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserModel> getAllUsers(){
-        users = (List<UserModel>) userRepository.findAll();
-        return users;
-    }
+    public List<UserModel> findUserByAttributes(String firstName, String lastName, Long bsn, String phoneNumber, String email, Integer roleId){ return (List<UserModel>) userRepository.findUserByAttributes(firstName, lastName, bsn, phoneNumber, email, roleId); }
 
     public UserModel addUser(UserDTO userDto){
         return userRepository.save(this.mapObjectToUser(userDto));

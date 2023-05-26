@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/users")
 @Log
@@ -22,9 +24,18 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllUsers(){
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserModel>> getUsersByAttributes(
+            @RequestParam(value = "firstName", required = false) String firstName,
+            @RequestParam(value = "lastName", required = false) String lastName,
+            @RequestParam(value = "bsn", required = false) Long bsn,
+            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "roleId", required = false) Integer roleId
+    ) {
+        List<UserModel> users = userService.findUserByAttributes(firstName, lastName, bsn, phoneNumber, email, roleId);
+        return ResponseEntity.ok(users);
     }
+
 
     @GetMapping("{id}")
     public ResponseEntity<Object> getUserById(@PathVariable long id){

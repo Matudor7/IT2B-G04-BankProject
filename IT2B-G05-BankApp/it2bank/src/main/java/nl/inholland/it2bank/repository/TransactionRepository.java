@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionModel, Long> {
 
-    default List<TransactionModel> findByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {
+    default List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {
         return findAll(new Specification<TransactionModel>() {
             @Override
             public Predicate toPredicate(Root<TransactionModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {

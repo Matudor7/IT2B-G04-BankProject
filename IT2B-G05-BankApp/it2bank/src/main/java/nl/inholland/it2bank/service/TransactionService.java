@@ -17,7 +17,7 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public List<TransactionModel> findByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
+    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
 
     public TransactionModel addTransaction(TransactionDTO transactionDto) {return transactionRepository.save(this.mapObjectToTransaction(transactionDto)); }
 
