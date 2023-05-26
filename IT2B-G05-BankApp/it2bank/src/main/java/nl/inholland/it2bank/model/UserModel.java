@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -16,13 +18,13 @@ public class UserModel {
     @Column(nullable = false)
     private String firstName;
     private String lastName;
-    private long bsn;
+    private Long bsn;
     private String phoneNumber;
     private String email;
     private String password;
-    private int roleId;
+    private Integer roleId;
 
-    public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, int roleId) {
+    public UserModel(String firstName, String lastName, Long bsn, String phoneNumber, String email, String password, Integer roleId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.bsn = bsn;
@@ -48,11 +50,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public long getBsn() {
+    public Long getBsn() {
         return bsn;
     }
 
-    public void setBsn(long bsn) {
+    public void setBsn(Long bsn) {
         this.bsn = bsn;
     }
 
@@ -80,11 +82,12 @@ public class UserModel {
         this.password = password;
     }
 
-    public int getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 }
+

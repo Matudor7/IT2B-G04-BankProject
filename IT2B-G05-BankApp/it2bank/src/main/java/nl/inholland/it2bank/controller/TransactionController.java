@@ -33,7 +33,7 @@ public class TransactionController {
             @RequestParam(value = "time", required = false) LocalTime time,
             @RequestParam(value = "comment", required = false) String comment
     ) {
-        List<TransactionModel> transactions = transactionService.findByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);
+        List<TransactionModel> transactions = transactionService.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);
         return ResponseEntity.ok(transactions);
     }
 
