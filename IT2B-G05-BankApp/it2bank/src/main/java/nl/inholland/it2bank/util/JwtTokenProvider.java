@@ -3,7 +3,7 @@ package nl.inholland.it2bank.util;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
 import nl.inholland.it2bank.model.UserModel;
-import nl.inholland.it2bank.service.UserService;
+import nl.inholland.it2bank.service.UsersDetailsService;
 import nl.inholland.it2bank.util.JwtKeyProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,11 +23,11 @@ public class JwtTokenProvider {
 
     @Value("${application.token.validity}")
     private long validityInMicroseconds;
-    private final UserService userService;
+    private final UsersDetailsService usersDetailsService;
     private final JwtKeyProvider jwtKeyProvider;
 
-    public JwtTokenProvider(UserService userService, JwtKeyProvider jwtKeyProvider) {
-        this.userService = userService;
+    public JwtTokenProvider(UsersDetailsService usersDetailsService, JwtKeyProvider jwtKeyProvider) {
+        this.usersDetailsService = usersDetailsService;
         this.jwtKeyProvider = jwtKeyProvider;
     }
 
@@ -78,7 +78,7 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(jwtKeyProvider.getPrivateKey()).build().parseClaimsJws(token);
             String email = claims.getBody().getSubject();
-            UserDetails userDetails = userService.getUserByEmail(email);
+            UserDetails userDetails = usersDetailsService.loadUserByUsername(email);
             return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Bearer token not valid");
