@@ -1,6 +1,8 @@
 package nl.inholland.it2bank.service;
 
 import nl.inholland.it2bank.model.AccountModel;
+import nl.inholland.it2bank.model.AccountStatus;
+import nl.inholland.it2bank.model.AccountType;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.AccountDTO;
 import nl.inholland.it2bank.repository.AccountRepository;
@@ -13,10 +15,14 @@ import java.util.Optional;
 public class AccountService {
 
     private AccountRepository accountRepository;
+    private AccountIbanService accountIbanService;
 
+    public AccountService(AccountRepository accountRepository, AccountIbanService accountIbanService) {
+        this.accountRepository = accountRepository;
+        this.accountIbanService = accountIbanService;
+    }
 
-
-    public List<AccountModel> getAllAccounts() { return (List<AccountModel>) accountRepository.findAll(); }
+    public List<AccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) { return (List<AccountModel>) accountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId); }
 
     public AccountModel addAccount(AccountDTO accountDto) {return accountRepository.save(this.mapObjectToAccount(accountDto)); }
 
@@ -34,12 +40,18 @@ public class AccountService {
     private AccountModel mapObjectToAccount(AccountDTO accountDto){
         AccountModel account = new AccountModel();
 
-        account.setIban(accountDto.iban());
+        String finalIban = accountIbanService.generateIban();
+
+//        while (getAccountByIban(finalIban) != null){
+//            finalIban = accountIbanService.generateIban();
+//            throw new IllegalArgumentException("Something went wrong generating your iban.");
+//        }
+        account.setIban(finalIban);
         account.setOwnerId(accountDto.ownerId());
-        account.setStatus(accountDto.status());
+        account.setStatusId(accountDto.statusId());
         account.setAmount(accountDto.amount());
         account.setAbsolutLimit(accountDto.absolutLimit());
-        account.setType(accountDto.type());
+        account.setTypeId(accountDto.typeId());
 
         return account;
     }

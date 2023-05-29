@@ -35,6 +35,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
     public ResponseEntity<List<UserModel>> getUsersByAttributes(
+            @RequestParam(value = "id", required = false) Integer id,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
             @RequestParam(value = "bsn", required = false) Long bsn,
@@ -42,21 +43,8 @@ public class UserController {
             @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "roleId", required = false) Integer roleId
     ) {
-        List<UserModel> users = userService.findUserByAttributes(firstName, lastName, bsn, phoneNumber, email, roleId);
+        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, roleId);
         return ResponseEntity.ok(users);
-    }
-
-
-    @GetMapping("{id}")
-    @ApiOperation(value = "Get user by id", notes = "Returns user of given ID from path")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved user with given ID", response = UserModel.class, responseContainer = "List"),
-            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
-            @ApiResponse(code = 400, message = "Malformed request syntax"),
-            @ApiResponse(code = 404, message = "Could not find user")
-    })
-    public ResponseEntity<Object> getUserById(@PathVariable long id){
-        return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
     @PostMapping

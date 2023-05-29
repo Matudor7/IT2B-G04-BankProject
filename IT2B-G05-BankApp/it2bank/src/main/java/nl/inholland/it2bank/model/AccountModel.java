@@ -26,12 +26,12 @@ public class AccountModel {
         this.ownerId = ownerId;
     }
 
-    public AccountStatus getStatus() {
-        return status;
+    public Integer getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(AccountStatus status) {
-        this.status = status;
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
     public Double getAmount() {
@@ -50,29 +50,29 @@ public class AccountModel {
         this.absoluteLimit = absoluteLimit;
     }
 
-    public AccountType getType() {
-        return type;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setType(AccountType type) {
-        this.type = type;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public AccountModel(String iban, Integer ownerId, AccountStatus status, Double amount, Integer absoluteLimit, AccountType type) {
+    public AccountModel(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
         this.iban = iban;
         this.ownerId = ownerId;
-        this.status = status;
+        this.statusId = statusId;
         this.amount = amount;
         this.absoluteLimit = absoluteLimit;
-        this.type = type;
+        this.typeId = typeId;
     }
 
     @Column(nullable = false)
     private String iban;
     private Integer ownerId;
-    private AccountStatus status;
+    private Integer statusId;
     private Double amount;
     private Integer absoluteLimit;
-    private AccountType type;
+    private Integer typeId;
 
 }

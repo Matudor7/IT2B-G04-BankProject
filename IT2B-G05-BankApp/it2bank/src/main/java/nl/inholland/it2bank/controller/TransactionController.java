@@ -34,7 +34,7 @@ public class TransactionController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
-    public ResponseEntity<List<TransactionModel>> getAllTransactions(
+    public ResponseEntity<List<TransactionModel>> findTransactionsByAttributes(
             @RequestParam(value = "userPerforming", required = false) Integer userPerforming,
             @RequestParam(value = "accountFrom", required = false) String accountFrom,
             @RequestParam(value = "accountTo", required = false) String accountTo,

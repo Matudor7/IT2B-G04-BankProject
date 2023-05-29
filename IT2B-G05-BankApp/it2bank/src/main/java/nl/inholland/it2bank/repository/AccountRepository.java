@@ -20,7 +20,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountModel, Long> {
 
-    default List<AccountModel> findAccountByAttributes(String iban, Integer ownerId, AccountStatus status, Double amount, Integer absoluteLimit, AccountType type) {
+    default List<AccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
         return findAll(new Specification<AccountModel>() {
             @Override
             public Predicate toPredicate(Root<AccountModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -32,8 +32,8 @@ public interface AccountRepository extends JpaRepository<AccountModel, Long> {
                 if (ownerId != null) {
                     predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("ownerId"), ownerId));
                 }
-                if (status != null) {
-                    predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("status"), status));
+                if (statusId != null) {
+                    predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("statusId"), statusId));
                 }
                 if (amount != null) {
                     predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("amount"), amount));
@@ -41,8 +41,8 @@ public interface AccountRepository extends JpaRepository<AccountModel, Long> {
                 if (absoluteLimit != null) {
                     predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("absoluteLimit"), absoluteLimit));
                 }
-                if (type != null) {
-                    predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("type"), type));
+                if (typeId != null) {
+                    predicates.add((java.util.function.Predicate) criteriaBuilder.equal(root.get("typeId"), typeId));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

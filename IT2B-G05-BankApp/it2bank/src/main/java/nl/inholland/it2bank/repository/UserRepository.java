@@ -12,12 +12,14 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
-    default  List<UserModel> findUserByAttributes(String firstName, String lastName, Long bsn, String phoneNumber, String email, Integer roleId) {
+    default  List<UserModel> findUserByAttributes(Integer id, String firstName, String lastName, Long bsn, String phoneNumber, String email, Integer roleId) {
         return findAll(new Specification<UserModel>() {
             @Override
             public Predicate toPredicate(Root<UserModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-
+                if (id != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("id"), id));
+                }
                 if (firstName != null) {
                     predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
                 }
