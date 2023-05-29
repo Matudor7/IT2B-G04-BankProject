@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class AccountModel {
 
     @Id
+    private String iban;
     public String getIban() {
         return iban;
     }
@@ -68,11 +69,9 @@ public class AccountModel {
     }
 
     @Column(nullable = false)
-    private String iban;
     private Integer ownerId;
     private Integer statusId;
     private Double amount;
     private Integer absoluteLimit;
     private Integer typeId;
-
 }
