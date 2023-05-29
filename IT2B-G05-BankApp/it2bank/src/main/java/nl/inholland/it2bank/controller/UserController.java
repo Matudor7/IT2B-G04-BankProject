@@ -2,6 +2,9 @@ package nl.inholland.it2bank.controller;
 
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.UserModel;
+import nl.inholland.it2bank.model.UserRoles;
+import nl.inholland.it2bank.model.dto.LoginDTO;
+import nl.inholland.it2bank.model.dto.TokenDTO;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,7 @@ public class UserController {
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
         try{
             UserModel user = userService.getUserById(id);
-            if(user.getRoleId() == 3){
+            if(user.getRole() == UserRoles.User){
                 userService.deleteUser(user.getId());
                 return ResponseEntity.ok().body(null);
             } else{
@@ -63,7 +66,7 @@ public class UserController {
             existingUser.setEmail(newUser.getEmail());
             existingUser.setPhoneNumber(newUser.getPhoneNumber());
             existingUser.setPassword(newUser.getPassword());
-            existingUser.setRoleId(newUser.getRoleId());
+            existingUser.setRole(newUser.getRole());
 
             return ResponseEntity.status(200).body(userService.saveUser(existingUser));
         }catch(Exception e){
@@ -73,7 +76,7 @@ public class UserController {
     @PostMapping
     public Object login(@RequestBody LoginDTO dto) throws Exception {
         return new TokenDTO(
-                userService.login(dto.username(), dto.password())
+                userService.login(dto.email(), dto.password())
         );
     }
 }
