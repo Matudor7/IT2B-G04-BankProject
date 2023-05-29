@@ -2,6 +2,7 @@ package nl.inholland.it2bank.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.UserModel;
+import nl.inholland.it2bank.model.UserRoles;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import nl.inholland.it2bank.util.JwtTokenProvider;
@@ -74,7 +75,7 @@ public class UserService {
         // Check if the password hash matches
         if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             // Return a JWT to the client
-            return jwtTokenProvider.createToken(user.getEmail(), user.getRole()); //convert to int
+            return jwtTokenProvider.createToken(user.getEmail(), UserRoles.valueOf(user.getRole().toString()).ordinal()); //convert to int
         } else {
             throw new AuthenticationException("Invalid username/password");
         }
