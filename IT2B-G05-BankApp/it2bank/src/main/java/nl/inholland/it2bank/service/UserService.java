@@ -6,6 +6,7 @@ import nl.inholland.it2bank.model.UserRoles;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.UserRepository;
 import nl.inholland.it2bank.util.JwtTokenProvider;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.naming.AuthenticationException;
 import java.util.List;
 
+@Lazy
 @Service
 public class UserService {
 
