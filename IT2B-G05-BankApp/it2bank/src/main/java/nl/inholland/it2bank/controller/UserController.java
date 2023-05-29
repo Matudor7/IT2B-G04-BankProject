@@ -1,6 +1,10 @@
 package nl.inholland.it2bank.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
@@ -24,6 +28,12 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Get transactions", notes = "Retrieve users based on filters")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved users", response = UserModel.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 400, message = "Malformed request syntax")
+    })
     public ResponseEntity<List<UserModel>> getUsersByAttributes(
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
@@ -38,19 +48,38 @@ public class UserController {
 
 
     @GetMapping("{id}")
+    @ApiOperation(value = "Get user by id", notes = "Returns user of given ID from path")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved user with given ID", response = UserModel.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 400, message = "Malformed request syntax"),
+            @ApiResponse(code = 404, message = "Could not find user")
+    })
     public ResponseEntity<Object> getUserById(@PathVariable long id){
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
     @PostMapping
+    @ApiOperation(value = "Register User", notes = "Successfully registered user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved user", response = UserModel.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 400, message = "Malformed request syntax")
+    })
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.addUser(userDto));
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation(value = "Delete user by id", notes = "Deletes user of given ID from path")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Successfully deleted user with given ID"),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 400, message = "Malformed request syntax"),
+            @ApiResponse(code = 404, message = "Could not find user")
+    })
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
-        try{
             UserModel user = userService.getUserById(id);
             if(user.getRoleId() == 3){
                 userService.deleteUser(user.getId());
@@ -58,14 +87,17 @@ public class UserController {
             } else{
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
-        }catch(Exception e){
-            return ResponseEntity.status(400).body(null);
-        }
     }
 
     @PutMapping("{id}")
+    @ApiOperation(value = "Update user by id", notes = "Updates user of given ID from path")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully updated user with given ID", response = UserModel.class, responseContainer = "List"),
+            @ApiResponse(code = 401, message = "Access token is missing or invalid"),
+            @ApiResponse(code = 400, message = "Malformed request syntax"),
+            @ApiResponse(code = 404, message = "Could not find user")
+    })
     public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
-        try{
             UserModel existingUser = userService.getUserById(id);
 
             existingUser.setFirstName(newUser.getFirstName());
@@ -76,9 +108,6 @@ public class UserController {
             existingUser.setPassword(newUser.getPassword());
             existingUser.setRoleId(newUser.getRoleId());
 
-            return ResponseEntity.status(200).body(userService.saveUser(existingUser));
-        }catch(Exception e){
-            return ResponseEntity.status(400).body(null);
-        }
+            return ResponseEntity.ok().body(userService.saveUser(existingUser));
     }
 }
