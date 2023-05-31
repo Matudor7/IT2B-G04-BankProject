@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="">
+    <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="Fixed error with passwordEncryption">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/AccountDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountIbanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountIbanService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,21 +38,24 @@
     </option>
   </component>
   <component name="ProjectId" id="2PmbFCT6tDl8jc47PCNjiy4a2su" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mario/Desktop/inHolland/Year 2/Java Advanced/guitarshop-api-lesson1-full_crud&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/mario/Desktop/inHolland/Year 2/Java Advanced/guitarshop-api-lesson1-full_crud",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="nl.inholland.it2bank.controller" />

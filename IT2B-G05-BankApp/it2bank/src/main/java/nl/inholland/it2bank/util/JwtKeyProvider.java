@@ -2,7 +2,6 @@ package nl.inholland.it2bank.util;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ import java.security.cert.CertificateException;
 @Component
 public class JwtKeyProvider {
     @Value("${jwt.key-store}")
-    private String keystore;
+    private Resource keystore;
 
     @Value("${jwt.key-store-password}")
     private String password;
@@ -29,9 +28,8 @@ public class JwtKeyProvider {
 
     @PostConstruct
     protected void init() throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException {
-        Resource resource = new ClassPathResource(keystore);
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        keyStore.load(resource.getInputStream(), password.toCharArray());
+        keyStore.load(keystore.getInputStream(), password.toCharArray());
         privateKey = keyStore.getKey(alias, password.toCharArray());
     }
 
