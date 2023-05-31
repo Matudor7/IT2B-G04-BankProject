@@ -45,9 +45,9 @@ public class UserController {
             @RequestParam(value = "bsn", required = false) Long bsn,
             @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
             @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "roleId", required = false) Integer roleId
+            @RequestParam(value = "role", required = false) UserRoles role
     ) {
-        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, roleId);
+        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role);
         return ResponseEntity.ok(users);
     }
 
@@ -102,10 +102,4 @@ public class UserController {
 
             return ResponseEntity.ok().body(userService.saveUser(existingUser));
     }
-//    @PostMapping
-//    public Object login(@RequestBody LoginDTO dto) throws Exception {
-//        return new TokenDTO(
-//                userService.login(dto.email(), dto.password())
-//        );
-//    }
 }

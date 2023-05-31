@@ -22,7 +22,6 @@ public class UserModel {
     private String phoneNumber;
     private String email;
     private String password;
-
     private UserRoles role;
 
     public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, UserRoles role) {
