@@ -103,6 +103,7 @@
 			<version>0.11.5</version>
 		</dependency>
 
+		<dependency>
 			<groupId>se.hackney.jwt</groupId>
 			<artifactId>jawt</artifactId>
 			<version>1.0</version>
