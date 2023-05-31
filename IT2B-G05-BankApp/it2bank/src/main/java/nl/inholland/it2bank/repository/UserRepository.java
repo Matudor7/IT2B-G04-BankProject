@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
@@ -46,6 +47,8 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     }
 
     List<UserModel> findAll(Specification<UserModel> userModelSpecification);
+
+    Optional<UserModel> findUserByEmail(String email);
 }
 
 

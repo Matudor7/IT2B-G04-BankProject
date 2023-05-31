@@ -102,10 +102,10 @@ public class UserController {
 
             return ResponseEntity.ok().body(userService.saveUser(existingUser));
     }
-    @PostMapping
-    public Object login(@RequestBody LoginDTO dto) throws Exception {
-        return new TokenDTO(
-                userService.login(dto.email(), dto.password())
-        );
-    }
+//    @PostMapping
+//    public Object login(@RequestBody LoginDTO dto) throws Exception {
+//        return new TokenDTO(
+//                userService.login(dto.email(), dto.password())
+//        );
+//    }
 }
