@@ -1,5 +1,8 @@
 package nl.inholland.it2bank.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.dto.TransactionDTO;
@@ -25,7 +28,13 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TransactionModel>> getAllTransactions(
+    @ApiOperation(value = "Get transactions", notes = "Retrieve transactions based on filters")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved transactions", response = TransactionModel.class, responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 400, message = "Malformed request syntax")
+    })
+    public ResponseEntity<List<TransactionModel>> findTransactionsByAttributes(
             @RequestParam(value = "userPerforming", required = false) Integer userPerforming,
             @RequestParam(value = "accountFrom", required = false) String accountFrom,
             @RequestParam(value = "accountTo", required = false) String accountTo,
@@ -33,12 +42,19 @@ public class TransactionController {
             @RequestParam(value = "time", required = false) LocalTime time,
             @RequestParam(value = "comment", required = false) String comment
     ) {
-        List<TransactionModel> transactions = transactionService.findByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);
+        List<TransactionModel> transactions = transactionService.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);
         return ResponseEntity.ok(transactions);
     }
 
 
+
     @PostMapping
+    @ApiOperation(value = "Post transactions", notes = "Perform a transaction")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Transaction was successful", response = TransactionModel.class, responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 400, message = "Malformed request syntax")
+    })
     public ResponseEntity<Object> addTransaction(@RequestBody TransactionDTO transactionDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(transactionService.addTransaction(transactionDto));

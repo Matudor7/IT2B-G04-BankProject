@@ -18,7 +18,7 @@ public class UserModel {
     @Column(nullable = false)
     private String firstName;
     private String lastName;
-    private long bsn;
+    private Long bsn;
     private String phoneNumber;
     private String email;
     private String password;
@@ -26,6 +26,7 @@ public class UserModel {
     private UserRoles role;
 
     public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, UserRoles role) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.bsn = bsn;
@@ -51,11 +52,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public long getBsn() {
+    public Long getBsn() {
         return bsn;
     }
 
-    public void setBsn(long bsn) {
+    public void setBsn(Long bsn) {
         this.bsn = bsn;
     }
 
@@ -89,5 +90,7 @@ public class UserModel {
 
     public void setRole(UserRoles roles) {
         this.role = role;
+
     }
 }
+

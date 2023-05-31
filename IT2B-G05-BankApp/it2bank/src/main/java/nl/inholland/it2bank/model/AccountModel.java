@@ -12,69 +12,66 @@ import lombok.NoArgsConstructor;
 public class AccountModel {
 
     @Id
+    private String iban;
     public String getIban() {
         return iban;
     }
 
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
+    public void setIban(String iban) { this.iban = iban; }
 
-    public int getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 
-    public AccountStatus getStatus() {
-        return status;
+    public Integer getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(AccountStatus status) {
-        this.status = status;
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public int getAbsolutLimit() {
-        return absolutLimit;
+    public Integer getAbsolutLimit() {
+        return absoluteLimit;
     }
 
-    public void setAbsolutLimit(int absolutLimit) {
-        this.absolutLimit = absolutLimit;
+    public void setAbsolutLimit(Integer absoluteLimit) {
+        this.absoluteLimit = absoluteLimit;
     }
 
-    public AccountType getType() {
-        return type;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setType(AccountType type) {
-        this.type = type;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public AccountModel(String iban, int ownerId, AccountStatus status, double amount, int absolutLimit, AccountType type) {
+    public AccountModel(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
         this.iban = iban;
         this.ownerId = ownerId;
-        this.status = status;
+        this.statusId = statusId;
         this.amount = amount;
-        this.absolutLimit = absolutLimit;
-        this.type = type;
+        this.absoluteLimit = absoluteLimit;
+        this.typeId = typeId;
     }
 
     @Column(nullable = false)
-    private String iban;
-    private int ownerId;
-    private AccountStatus status;
-    private double amount;
-    private int absolutLimit;
-    private AccountType type;
-
+    private Integer ownerId;
+    private Integer statusId;
+    private Double amount;
+    private Integer absoluteLimit;
+    private Integer typeId;
 }

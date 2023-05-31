@@ -18,13 +18,13 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionModel, Long> {
 
-    default List<TransactionModel> findByAttributes(int userPerforming, String accountFrom, String accountTo, double amount, LocalTime time, String comment) {
+    default List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {
         return findAll(new Specification<TransactionModel>() {
             @Override
             public Predicate toPredicate(Root<TransactionModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                if (userPerforming > 0) {
+                if (userPerforming != null) {
                     predicates.add(criteriaBuilder.equal(root.get("userPerforming"), userPerforming));
                 }
 
@@ -36,7 +36,7 @@ public interface TransactionRepository extends JpaRepository<TransactionModel, L
                     predicates.add(criteriaBuilder.equal(root.get("accountTo"), accountTo));
                 }
 
-                if (amount > 0) {
+                if (amount != null) {
                     predicates.add(criteriaBuilder.equal(root.get("amount"), amount));
                 }
 

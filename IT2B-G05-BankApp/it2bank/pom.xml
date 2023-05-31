@@ -17,9 +17,22 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
@@ -88,6 +101,11 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-gson</artifactId>
 			<version>0.11.5</version>
+		</dependency>
+
+			<groupId>se.hackney.jwt</groupId>
+			<artifactId>jawt</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 	</dependencies>

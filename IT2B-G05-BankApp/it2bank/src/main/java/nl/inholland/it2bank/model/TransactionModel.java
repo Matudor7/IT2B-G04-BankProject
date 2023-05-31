@@ -19,11 +19,11 @@ public class TransactionModel {
     private Integer userPerforming;
     private String accountFrom;
     private String accountTo;
-    private double amount;
+    private Double amount;
     private LocalTime time;
     private String comment;
 
-    public TransactionModel(int userPerforming, String accountFrom, String accountTo, double amount, LocalTime time, String comment) {
+    public TransactionModel(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {
         this.userPerforming = userPerforming;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
@@ -32,7 +32,7 @@ public class TransactionModel {
         this.comment = comment;
     }
 
-    public int getUserPerforming() {
+    public Integer getUserPerforming() {
         return userPerforming;
     }
 
@@ -56,7 +56,7 @@ public class TransactionModel {
         this.accountTo = accountTo;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
