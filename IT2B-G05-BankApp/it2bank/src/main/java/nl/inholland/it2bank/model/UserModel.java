@@ -24,7 +24,11 @@ public class UserModel {
     private String password;
     private UserRoles role;
 
-    public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, UserRoles role) {
+    private double transactionLimit;
+
+    private double dailyLimit;
+
+    public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, UserRoles role, Double transactionLimit, Double dailyLimit) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +37,8 @@ public class UserModel {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.transactionLimit = transactionLimit;
+        this.dailyLimit = dailyLimit;
     }
 
     public String getFirstName() {
@@ -90,6 +96,23 @@ public class UserModel {
     public void setRole(UserRoles roles) {
         this.role = role;
 
+    }
+//TODO: change to actual daily and transaction limits
+    //TODO: the logic - for example transaction limit cant be higher than daily limit
+    public void setDailyLimit(double dailyLimit) {
+        this.dailyLimit = 100;
+    }
+
+    public void setTransactionLimit(double transactionLimit) {
+        this.transactionLimit = 50;
+    }
+
+    public double getDailyLimit() {
+        return dailyLimit;
+    }
+
+    public double getTransactionLimit() {
+        return transactionLimit;
     }
 }
 
