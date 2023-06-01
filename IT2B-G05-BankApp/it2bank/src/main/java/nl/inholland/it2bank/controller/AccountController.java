@@ -84,8 +84,8 @@ public class AccountController {
         if (accountDto.amount() != 0) {
             account.setAmount(accountDto.amount());
         }
-        if (accountDto.absolutLimit() != 0) {
-            account.setAbsolutLimit(accountDto.absolutLimit());
+        if (accountDto.absoluteLimit() != 0) {
+            account.setAbsoluteLimit(accountDto.absoluteLimit());
         }
         if (accountDto.typeId() != null) {
             account.setTypeId(accountDto.typeId());
