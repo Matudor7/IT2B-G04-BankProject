@@ -45,9 +45,11 @@ public class UserController {
             @RequestParam(value = "bsn", required = false) Long bsn,
             @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
             @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "role", required = false) UserRoles role
+            @RequestParam(value = "role", required = false) UserRoles role,
+            @RequestParam(value = "transactionLimit", required = false) Double transactionLimit,
+            @RequestParam(value = "dailyLimit", required = false) Double dailyLimit
     ) {
-        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role);
+        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
         return ResponseEntity.ok(users);
     }
 
