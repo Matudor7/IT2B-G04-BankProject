@@ -43,11 +43,11 @@ public class AccountModel {
         this.amount = amount;
     }
 
-    public Integer getAbsolutLimit() {
+    public Integer getAbsoluteLimit() {
         return absoluteLimit;
     }
 
-    public void setAbsolutLimit(Integer absoluteLimit) {
+    public void setAbsoluteLimit(Integer absoluteLimit) {
         this.absoluteLimit = absoluteLimit;
     }
 
