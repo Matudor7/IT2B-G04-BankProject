@@ -15,7 +15,6 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //TODO for Tudor: Add daily limit and transaction limit as a double
     @Column(nullable = false)
     private String firstName;
     private String lastName;
