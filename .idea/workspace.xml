@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="Fixed error with passwordEncryption">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_opened_file_path": "C:/Users/mario/Desktop/inHolland/Year 2/Java Advanced/guitarshop-api-lesson1-full_crud",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -64,7 +65,7 @@
       <recent name="nl.inholland.it2bank.model.dto" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.It2bankApplication">
     <configuration name="It2bankApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.It2bankApplication" />
       <module name="it2bank" />
@@ -74,6 +75,13 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="It2bankApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="it2bank" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="nl.inholland.it2bank.It2bankApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
