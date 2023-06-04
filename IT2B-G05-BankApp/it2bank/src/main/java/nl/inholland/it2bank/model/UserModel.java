@@ -23,9 +23,7 @@ public class UserModel {
     private String email;
     private String password;
     private UserRoles role;
-
     private Double transactionLimit;
-
     private Double dailyLimit;
 
     public UserModel(String firstName, String lastName, long bsn, String phoneNumber, String email, String password, UserRoles role, Double transactionLimit, Double dailyLimit) {
@@ -93,12 +91,10 @@ public class UserModel {
         return role;
     }
 
-    public void setRole(UserRoles roles) {
+    public void setRole(UserRoles role) {
         this.role = role;
 
     }
-    //TODO: change to actual daily and transaction limits
-    //TODO: the logic - for example transaction limit cant be higher than daily limit
     public void setDailyLimit(Double dailyLimit) {
         this.dailyLimit = dailyLimit;
     }
