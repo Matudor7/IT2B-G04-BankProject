@@ -38,7 +38,7 @@ public class JwtTokenProvider {
 
         {
           "sub": "admin",
-          "auth": [
+          "aut": [
             {
               "role": "ROLE_ADMIN"
             }
