@@ -4,13 +4,9 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import nl.inholland.it2bank.model.AccountModel;
-import nl.inholland.it2bank.model.AccountStatus;
-import nl.inholland.it2bank.model.AccountType;
-import nl.inholland.it2bank.model.UserModel;
+import nl.inholland.it2bank.model.BankAccountModel;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,12 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<AccountModel, Long> {
+public interface BankAccountRepository extends JpaRepository<BankAccountModel, Long> {
 
-    default List<AccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
-        return findAll(new Specification<AccountModel>() {
+    default List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
+        return findAll(new Specification<BankAccountModel>() {
             @Override
-            public Predicate toPredicate(Root<AccountModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+            public Predicate toPredicate(Root<BankAccountModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (iban != null) {
@@ -35,8 +31,8 @@ public interface AccountRepository extends JpaRepository<AccountModel, Long> {
                 if (statusId != null) {
                     predicates.add(criteriaBuilder.equal(root.get("statusId"), statusId));
                 }
-                if (amount != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("amount"), amount));
+                if (balance != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("balance"), balance));
                 }
                 if (absoluteLimit != null) {
                     predicates.add(criteriaBuilder.equal(root.get("absoluteLimit"), absoluteLimit));
@@ -49,7 +45,7 @@ public interface AccountRepository extends JpaRepository<AccountModel, Long> {
             }
         });
     }
-    List<AccountModel> findAll(Specification<AccountModel> accountModelSpecification);
+    List<BankAccountModel> findAll(Specification<BankAccountModel> accountModelSpecification);
 
-    Optional<AccountModel> findByIban(String finalIban);
+    Optional<BankAccountModel> findByIban(String finalIban);
 }
