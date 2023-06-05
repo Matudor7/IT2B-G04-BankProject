@@ -21,7 +21,6 @@ import java.util.Optional;
 @Log
 public class BankAccountController {
 
-    @Autowired
     private final BankAccountService bankAccountService;
 
     public BankAccountController(BankAccountService bankAccountService) {

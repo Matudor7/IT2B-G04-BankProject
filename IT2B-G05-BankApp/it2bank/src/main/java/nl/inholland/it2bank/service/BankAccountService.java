@@ -13,7 +13,6 @@ import java.util.Random;
 @Service
 public class BankAccountService {
 
-    @Autowired
     private BankAccountRepository bankAccountRepository;
 
     public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {

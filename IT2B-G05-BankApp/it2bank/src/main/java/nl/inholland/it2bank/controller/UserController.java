@@ -25,7 +25,6 @@ import java.util.List;
 @Log
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
     public UserController(@Lazy UserService userService) {
