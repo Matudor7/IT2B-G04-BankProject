@@ -9,10 +9,13 @@ VALUES ('Solid', 'Snake', 34567890, '0612345678', 'solidsnake@gmail.com', '$2a$1
 INSERT INTO user_model(first_name, last_name, bsn, phone_number, email, password, role, daily_limit, transaction_limit) -- the password for this account is "Bankje!" but hashed --
 VALUES ('Bank', 'je', 00000000, '0612345678', 'bankje@gmail.com', '$2a$10$8JSYaqGtWoZvaGhkbrI5/eUxwtlIHrmcDlJWgYlq5CMjVtSMwkBdG', 1, 100, 50);
 INSERT INTO account_model (iban, owner_id, status_id, amount, absolute_limit, type_id)
-VALUES ('NL01INHO0000000001', 4, 0, 10000000, 0, 1);
+VALUES ('NL01INHO0000000001', 4, 0, 10000000, 0, 0); --bankje's account
 INSERT INTO account_model (iban, owner_id, status_id, amount, absolute_limit, type_id)
-VALUES ('NL01INHO0000000014', 3, 0, 1000, 0, 2);
+VALUES ('NL01INHO0000000014', 3, 0, 1000, 0, 0); -- solid snake's account
 INSERT INTO account_model (iban, owner_id, status_id, amount, absolute_limit, type_id)
-VALUES ('NL01INHO0000000022', 1, 0, 1000, 0, 2);
+VALUES ('NL01INHO0000000022', 1, 0, 1000, 0, 0); --soft kitty's account
 INSERT INTO account_model (iban, owner_id, status_id, amount, absolute_limit, type_id)
-VALUES ('NL01INHO0000000030', 2, 0, 1000, 0, 2);
+VALUES ('NL01INHO0000000024', 1, 0, 1000, 0, 1); --soft kitty's savings account
+
+INSERT INTO account_model (iban, owner_id, status_id, amount, absolute_limit, type_id)
+VALUES ('NL01INHO0000000030', 2, 0, 1000, 0, 0); --revolver ocelot's account
