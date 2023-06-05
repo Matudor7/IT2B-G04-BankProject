@@ -29,7 +29,7 @@ public class WebSecurityConfig{
         httpSecurity.cors().and().
                 csrf((csrf ->
                         csrf
-                                .ignoringRequestMatchers("/*", "/users/*")));
+                                .ignoringRequestMatchers("/*", "/*/*")));
         httpSecurity.sessionManagement(
                 sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
