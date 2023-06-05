@@ -1,5 +1,5 @@
 package nl.inholland.it2bank.model;
 
-public enum AccountStatus {
+public enum BankAccountStatus {
     Active, Deactivated
 }

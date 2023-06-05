@@ -32,7 +32,7 @@ public class UserService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public List<UserModel> findUserByAttributes(Integer id,  String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role){ return (List<UserModel>) userRepository.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role); }
+    public List<UserModel> findUserByAttributes(Integer id,  String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role, Double transactionLimit, Double dailyLimit ){ return (List<UserModel>) userRepository.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit); }
 
     public UserModel addUser(UserDTO userDto){
         return userRepository.save(this.mapObjectToUser(userDto));
@@ -47,7 +47,9 @@ public class UserService {
         user.setEmail(userDto.email());
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
-        user.setRole(userDto.role());
+        user.setRole(UserRoles.valueOf(userDto.role()));
+        user.setTransactionLimit(userDto.transactionLimit());
+        user.setDailyLimit(userDto.dailyLimit());
 
         return user;
     }
@@ -57,12 +59,37 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
-    public void deleteUser(long id){
-        userRepository.deleteById(id);
+    public void updateUser(long id, UserDTO updatedUser){
+        UserModel existingUser = this.getUserById(id);
+
+        if(updatedUser.transactionLimit() > updatedUser.dailyLimit()){
+            throw new IllegalArgumentException("Transaction limit cannot be higher than daily limit.");
+        }else{
+            existingUser.setFirstName(updatedUser.firstName());
+            existingUser.setLastName(updatedUser.lastName());
+            existingUser.setBsn(updatedUser.bsn());
+            existingUser.setEmail(updatedUser.email());
+            existingUser.setPhoneNumber(updatedUser.phoneNumber());
+            existingUser.setPassword(updatedUser.password());
+            existingUser.setRole(UserRoles.valueOf(updatedUser.role()));
+            existingUser.setDailyLimit(updatedUser.dailyLimit());
+            existingUser.setTransactionLimit(updatedUser.transactionLimit());
+
+            userRepository.save(existingUser);
+        }
     }
 
-    public UserModel saveUser(UserModel user){
-        return userRepository.save(user);
+    public void deleteUser(long id){
+        UserModel user = this.getUserById(id);
+        if(user.getRole() == UserRoles.User) {
+            userRepository.deleteById(id);
+        }else{
+            throw new IllegalArgumentException("User cannot be deleted");
+        }
+    }
+
+    public UserModel saveUser(UserDTO user){
+        return userRepository.save(this.mapObjectToUser(user));
     }
 
     public String login(String email, String password) throws Exception {
@@ -71,11 +98,8 @@ public class UserService {
                 .findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException("User not found"));
 
-        //TODO: better encoding
-        String encodedPass = bCryptPasswordEncoder.encode(user.getPassword());
-
         // Check if the password hash matches
-        if (bCryptPasswordEncoder.matches(password, encodedPass)) {
+        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             // Return a JWT to the client
             return jwtTokenProvider.createToken(user.getEmail(), user.getRole());
         } else {

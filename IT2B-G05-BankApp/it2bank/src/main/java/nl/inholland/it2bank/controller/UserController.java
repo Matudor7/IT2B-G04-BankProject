@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.UserRoles;
+import nl.inholland.it2bank.model.dto.ExceptionDTO;
 import nl.inholland.it2bank.model.dto.LoginDTO;
 import nl.inholland.it2bank.model.dto.TokenDTO;
 import nl.inholland.it2bank.model.dto.UserDTO;
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Get transactions", notes = "Retrieve users based on filters")
+    @ApiOperation(value = "Get all users", notes = "Retrieve users based on filters")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved users", response = UserModel.class, responseContainer = "List"),
             @ApiResponse(code = 401, message = "Access token is missing or invalid"),
@@ -45,9 +46,11 @@ public class UserController {
             @RequestParam(value = "bsn", required = false) Long bsn,
             @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
             @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "role", required = false) UserRoles role
+            @RequestParam(value = "role", required = false) UserRoles role,
+            @RequestParam(value = "transactionLimit", required = false) Double transactionLimit,
+            @RequestParam(value = "dailyLimit", required = false) Double dailyLimit
     ) {
-        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role);
+        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
         return ResponseEntity.ok(users);
     }
 
@@ -72,13 +75,12 @@ public class UserController {
             @ApiResponse(code = 404, message = "Could not find user")
     })
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
-            UserModel user = userService.getUserById(id);
-            if(user.getRole() == UserRoles.User){
-                userService.deleteUser(user.getId());
-                return ResponseEntity.ok().body(null);
-            } else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
+        try{
+            userService.deleteUser(id);
+            return ResponseEntity.status(204).body(null);
+        }catch(Exception e){
+            return handleException(e);
+        }
     }
 
     @PutMapping("{id}")
@@ -89,17 +91,17 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
-    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserModel newUser){
-            UserModel existingUser = userService.getUserById(id);
+    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserDTO newUser){
+        try{
+         userService.updateUser(id, newUser);
+         return ResponseEntity.status(200).body(newUser);
+        }catch(Exception e){
+            return handleException(e);
+        }
+    }
 
-            existingUser.setFirstName(newUser.getFirstName());
-            existingUser.setLastName(newUser.getLastName());
-            existingUser.setBsn(newUser.getBsn());
-            existingUser.setEmail(newUser.getEmail());
-            existingUser.setPhoneNumber(newUser.getPhoneNumber());
-            existingUser.setPassword(newUser.getPassword());
-            existingUser.setRole(newUser.getRole());
-
-            return ResponseEntity.ok().body(userService.saveUser(existingUser));
+    private ResponseEntity handleException(Exception e){
+        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getClass().getName(), e.getMessage());
+        return ResponseEntity.status(400).body(exceptionDTO);
     }
 }

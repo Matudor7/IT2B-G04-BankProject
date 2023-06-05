@@ -17,7 +17,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 
-    default  List<UserModel> findUserByAttributes(Integer id, String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role) {
+    default  List<UserModel> findUserByAttributes(Integer id, String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role, Double transactionLimit, Double dailyLimit) {
         return findAll(new Specification<UserModel>() {
             @Override
             public Predicate toPredicate(Root<UserModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -26,22 +26,28 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                     predicates.add(criteriaBuilder.equal(root.get("id"), id));
                 }
                 if (firstName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
+                    predicates.add(criteriaBuilder.equal(root.get("firstname"), firstName));
                 }
                 if (lastName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("lastName"), lastName));
+                    predicates.add(criteriaBuilder.equal(root.get("lastname"), lastName));
                 }
                 if (bsn != null) {
                     predicates.add(criteriaBuilder.equal(root.get("bsn"), bsn));
                 }
                 if (phoneNumber != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));
+                    predicates.add(criteriaBuilder.equal(root.get("phonenumber"), phoneNumber));
                 }
                 if (email != null) {
                     predicates.add(criteriaBuilder.equal(root.get("email"), email));
                 }
                 if (role != null) {
                     predicates.add(criteriaBuilder.equal(root.get("role"), role));
+                }
+                if (transactionLimit != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("transactionlimit"), transactionLimit));
+                }
+                if (dailyLimit != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("dailylimit"), dailyLimit));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
