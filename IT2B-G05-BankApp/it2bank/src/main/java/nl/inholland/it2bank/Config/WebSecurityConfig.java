@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +29,7 @@ public class WebSecurityConfig{
         httpSecurity.cors().and().
                 csrf((csrf ->
                         csrf
-                                .ignoringRequestMatchers("/*")));
+                                .ignoringRequestMatchers("/*", "/users/*")));
         httpSecurity.sessionManagement(
                 sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -36,9 +37,8 @@ public class WebSecurityConfig{
         httpSecurity.
                 authorizeHttpRequests((
                         authz -> authz
-                                .requestMatchers("/users/*", HttpMethod.DELETE.toString())
-                                .hasRole("Employee")
-                                .requestMatchers("/login", HttpMethod.POST.toString()).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/login", HttpMethod.POST.toString())).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/users/**", HttpMethod.DELETE.toString())).authenticated()
                                 .anyRequest().authenticated()));
 
         // We ensure our own filter is executed before the framework runs its own authentication filter code
