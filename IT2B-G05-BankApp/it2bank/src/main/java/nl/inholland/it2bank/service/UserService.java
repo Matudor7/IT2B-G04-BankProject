@@ -98,11 +98,8 @@ public class UserService {
                 .findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException("User not found"));
 
-        //TODO: better encoding
-        String encodedPass = bCryptPasswordEncoder.encode(user.getPassword());
-
         // Check if the password hash matches
-        if (bCryptPasswordEncoder.matches(password, encodedPass)) {
+        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             // Return a JWT to the client
             return jwtTokenProvider.createToken(user.getEmail(), user.getRole());
         } else {
