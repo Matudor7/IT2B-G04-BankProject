@@ -25,7 +25,7 @@ public class WebSecurityConfig{
     // Read more here: https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().disable().
+        httpSecurity.
                 csrf((csrf ->
                         csrf
                                 .ignoringRequestMatchers("/*")));
