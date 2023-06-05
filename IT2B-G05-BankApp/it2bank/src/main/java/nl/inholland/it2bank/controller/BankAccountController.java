@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("bankAccounts")
+@RequestMapping("bankaccounts")
 @Log
 public class BankAccountController {
 
