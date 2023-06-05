@@ -1,8 +1,8 @@
 package nl.inholland.it2bank.service;
 
-import nl.inholland.it2bank.model.AccountModel;
-import nl.inholland.it2bank.model.dto.AccountDTO;
-import nl.inholland.it2bank.repository.AccountRepository;
+import nl.inholland.it2bank.model.BankAccountModel;
+import nl.inholland.it2bank.model.dto.BankAccountDTO;
+import nl.inholland.it2bank.repository.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,26 +11,26 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class AccountService {
+public class BankAccountService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private BankAccountRepository bankAccountRepository;
 
-    public List<AccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
-        return (List<AccountModel>) accountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId);
+    public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
+        return (List<BankAccountModel>) bankAccountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId);
     }
 
 
-    public AccountModel addAccount(AccountDTO accountDto) {
-        validateAccountDto(accountDto);
-        return accountRepository.save(this.mapObjectToAccount(accountDto));
+    public BankAccountModel addBankAccount(BankAccountDTO bankAccountDto) {
+        validateBankAccountDto(bankAccountDto);
+        return bankAccountRepository.save(this.mapObjectToAccount(bankAccountDto));
     }
 
-    public Optional<AccountModel> getAccountByIban(String finalIban) {
-        return accountRepository.findByIban(finalIban);
+    public Optional<BankAccountModel> getAccountByIban(String finalIban) {
+        return bankAccountRepository.findByIban(finalIban);
     }
 
-    public AccountModel saveAccount(AccountModel account) {
+    public BankAccountModel saveAccount(BankAccountModel account) {
         if (account == null) {
             throw new IllegalArgumentException("Account cannot be null.");
         }
@@ -40,26 +40,26 @@ public class AccountService {
         if (!allFieldsFilled(account)) {
             throw new IllegalArgumentException("All fields (amount, typeId, ownerId) must be filled.");
         }
-        return Optional.of(accountRepository.save(account)).orElseThrow(
+        return Optional.of(bankAccountRepository.save(account)).orElseThrow(
                 () -> new IllegalArgumentException("Something went wrong trying to update your account.")
         );
     }
 
-    private AccountModel mapObjectToAccount(AccountDTO accountDto) {
-        AccountModel account = new AccountModel();
+    private BankAccountModel mapObjectToAccount(BankAccountDTO bankAccountDto) {
+        BankAccountModel account = new BankAccountModel();
 
         account.setIban(generateIban());
-        account.setOwnerId(accountDto.ownerId());
-        account.setStatusId(accountDto.statusId());
-        account.setAmount(accountDto.amount());
-        account.setAbsoluteLimit(accountDto.absoluteLimit());
-        account.setTypeId(accountDto.typeId());
+        account.setOwnerId(bankAccountDto.ownerId());
+        account.setStatusId(bankAccountDto.statusId());
+        account.setBalance(bankAccountDto.balance());
+        account.setAbsoluteLimit(bankAccountDto.absoluteLimit());
+        account.setTypeId(bankAccountDto.typeId());
 
         return account;
     }
 
-    private boolean allFieldsFilled(AccountModel accountModel) {
-        return accountModel.getAmount() != null && accountModel.getTypeId() != null && accountModel.getOwnerId() != null;
+    private boolean allFieldsFilled(BankAccountModel bankAccountModel) {
+        return bankAccountModel.getBalance() != null && bankAccountModel.getTypeId() != null && bankAccountModel.getOwnerId() != null;
     }
 
     public String generateIban() {
@@ -86,23 +86,23 @@ public class AccountService {
         return true;
     }
 
-    private void validateAccountDto(AccountDTO accountDto) {
-        if (accountDto == null) {
+    private void validateBankAccountDto(BankAccountDTO bankAccountDto) {
+        if (bankAccountDto == null) {
             throw new IllegalArgumentException("AccountDTO cannot be null.");
         }
-        if (accountDto.ownerId() == null) {
+        if (bankAccountDto.ownerId() == null) {
             throw new IllegalArgumentException("Owner ID is required.");
         }
-        if (accountDto.statusId() == null) {
+        if (bankAccountDto.statusId() == null) {
             throw new IllegalArgumentException("Status ID is required.");
         }
-        if (accountDto.amount() == null) {
+        if (bankAccountDto.balance() == null) {
             throw new IllegalArgumentException("Amount is required.");
         }
-        if (accountDto.absoluteLimit() == null) {
+        if (bankAccountDto.absoluteLimit() == null) {
             throw new IllegalArgumentException("Absolute limit is required.");
         }
-        if (accountDto.typeId() == null) {
+        if (bankAccountDto.typeId() == null) {
             throw new IllegalArgumentException("Type ID is required.");
         }
     }
