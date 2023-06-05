@@ -26,16 +26,16 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                     predicates.add(criteriaBuilder.equal(root.get("id"), id));
                 }
                 if (firstName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
+                    predicates.add(criteriaBuilder.equal(root.get("firstname"), firstName));
                 }
                 if (lastName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("lastName"), lastName));
+                    predicates.add(criteriaBuilder.equal(root.get("lastname"), lastName));
                 }
                 if (bsn != null) {
                     predicates.add(criteriaBuilder.equal(root.get("bsn"), bsn));
                 }
                 if (phoneNumber != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));
+                    predicates.add(criteriaBuilder.equal(root.get("phonenumber"), phoneNumber));
                 }
                 if (email != null) {
                     predicates.add(criteriaBuilder.equal(root.get("email"), email));
@@ -44,10 +44,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                     predicates.add(criteriaBuilder.equal(root.get("role"), role));
                 }
                 if (transactionLimit != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("transactionLimit"), transactionLimit));
+                    predicates.add(criteriaBuilder.equal(root.get("transactionlimit"), transactionLimit));
                 }
                 if (dailyLimit != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("dailyLimit"), dailyLimit));
+                    predicates.add(criteriaBuilder.equal(root.get("dailylimit"), dailyLimit));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
