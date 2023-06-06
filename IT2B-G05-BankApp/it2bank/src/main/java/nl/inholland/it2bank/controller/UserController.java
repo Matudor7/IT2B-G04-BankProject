@@ -76,7 +76,6 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
-    //@PreAuthorize("hasRole('Employee')")
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
         try{
             userService.deleteUser(id);
