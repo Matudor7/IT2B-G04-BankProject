@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class AccountModel {
+public class BankAccountModel {
 
     @Id
     private String iban;
@@ -35,12 +35,12 @@ public class AccountModel {
         this.statusId = statusId;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public Integer getAbsoluteLimit() {
@@ -59,11 +59,11 @@ public class AccountModel {
         this.typeId = typeId;
     }
 
-    public AccountModel(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
+    public BankAccountModel(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
         this.iban = iban;
         this.ownerId = ownerId;
         this.statusId = statusId;
-        this.amount = amount;
+        this.balance = balance;
         this.absoluteLimit = absoluteLimit;
         this.typeId = typeId;
     }
@@ -71,7 +71,7 @@ public class AccountModel {
     @Column(nullable = false)
     private Integer ownerId;
     private Integer statusId;
-    private Double amount;
+    private Double balance;
     private Integer absoluteLimit;
     private Integer typeId;
 }
