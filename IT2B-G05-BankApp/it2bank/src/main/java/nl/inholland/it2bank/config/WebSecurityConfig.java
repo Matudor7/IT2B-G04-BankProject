@@ -38,6 +38,7 @@ public class WebSecurityConfig{
                 authorizeHttpRequests((
                         authz -> authz
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers(HttpMethod.POST.toString(), "/users").permitAll()
                                 .anyRequest().authenticated()));
 
         // We ensure our own filter is executed before the framework runs its own authentication filter code
