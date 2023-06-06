@@ -1,4 +1,4 @@
-package nl.inholland.it2bank.Config;
+package nl.inholland.it2bank.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
