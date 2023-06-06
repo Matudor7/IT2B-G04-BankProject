@@ -37,8 +37,7 @@ public class WebSecurityConfig{
         httpSecurity.
                 authorizeHttpRequests((
                         authz -> authz
-                                .requestMatchers(new AntPathRequestMatcher("/login", HttpMethod.POST.toString())).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/users/**", HttpMethod.DELETE.toString())).authenticated()
+                                .requestMatchers("/login").permitAll()
                                 .anyRequest().authenticated()));
 
         // We ensure our own filter is executed before the framework runs its own authentication filter code
