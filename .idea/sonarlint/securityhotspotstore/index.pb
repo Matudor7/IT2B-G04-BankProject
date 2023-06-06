@@ -1,6 +1,4 @@
 
-‡
-WIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java,3\5\35ef226923ea8f943d82e52a0fee52032ce67054
 Š
 ZIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/UserRepository.java,5\6\56db9ca2b5d3180d81de128792e14d68dd2e06f4
 ƒ
@@ -13,7 +11,5 @@ P
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountStatus.java,e\0\e0b9c6cbd457b9486086ae747afbc1973c08a82d
 ‡
 WIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/TransactionModel.java,6\4\6455f68b0e7916b21e3cd579cbdd065dee2e2891
-‚
-RIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountType.java,2\9\2987b9ad29b218787003c15b2e95840f0a045a96
 €
 PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserModel.java,a\c\ac95fff8ca08813b0a2d19cd420425667bbadace
