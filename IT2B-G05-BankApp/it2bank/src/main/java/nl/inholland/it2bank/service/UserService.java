@@ -57,8 +57,8 @@ public class UserService {
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
         user.setRole(UserRoles.valueOf(userDto.role()));
-        user.setTransactionLimit(userDto.transactionLimit());
-        user.setDailyLimit(userDto.dailyLimit());
+        user.setTransactionLimit((userDto.transactionLimit() == null) ? 50 : userDto.transactionLimit());
+        user.setDailyLimit((userDto.dailyLimit() == null) ? 100 : userDto.dailyLimit());
 
         return user;
     }
