@@ -65,9 +65,8 @@ public class BankAccountController {
             @ApiResponse(code = 200, message = "Successfully retrieved accounts", response = BankAccountModel.class, responseContainer = "List"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
-//TODO refractor this method name
-
-    public ResponseEntity<Object> updateUserById(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
++
+    public ResponseEntity<Object> updateBankAccountByIban(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
         Optional<BankAccountModel> existingAccount = bankAccountService.getAccountByIban(iban);
 
         if (existingAccount.isEmpty()) {
