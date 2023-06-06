@@ -34,17 +34,8 @@ public class UserService {
 
     public List<UserModel> findUserByAttributes(Integer id,  String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role, Double transactionLimit, Double dailyLimit ){ return (List<UserModel>) userRepository.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit); }
 
-    public UserModel addUser(UserDTO userDto) {
-        String email = userDto.email();
-
-        // Check if the email address already exists
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email address already exists");
-        }
-
-        // Create and save the user
-        UserModel user = mapObjectToUser(userDto);
-        return userRepository.save(user);
+    public UserModel addUser(UserDTO userDto){
+        return userRepository.save(this.mapObjectToUser(userDto));
     }
 
     private UserModel mapObjectToUser(UserDTO userDto){
@@ -57,8 +48,8 @@ public class UserService {
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
         user.setRole(UserRoles.valueOf(userDto.role()));
-        user.setTransactionLimit((userDto.transactionLimit() == null) ? 50 : userDto.transactionLimit());
-        user.setDailyLimit((userDto.dailyLimit() == null) ? 100 : userDto.dailyLimit());
+        user.setTransactionLimit(userDto.transactionLimit());
+        user.setDailyLimit(userDto.dailyLimit());
 
         return user;
     }
