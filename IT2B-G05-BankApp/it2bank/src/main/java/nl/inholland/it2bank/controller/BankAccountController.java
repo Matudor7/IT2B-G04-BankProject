@@ -58,7 +58,7 @@ public class BankAccountController {
                 .body(bankAccountService.addBankAccount(bankAccountDto));
     }
 
-    @PutMapping("{/iban}")
+    @PutMapping("{iban}")
     @ApiOperation(value = "Update account", notes = "Update an account based on the iban")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully updated account", response = BankAccountModel.class, responseContainer = "List"),
