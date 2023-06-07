@@ -3,6 +3,7 @@ package nl.inholland.it2bank.service;
 import nl.inholland.it2bank.model.BankAccountModel;
 import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
+import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.model.dto.TransactionDTO;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
@@ -61,8 +62,11 @@ public class TransactionService {
         accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
         accountTo.setBalance(accountTo.getBalance() + transactionModel.getAmount());
 
-        bankAccountService.saveAccount(accountFrom);
-        bankAccountService.saveAccount(accountTo);
+        BankAccountDTO accountFromDto = new BankAccountDTO(accountFrom);
+        BankAccountDTO accountToDto = new BankAccountDTO(accountTo);
+
+        bankAccountService.saveAccount(accountFromDto);
+        bankAccountService.saveAccount(accountToDto);
     }
 
     private void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
