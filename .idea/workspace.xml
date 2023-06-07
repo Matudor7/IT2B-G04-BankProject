@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="Fixed error with passwordEncryption">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/Config/BeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/config/BeanFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/Config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/BankAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/BankAccountModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/BankAccountStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountType.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/BankAccountType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/BankAccountDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/dto/TransactionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/BankAccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/BankAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/model/AccountModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/model/BankAccountModelTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/service/AccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/service/BankAccountServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="Fixed error with passwordEncryption" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
