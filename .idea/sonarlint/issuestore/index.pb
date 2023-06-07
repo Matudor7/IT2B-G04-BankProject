@@ -11,8 +11,6 @@ PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserRoles.jav
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountStatus.java,e\0\e0b9c6cbd457b9486086ae747afbc1973c08a82d
 á
 WIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/TransactionModel.java,6\4\6455f68b0e7916b21e3cd579cbdd065dee2e2891
-Ä
-PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserModel.java,a\c\ac95fff8ca08813b0a2d19cd420425667bbadace
 É
 SIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.java,5\3\536bd027a1d869473fc26d66e0a34afe3c2a0406
 ç
