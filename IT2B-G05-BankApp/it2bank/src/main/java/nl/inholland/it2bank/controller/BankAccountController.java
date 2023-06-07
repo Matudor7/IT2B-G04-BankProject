@@ -58,13 +58,13 @@ public class BankAccountController {
                 .body(bankAccountService.addBankAccount(bankAccountDto));
     }
 
-    @PutMapping("{iban}")
-    @ApiOperation(value = "Get accounts", notes = "Retrieve accounts based on filters")
+    @PutMapping("{/iban}")
+    @ApiOperation(value = "Update account", notes = "Update an account based on the iban")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved accounts", response = BankAccountModel.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "Successfully updated account", response = BankAccountModel.class, responseContainer = "List"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
-    public ResponseEntity<Object> updateUserById(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
+    public ResponseEntity<Object> updateBankAccountById(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
         Optional<BankAccountModel> existingAccount = bankAccountService.getAccountByIban(iban);
 
         if (existingAccount.isEmpty()) {

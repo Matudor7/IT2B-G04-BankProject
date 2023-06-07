@@ -1,8 +1,6 @@
 package nl.inholland.it2bank.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -70,6 +68,7 @@ public class BankAccountModel {
 
     @Column(nullable = false)
     private Integer ownerId;
+
     private Integer statusId;
     private Double balance;
     private Integer absoluteLimit;

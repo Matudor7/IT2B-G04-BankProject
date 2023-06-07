@@ -15,6 +15,10 @@ public class BankAccountService {
 
     private BankAccountRepository bankAccountRepository;
 
+    public BankAccountService(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
+    }
+
     public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
         return (List<BankAccountModel>) bankAccountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId);
     }
