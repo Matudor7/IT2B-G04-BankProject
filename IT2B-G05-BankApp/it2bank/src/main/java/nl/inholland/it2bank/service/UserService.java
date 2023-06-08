@@ -25,7 +25,6 @@ public class UserService {
     private List<UserModel> users;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private UserModel existingUser;
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
@@ -63,17 +62,21 @@ public class UserService {
     public void updateUser(long id, UserDTO updatedUser){
         UserModel existingUser = this.getUserById(id);
 
-        existingUser.setFirstName(updatedUser.firstName());
-        existingUser.setLastName(updatedUser.lastName());
-        existingUser.setBsn(updatedUser.bsn());
-        existingUser.setEmail(updatedUser.email());
-        existingUser.setPhoneNumber(updatedUser.phoneNumber());
-        existingUser.setPassword(updatedUser.password());
-        existingUser.setRole(UserRoles.valueOf(updatedUser.role()));
-        existingUser.setDailyLimit(updatedUser.dailyLimit());
-        existingUser.setTransactionLimit(updatedUser.transactionLimit());
+        if(updatedUser.transactionLimit() > updatedUser.dailyLimit()){
+            throw new IllegalArgumentException("Transaction limit cannot be higher than daily limit.");
+        }else{
+            existingUser.setFirstName(updatedUser.firstName());
+            existingUser.setLastName(updatedUser.lastName());
+            existingUser.setBsn(updatedUser.bsn());
+            existingUser.setEmail(updatedUser.email());
+            existingUser.setPhoneNumber(updatedUser.phoneNumber());
+            existingUser.setPassword(updatedUser.password());
+            existingUser.setRole(UserRoles.valueOf(updatedUser.role()));
+            existingUser.setDailyLimit(updatedUser.dailyLimit());
+            existingUser.setTransactionLimit(updatedUser.transactionLimit());
 
-        userRepository.save(existingUser);
+            userRepository.save(existingUser);
+        }
     }
 
     public void deleteUser(long id){

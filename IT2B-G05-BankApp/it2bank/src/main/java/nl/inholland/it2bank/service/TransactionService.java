@@ -1,11 +1,12 @@
 package nl.inholland.it2bank.service;
 
-import nl.inholland.it2bank.model.BankAccountModel;
 import nl.inholland.it2bank.model.TransactionModel;
+<<<<<<< HEAD
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
+=======
+>>>>>>> parent of caeb139 (transactions fully working)
 import nl.inholland.it2bank.model.dto.TransactionDTO;
-import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,34 +17,14 @@ import java.util.List;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
-    private final BankAccountService bankAccountService;
 
-    private final UserService userService;
-
-    public TransactionService(TransactionRepository transactionRepository, BankAccountService bankAccountService, UserService userService) {
+    public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.bankAccountService = bankAccountService;
-        this.userService = userService;
     }
 
     public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
 
-    public TransactionModel addTransaction(TransactionDTO transactionDto) {
-        TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
-
-        UserModel userModel = userService.getUserById(transactionModel.getUserPerforming().getId());
-        BankAccountModel accountFrom = bankAccountService.getAccountByIban(transactionModel.getAccountFrom().getIban()).orElseThrow();
-        BankAccountModel accountTo = bankAccountService.getAccountByIban(transactionModel.getAccountTo().getIban()).orElseThrow();
-
-        try {
-            updateDailyLimit(userModel, transactionModel, accountFrom);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        updateBalance(accountFrom, accountTo, transactionModel);
-
-        return transactionRepository.save(transactionModel);
-    }
+    public TransactionModel addTransaction(TransactionDTO transactionDto) {return transactionRepository.save(this.mapObjectToTransaction(transactionDto)); }
 
     private TransactionModel mapObjectToTransaction(TransactionDTO transactionDto){
         TransactionModel transaction = new TransactionModel();
@@ -57,6 +38,7 @@ public class TransactionService {
 
         return transaction;
     }
+<<<<<<< HEAD
 
     private void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) {
         accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
@@ -103,4 +85,6 @@ public class TransactionService {
             return true;
         return false;
     }
+=======
+>>>>>>> parent of caeb139 (transactions fully working)
 }
