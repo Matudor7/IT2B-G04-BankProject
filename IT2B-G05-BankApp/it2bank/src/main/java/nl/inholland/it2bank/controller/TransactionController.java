@@ -20,6 +20,7 @@ import java.util.List;
 @Log
 public class TransactionController {
 
+    @Autowired
     private final TransactionService transactionService;
 
     public TransactionController(TransactionService transactionService) {

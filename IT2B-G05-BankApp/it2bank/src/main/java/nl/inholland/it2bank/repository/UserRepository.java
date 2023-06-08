@@ -26,16 +26,16 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                     predicates.add(criteriaBuilder.equal(root.get("id"), id));
                 }
                 if (firstName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("firstname"), firstName));
+                    predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
                 }
                 if (lastName != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("lastname"), lastName));
+                    predicates.add(criteriaBuilder.equal(root.get("lastName"), lastName));
                 }
                 if (bsn != null) {
                     predicates.add(criteriaBuilder.equal(root.get("bsn"), bsn));
                 }
                 if (phoneNumber != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("phonenumber"), phoneNumber));
+                    predicates.add(criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber));
                 }
                 if (email != null) {
                     predicates.add(criteriaBuilder.equal(root.get("email"), email));
@@ -44,10 +44,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
                     predicates.add(criteriaBuilder.equal(root.get("role"), role));
                 }
                 if (transactionLimit != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("transactionlimit"), transactionLimit));
+                    predicates.add(criteriaBuilder.equal(root.get("transactionLimit"), transactionLimit));
                 }
                 if (dailyLimit != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("dailylimit"), dailyLimit));
+                    predicates.add(criteriaBuilder.equal(root.get("dailyLimit"), dailyLimit));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -56,10 +56,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     }
 
     List<UserModel> findAll(Specification<UserModel> userModelSpecification);
-
-    //@Query("SELECT u FROM UserModel u WHERE u.email= :email")
-    //Optional<UserModel> findUserByEmail(@Param("email") String email);
     Optional<UserModel> findUserByEmail(String email);
+    boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByBsn(Long bsn);
 }
 
 

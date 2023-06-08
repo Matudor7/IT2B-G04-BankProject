@@ -1,6 +1,5 @@
 package nl.inholland.it2bank.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.BankAccountModel;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.repository.BankAccountRepository;
@@ -14,11 +13,8 @@ import java.util.Random;
 @Service
 public class BankAccountService {
 
+    @Autowired
     private BankAccountRepository bankAccountRepository;
-
-    public BankAccountService(BankAccountRepository bankAccountRepository) {
-        this.bankAccountRepository = bankAccountRepository;
-    }
 
     public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
         return (List<BankAccountModel>) bankAccountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId);
@@ -34,10 +30,7 @@ public class BankAccountService {
         return bankAccountRepository.findByIban(finalIban);
     }
 
-    public BankAccountModel saveAccount(BankAccountDTO bankAccountDto) {
-
-        BankAccountModel account = mapObjectToAccount(bankAccountDto);
-
+    public BankAccountModel saveAccount(BankAccountModel account) {
         if (account == null) {
             throw new IllegalArgumentException("Account cannot be null.");
         }
@@ -51,18 +44,6 @@ public class BankAccountService {
                 () -> new IllegalArgumentException("Something went wrong trying to update your account.")
         );
     }
-    public void updateBankAccount(String iban, BankAccountDTO updatedBankAccount) {
-        BankAccountModel existingBankAccount = this.getAccountByIban(iban).orElseThrow(()-> new EntityNotFoundException("Account not found"));
-
-        existingBankAccount.setOwnerId(updatedBankAccount.ownerId());
-        existingBankAccount.setStatusId(updatedBankAccount.statusId());
-        existingBankAccount.setBalance(updatedBankAccount.balance());
-        existingBankAccount.setAbsoluteLimit(updatedBankAccount.absoluteLimit());
-        existingBankAccount.setTypeId(updatedBankAccount.typeId());
-
-        bankAccountRepository.save(existingBankAccount);
-    }
-
 
     private BankAccountModel mapObjectToAccount(BankAccountDTO bankAccountDto) {
         BankAccountModel account = new BankAccountModel();

@@ -26,19 +26,19 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
                     predicates.add(criteriaBuilder.equal(root.get("iban"), iban));
                 }
                 if (ownerId != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("ownerid"), ownerId));
+                    predicates.add(criteriaBuilder.equal(root.get("ownerId"), ownerId));
                 }
                 if (statusId != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("statusid"), statusId));
+                    predicates.add(criteriaBuilder.equal(root.get("statusId"), statusId));
                 }
                 if (balance != null) {
                     predicates.add(criteriaBuilder.equal(root.get("balance"), balance));
                 }
                 if (absoluteLimit != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("absolutelimit"), absoluteLimit));
+                    predicates.add(criteriaBuilder.equal(root.get("absoluteLimit"), absoluteLimit));
                 }
                 if (typeId != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("typeid"), typeId));
+                    predicates.add(criteriaBuilder.equal(root.get("typeId"), typeId));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
