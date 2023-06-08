@@ -64,8 +64,12 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
     public ResponseEntity<Object> addUser(@RequestBody @Valid UserDTO userDto){
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.addUser(userDto));
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(userService.addUser(userDto));
+        }catch(Exception e){
+            return handleException(e);
+        }
     }
 
     @DeleteMapping("{id}")
