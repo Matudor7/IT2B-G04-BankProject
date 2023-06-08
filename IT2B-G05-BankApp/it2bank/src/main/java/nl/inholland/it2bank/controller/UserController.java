@@ -18,10 +18,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping(value = "/users")
 @Log
@@ -97,7 +99,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
-    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserDTO newUser){
+    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody @Valid UserDTO newUser){
         try{
          userService.updateUser(id, newUser);
          return ResponseEntity.status(200).body(newUser);
