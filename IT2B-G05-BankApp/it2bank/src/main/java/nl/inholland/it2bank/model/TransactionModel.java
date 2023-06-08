@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -16,21 +15,15 @@ public class TransactionModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
-    private UserModel userPerforming;
-
-    @OneToOne
-    private BankAccountModel accountFrom;
-
-    @OneToOne
-    private BankAccountModel accountTo;
-
     @Column(nullable = false)
+    private Integer userPerforming;
+    private String accountFrom;
+    private String accountTo;
     private Double amount;
-    private LocalDateTime time;
+    private LocalTime time;
     private String comment;
 
-    public TransactionModel(UserModel userPerforming, BankAccountModel accountFrom, BankAccountModel accountTo, Double amount, LocalDateTime time, String comment) {
+    public TransactionModel(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {
         this.userPerforming = userPerforming;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
@@ -39,27 +32,27 @@ public class TransactionModel {
         this.comment = comment;
     }
 
-    public UserModel getUserPerforming() {
+    public Integer getUserPerforming() {
         return userPerforming;
     }
 
-    public void setUserPerforming(UserModel userPerforming) {
+    public void setUserPerforming(Integer userPerforming) {
         this.userPerforming = userPerforming;
     }
 
-    public BankAccountModel getAccountFrom() {
+    public String getAccountFrom() {
         return accountFrom;
     }
 
-    public void setAccountFrom(BankAccountModel accountFrom) {
+    public void setAccountFrom(String accountFrom) {
         this.accountFrom = accountFrom;
     }
 
-    public BankAccountModel getAccountTo() {
+    public String getAccountTo() {
         return accountTo;
     }
 
-    public void setAccountTo(BankAccountModel accountTo) {
+    public void setAccountTo(String accountTo) {
         this.accountTo = accountTo;
     }
 
@@ -71,11 +64,11 @@ public class TransactionModel {
         this.amount = amount;
     }
 
-    public LocalDateTime getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
