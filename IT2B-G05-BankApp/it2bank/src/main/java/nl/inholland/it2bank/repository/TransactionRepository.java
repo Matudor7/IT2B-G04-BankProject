@@ -25,15 +25,15 @@ public interface TransactionRepository extends JpaRepository<TransactionModel, L
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (userPerforming != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("userPerforming"), userPerforming));
+                    predicates.add(criteriaBuilder.equal(root.get("userperforming"), userPerforming));
                 }
 
                 if (accountFrom != null && !accountFrom.isEmpty()) {
-                    predicates.add(criteriaBuilder.equal(root.get("accountFrom"), accountFrom));
+                    predicates.add(criteriaBuilder.equal(root.get("accountfrom"), accountFrom));
                 }
 
                 if (accountTo != null && !accountTo.isEmpty()) {
-                    predicates.add(criteriaBuilder.equal(root.get("accountTo"), accountTo));
+                    predicates.add(criteriaBuilder.equal(root.get("accountto"), accountTo));
                 }
 
                 if (amount != null) {

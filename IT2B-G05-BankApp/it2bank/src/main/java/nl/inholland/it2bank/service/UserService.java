@@ -25,6 +25,7 @@ public class UserService {
     private List<UserModel> users;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private UserModel existingUser;
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
@@ -34,27 +35,8 @@ public class UserService {
 
     public List<UserModel> findUserByAttributes(Integer id,  String firstName, String lastName, Long bsn, String phoneNumber, String email, UserRoles role, Double transactionLimit, Double dailyLimit ){ return (List<UserModel>) userRepository.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit); }
 
-    public UserModel addUser(UserDTO userDto) {
-        String email = userDto.email();
-
-        // Check if the email address already exists
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("An account with this email address already exists");
-        }
-
-        String phoneNumber = userDto.phoneNumber();
-        if(userRepository.existsByPhoneNumber(phoneNumber)){
-            throw new IllegalArgumentException("An account with this phone number already exists");
-        }
-
-        Long bsn = userDto.bsn();
-        if(userRepository.existsByBsn(bsn)){
-            throw new IllegalArgumentException("An account with this BSN already exists");
-        }
-
-        // Create and save the user
-        UserModel user = mapObjectToUser(userDto);
-        return userRepository.save(user);
+    public UserModel addUser(UserDTO userDto){
+        return userRepository.save(this.mapObjectToUser(userDto));
     }
 
     private UserModel mapObjectToUser(UserDTO userDto){
@@ -67,8 +49,8 @@ public class UserService {
         user.setPassword(userDto.password());
         user.setPhoneNumber(userDto.phoneNumber());
         user.setRole(UserRoles.valueOf(userDto.role()));
-        user.setTransactionLimit((userDto.transactionLimit() == null) ? 50 : userDto.transactionLimit());
-        user.setDailyLimit((userDto.dailyLimit() == null) ? 100 : userDto.dailyLimit());
+        user.setTransactionLimit(userDto.transactionLimit());
+        user.setDailyLimit(userDto.dailyLimit());
 
         return user;
     }
@@ -81,21 +63,17 @@ public class UserService {
     public void updateUser(long id, UserDTO updatedUser){
         UserModel existingUser = this.getUserById(id);
 
-        if(updatedUser.transactionLimit() > updatedUser.dailyLimit()){
-            throw new IllegalArgumentException("Transaction limit cannot be higher than daily limit.");
-        }else{
-            existingUser.setFirstName(updatedUser.firstName());
-            existingUser.setLastName(updatedUser.lastName());
-            existingUser.setBsn(updatedUser.bsn());
-            existingUser.setEmail(updatedUser.email());
-            existingUser.setPhoneNumber(updatedUser.phoneNumber());
-            existingUser.setPassword(updatedUser.password());
-            existingUser.setRole(UserRoles.valueOf(updatedUser.role()));
-            existingUser.setDailyLimit(updatedUser.dailyLimit());
-            existingUser.setTransactionLimit(updatedUser.transactionLimit());
+        existingUser.setFirstName(updatedUser.firstName());
+        existingUser.setLastName(updatedUser.lastName());
+        existingUser.setBsn(updatedUser.bsn());
+        existingUser.setEmail(updatedUser.email());
+        existingUser.setPhoneNumber(updatedUser.phoneNumber());
+        existingUser.setPassword(updatedUser.password());
+        existingUser.setRole(UserRoles.valueOf(updatedUser.role()));
+        existingUser.setDailyLimit(updatedUser.dailyLimit());
+        existingUser.setTransactionLimit(updatedUser.transactionLimit());
 
-            userRepository.save(existingUser);
-        }
+        userRepository.save(existingUser);
     }
 
     public void deleteUser(long id){
