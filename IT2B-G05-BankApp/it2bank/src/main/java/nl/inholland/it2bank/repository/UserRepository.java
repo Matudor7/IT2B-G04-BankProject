@@ -58,6 +58,8 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     List<UserModel> findAll(Specification<UserModel> userModelSpecification);
     Optional<UserModel> findUserByEmail(String email);
     boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByBsn(Long bsn);
 }
 
 

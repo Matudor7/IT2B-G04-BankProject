@@ -39,7 +39,17 @@ public class UserService {
 
         // Check if the email address already exists
         if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email address already exists");
+            throw new IllegalArgumentException("An account with this email address already exists");
+        }
+
+        String phoneNumber = userDto.phoneNumber();
+        if(userRepository.existsByPhoneNumber(phoneNumber)){
+            throw new IllegalArgumentException("An account with this phone number already exists");
+        }
+
+        Long bsn = userDto.bsn();
+        if(userRepository.existsByBsn(bsn)){
+            throw new IllegalArgumentException("An account with this BSN already exists");
         }
 
         // Create and save the user
