@@ -4,7 +4,6 @@ import nl.inholland.it2bank.model.BankAccountModel;
 import nl.inholland.it2bank.model.UserModel;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public record TransactionDTO(UserModel userPerforming, BankAccountModel accountFrom, BankAccountModel accountTo, double amount, LocalDateTime time, String comment) {
 }
