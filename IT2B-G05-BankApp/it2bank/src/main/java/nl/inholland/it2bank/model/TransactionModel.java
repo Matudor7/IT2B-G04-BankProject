@@ -17,20 +17,20 @@ public class TransactionModel {
     private long id;
 
     @OneToOne
-    private UserModel userPerforming;
+    private Integer userPerforming;
 
     @OneToOne
-    private BankAccountModel accountFrom;
+    private String accountFrom;
 
     @OneToOne
-    private BankAccountModel accountTo;
+    private String accountTo;
 
     @Column(nullable = false)
     private Double amount;
     private LocalDateTime time;
     private String comment;
 
-    public TransactionModel(UserModel userPerforming, BankAccountModel accountFrom, BankAccountModel accountTo, Double amount, LocalDateTime time, String comment) {
+    public TransactionModel(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime time, String comment) {
         this.userPerforming = userPerforming;
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
@@ -39,27 +39,27 @@ public class TransactionModel {
         this.comment = comment;
     }
 
-    public UserModel getUserPerforming() {
+    public Integer getUserPerforming() {
         return userPerforming;
     }
 
-    public void setUserPerforming(UserModel userPerforming) {
+    public void setUserPerforming(Integer userPerforming) {
         this.userPerforming = userPerforming;
     }
 
-    public BankAccountModel getAccountFrom() {
+    public String getAccountFrom() {
         return accountFrom;
     }
 
-    public void setAccountFrom(BankAccountModel accountFrom) {
+    public void setAccountFrom(String accountFrom) {
         this.accountFrom = accountFrom;
     }
 
-    public BankAccountModel getAccountTo() {
+    public String getAccountTo() {
         return accountTo;
     }
 
-    public void setAccountTo(BankAccountModel accountTo) {
+    public void setAccountTo(String accountTo) {
         this.accountTo = accountTo;
     }
 
