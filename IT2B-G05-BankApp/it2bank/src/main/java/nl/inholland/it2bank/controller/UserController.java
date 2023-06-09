@@ -3,6 +3,7 @@ package nl.inholland.it2bank.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
