@@ -73,25 +73,25 @@ public class BankAccountController {
             return ResponseEntity.notFound().build();
         }
 
-//        BankAccountModel account = existingAccount.get();
-//
-//        if (bankAccountDto.ownerId() != 0) {
-//            account.setOwnerId(bankAccountDto.ownerId());
-//        }
-//        if (bankAccountDto.statusId() != null) {
-//            account.setStatusId(bankAccountDto.statusId());
-//        }
-//        if (bankAccountDto.balance() != 0) {
-//            account.setBalance(bankAccountDto.balance());
-//        }
-//        if (bankAccountDto.absoluteLimit() != 0) {
-//            account.setAbsoluteLimit(bankAccountDto.absoluteLimit());
-//        }
-//        if (bankAccountDto.typeId() != null) {
-//            account.setTypeId(bankAccountDto.typeId());
-//        }
+        BankAccountModel account = existingAccount.get();
 
-        BankAccountModel updatedAccount = bankAccountService.saveAccount(bankAccountDto);
+        if (bankAccountDto.ownerId() != 0) {
+            account.setOwnerId(bankAccountDto.ownerId());
+        }
+        if (bankAccountDto.statusId() != null) {
+            account.setStatusId(bankAccountDto.statusId());
+        }
+        if (bankAccountDto.balance() != 0) {
+            account.setBalance(bankAccountDto.balance());
+        }
+        if (bankAccountDto.absoluteLimit() != 0) {
+            account.setAbsoluteLimit(bankAccountDto.absoluteLimit());
+        }
+        if (bankAccountDto.typeId() != null) {
+            account.setTypeId(bankAccountDto.typeId());
+        }
+
+        BankAccountModel updatedAccount = bankAccountService.saveAccount(account);
 
         return ResponseEntity.ok(updatedAccount);
     }
