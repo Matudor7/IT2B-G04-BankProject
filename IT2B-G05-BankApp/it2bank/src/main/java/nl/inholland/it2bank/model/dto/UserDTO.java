@@ -15,8 +15,8 @@ public record UserDTO(
         @NotNull String email,
         @NotNull String password,
         @NotNull String role,
-        @NotNull Double transactionLimit,
-        @NotNull Double dailyLimit
+        Double transactionLimit,
+        Double dailyLimit
 )
 {
     public UserDTO(UserModel userModel) {
