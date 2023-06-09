@@ -71,21 +71,21 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/avorn/OneDrive/Documents/GitHub/IT2B-G05-BankProject/IT2B-G05-BankApp/it2bank/src/test&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/avorn/OneDrive/Documents/GitHub/IT2B-G05-BankProject/IT2B-G05-BankApp/it2bank/src/test",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="nl.inholland.it2bank.controller" />
@@ -104,7 +104,7 @@
       <recent name="nl.inholland.it2bank.model.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.It2bankApplication">
+  <component name="RunManager" selected="JUnit.BankAccountModelTest.newBankAccountShouldNotBeNull">
     <configuration name="It2bankApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.It2bankApplication" />
       <module name="it2bank" />
@@ -175,10 +175,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.It2bankApplication" />
         <item itemvalue="JUnit.BankAccountModelTest.newBankAccountShouldNotBeNull" />
         <item itemvalue="JUnit.TransactionModelTest.newTransactionShouldNotBeNull" />
         <item itemvalue="JUnit.UserModelTest.newUserShouldNotBeNull" />
+        <item itemvalue="Application.It2bankApplication" />
       </list>
     </recent_temporary>
   </component>
