@@ -23,8 +23,6 @@ import java.util.List;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
 
@@ -39,7 +37,7 @@ public class UserControllerTest {
     MockMvc mockMvc;
 
     @Test
-    void getShouldReturnAllUsers() throws Exception{
+    void getShouldReturnOkStatus() throws Exception{
 
         Mockito.when(userService.findUserByAttributes(null, null, null, null, null, null, null, null, null))
                 .thenReturn(List.of(
@@ -53,7 +51,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void postShouldReturnNewUser() throws Exception{
+    void postShouldReturnCreatedStatus() throws Exception{
         UserDTO userDto = new UserDTO("FirstName", "LastName", 12345678L, "06123456789", "email@address.com", "Password", "Employee", 50.0, 100.0);
 
         Mockito.when(userService.addUser(userDto))
@@ -66,4 +64,28 @@ public class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
+
+    @Test
+    void deleteShouldReturnNoContentStatus() throws Exception{
+        Integer userId = 1;
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", userId))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void putShouldReturnOkStatusWithBody() throws Exception{
+        UserModel user = new UserModel("Firstname", "Lastname", 123345678L, "0612343567", "email@address.com", "Password", UserRoles.User, 50.0, 100.0);
+        user.setId(1);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/users/{id}", user.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content("{\"firstName\": \"FirstName\",\"lastName\": \"LastName\",\"bsn\": 12345678,\"phoneNumber\": \"06123456789\",\"email\": \"email@address.com\",\"password\": \"Password\",\"role\": \"User\", \"transactionLimit\": 50.0, \"dailyLimit\": 100.0}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().json("{\"firstName\": \"FirstName\",\"lastName\": \"LastName\",\"bsn\": 12345678,\"phoneNumber\": \"06123456789\",\"email\": \"email@address.com\",\"password\": \"Password\",\"role\": \"User\", \"transactionLimit\": 50.0, \"dailyLimit\": 100.0}"));
+    }
+
 }
