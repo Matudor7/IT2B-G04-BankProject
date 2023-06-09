@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import nl.inholland.it2bank0.model.TransactionModel;
 import nl.inholland.it2bank0.model.dto.TransactionDTO;
 import nl.inholland.it2bank0.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
 @Log
 public class TransactionController {
 
+    @Autowired
     private final TransactionService transactionService;
 
     public TransactionController(TransactionService transactionService) {

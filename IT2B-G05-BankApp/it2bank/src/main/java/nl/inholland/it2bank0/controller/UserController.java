@@ -3,12 +3,14 @@ package nl.inholland.it2bank0.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank0.model.UserModel;
 import nl.inholland.it2bank0.model.UserRoles;
 import nl.inholland.it2bank0.model.dto.ExceptionDTO;
 import nl.inholland.it2bank0.model.dto.UserDTO;
 import nl.inholland.it2bank0.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.util.List;
 @Log
 public class UserController {
 
+    @Autowired
     private final UserService userService;
 
     public UserController(@Lazy UserService userService) {
@@ -56,7 +59,7 @@ public class UserController {
             @ApiResponse(code = 401, message = "Access token is missing or invalid"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
-    public ResponseEntity<Object> addUser(@RequestBody UserDTO userDto){
+    public ResponseEntity<Object> addUser(@RequestBody @Valid UserDTO userDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.addUser(userDto));
     }
@@ -69,6 +72,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
+    //@PreAuthorize("hasRole('Employee')")
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
         try{
             userService.deleteUser(id);
