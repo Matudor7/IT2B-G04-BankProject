@@ -1,6 +1,9 @@
 package nl.inholland.it2bank.model.dto;
 
-import java.time.LocalTime;
+import nl.inholland.it2bank.model.BankAccountModel;
+import nl.inholland.it2bank.model.UserModel;
 
-public record TransactionDTO(int userPerforming, String accountFrom, String accountTo, double amount, LocalTime time, String comment) {
+import java.time.LocalDateTime;
+
+public record TransactionDTO(UserModel userPerforming, BankAccountModel accountFrom, BankAccountModel accountTo, double amount, LocalDateTime time, String comment) {
 }

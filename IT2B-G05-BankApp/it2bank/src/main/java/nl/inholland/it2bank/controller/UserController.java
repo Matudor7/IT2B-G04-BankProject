@@ -5,19 +5,25 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.UserRoles;
 import nl.inholland.it2bank.model.dto.ExceptionDTO;
+import nl.inholland.it2bank.model.dto.LoginDTO;
+import nl.inholland.it2bank.model.dto.TokenDTO;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping(value = "/users")
 @Log
@@ -60,8 +66,12 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
     public ResponseEntity<Object> addUser(@RequestBody @Valid UserDTO userDto){
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.addUser(userDto));
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(userService.addUser(userDto));
+        }catch(Exception e){
+            return handleException(e);
+        }
     }
 
     @DeleteMapping("{id}")
@@ -72,7 +82,6 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
-    //@PreAuthorize("hasRole('Employee')")
     public ResponseEntity<Object> removeUserById(@PathVariable long id){
         try{
             userService.deleteUser(id);
@@ -90,7 +99,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax"),
             @ApiResponse(code = 404, message = "Could not find user")
     })
-    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody UserDTO newUser){
+    public ResponseEntity<Object> updateUserById(@PathVariable long id, @RequestBody @Valid UserDTO newUser){
         try{
          userService.updateUser(id, newUser);
          return ResponseEntity.status(200).body(newUser);

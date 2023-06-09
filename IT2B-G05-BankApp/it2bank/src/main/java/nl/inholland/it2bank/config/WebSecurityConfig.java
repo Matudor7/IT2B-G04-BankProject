@@ -1,6 +1,7 @@
-package nl.inholland.it2bank.Config;
+package nl.inholland.it2bank.config;
 
 import nl.inholland.it2bank.filter.JwtTokenFilter;
+import nl.inholland.it2bank.model.UserRoles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -36,6 +37,8 @@ public class WebSecurityConfig{
                 authorizeHttpRequests((
                         authz -> authz
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers(HttpMethod.POST.toString(), "/users").permitAll()
+                                .requestMatchers(HttpMethod.DELETE.toString(), "/users/*").hasAuthority(UserRoles.Employee.getAuthority())
                                 .anyRequest().authenticated()));
 
         // We ensure our own filter is executed before the framework runs its own authentication filter code
