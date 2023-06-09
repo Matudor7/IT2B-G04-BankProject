@@ -21,7 +21,6 @@ import java.util.Optional;
 @Log
 public class BankAccountController {
 
-    @Autowired
     private final BankAccountService bankAccountService;
 
     public BankAccountController(BankAccountService bankAccountService) {
@@ -60,39 +59,13 @@ public class BankAccountController {
     }
 
     @PutMapping("{iban}")
-    @ApiOperation(value = "Get accounts", notes = "Retrieve accounts based on filters")
+    @ApiOperation(value = "Update account", notes = "Update an account based on the iban")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved accounts", response = BankAccountModel.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "Successfully updated account", response = BankAccountModel.class, responseContainer = "List"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
-
-    public ResponseEntity<Object> updateBankAccountByIban(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
-        Optional<BankAccountModel> existingAccount = bankAccountService.getAccountByIban(iban);
-
-        if (existingAccount.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        BankAccountModel account = existingAccount.get();
-
-        if (bankAccountDto.ownerId() != 0) {
-            account.setOwnerId(bankAccountDto.ownerId());
-        }
-        if (bankAccountDto.statusId() != null) {
-            account.setStatusId(bankAccountDto.statusId());
-        }
-        if (bankAccountDto.balance() != 0) {
-            account.setBalance(bankAccountDto.balance());
-        }
-        if (bankAccountDto.absoluteLimit() != 0) {
-            account.setAbsoluteLimit(bankAccountDto.absoluteLimit());
-        }
-        if (bankAccountDto.typeId() != null) {
-            account.setTypeId(bankAccountDto.typeId());
-        }
-
-        BankAccountModel updatedAccount = bankAccountService.saveAccount(account);
-
-        return ResponseEntity.ok(updatedAccount);
+    public ResponseEntity<Object> updateBankAccountById(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
+        bankAccountService.updateBankAccount(iban, bankAccountDto);
+        return ResponseEntity.ok().body(bankAccountDto);
     }
 }
