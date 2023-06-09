@@ -57,7 +57,7 @@ public class UserControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
-                        .content("{\"firstName\": \"FirstName\",\"lastName\": \"LastName\",\"bsn\": 12345678,\"phoneNumber\": \"06123456789\",\"email\": \"email@address.com\",\"password\": \"Password\",\"role\": \"User\"}"))
+                        .content("{\"firstName\": \"FirstName\",\"lastName\": \"LastName\",\"bsn\": 12345678,\"phoneNumber\": \"06123456789\",\"email\": \"email@address.com\",\"password\": \"Password\",\"role\": \"User\",\"transactionLimit\": 50.0,\"dailyLimit\": 100.0}"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
