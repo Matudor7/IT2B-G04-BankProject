@@ -78,19 +78,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="it2bank" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="it2bank" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="It2bankApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="it2bank" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="nl.inholland.it2bank.It2bankApplication" />
