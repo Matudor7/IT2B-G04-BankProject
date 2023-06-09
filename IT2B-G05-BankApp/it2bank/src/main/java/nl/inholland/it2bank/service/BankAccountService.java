@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.BankAccountModel;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.repository.BankAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

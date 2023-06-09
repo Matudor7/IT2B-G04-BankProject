@@ -1,20 +1,15 @@
 package nl.inholland.it2bank.util;
 
 import io.jsonwebtoken.*;
-import jakarta.annotation.PostConstruct;
-import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.UserRoles;
 import nl.inholland.it2bank.service.UsersDetailsService;
-import nl.inholland.it2bank.util.JwtKeyProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class JwtTokenProvider {
