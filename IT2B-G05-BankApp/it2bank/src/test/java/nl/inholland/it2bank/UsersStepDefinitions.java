@@ -1,5 +1,6 @@
 package nl.inholland.it2bank;
 
+import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,21 +55,31 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
 
     @When("I retrieve all users")
     public void iRetrieveAllUsers() {
+        httpHeaders.clear();
+        response = restTemplate.exchange(
+                "/users",
+                HttpMethod.GET,
+                new HttpEntity<>(null, httpHeaders),
+                String.class
+        );
     }
 
-    @Then("I should receive all users")
-    public void iShouldReceiveAllUsers() {
+    @Then("I should receive {int} users")
+    public void iShouldReceiveUsers(int expectedAmount) {
+        String body = (String) response.getBody();
+        int actualAmount = JsonPath.read(body, "$.size()");
+
+        Assertions.assertEquals(expectedAmount, actualAmount);
     }
 
-    @Given("the email written is not already taken")
-    public void theEmailWrittenIsNotAlreadyTaken() {
+
+    @When("I provide registration form with user details")
+    public void iProvideRegistrationFormWithUserDetails() {
     }
 
-    @When("I provide details")
-    public void iProvideDetails() {
+    @Then("I retrieve user with role {string}")
+    public void iRetrieveUser(String role) {
+        
     }
 
-    @Then("I retrieve user")
-    public void iRetrieveUser() {
-    }
 }
