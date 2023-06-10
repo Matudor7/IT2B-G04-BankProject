@@ -77,9 +77,9 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
     public void iProvideRegistrationFormWithUserDetails() {
     }
 
-    @Then("I retrieve user with role {string}")
-    public void iRetrieveUser(String role) {
-        
+    @Then("I should get status {int}")
+    public void iRetrieveUser(int statusCode) {
+
     }
 
 }

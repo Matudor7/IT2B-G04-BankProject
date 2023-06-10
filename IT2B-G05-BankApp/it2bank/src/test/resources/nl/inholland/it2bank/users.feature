@@ -8,4 +8,4 @@ Feature: User CRUD scenarios
     Scenario: Registering a user
         Given The endpoint for "users" is available for method "POST"
         When I provide registration form with user details
-        Then I retrieve user with role User
+        Then I should get status 201
