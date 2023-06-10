@@ -1,8 +1,10 @@
 package nl.inholland.it2bank.repository;
 
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import nl.inholland.it2bank.model.BankAccountModel;
-import nl.inholland.it2bank.model.UserModel;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,10 +18,7 @@ import java.util.Optional;
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccountModel, Long> {
 
-    @Query("SELECT b.iban FROM BankAccount b JOIN b.userModel u WHERE u.firstName = :firstName")
-    Optional<String> findIbanByFirstName(@Param("firstName") String firstName);
-
-    default List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId, String firstName) {
+    default List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
         return findAll(new Specification<BankAccountModel>() {
             @Override
             public Predicate toPredicate(Root<BankAccountModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -30,11 +29,6 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
                 }
                 if (ownerId != null) {
                     predicates.add(criteriaBuilder.equal(root.get("ownerId"), ownerId));
-
-                    if (firstName != null) {
-                        Join<BankAccountModel, UserModel> userModelJoin = root.join("user_model");
-                        predicates.add(criteriaBuilder.equal(userModelJoin.get("first_name"), firstName));
-                    }
                 }
                 if (statusId != null) {
                     predicates.add(criteriaBuilder.equal(root.get("statusId"), statusId));
@@ -48,15 +42,6 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
                 if (typeId != null) {
                     predicates.add(criteriaBuilder.equal(root.get("typeId"), typeId));
                 }
-                if (firstName != null) {
-                    Subquery<Integer> subquery = query.subquery(Integer.class);
-                    Root<UserModel> userRoot = subquery.from(UserModel.class);
-                    subquery.select(userRoot.get("id"));
-                    subquery.where(criteriaBuilder.equal(userRoot.get("firstName"), firstName));
-
-                    predicates.add(criteriaBuilder.in(root.get("ownerId")).value(subquery));
-                }
-
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
             }
@@ -65,4 +50,8 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
     List<BankAccountModel> findAll(Specification<BankAccountModel> accountModelSpecification);
 
     Optional<BankAccountModel> findByIban(String finalIban);
+
+    @Query("SELECT b FROM BankAccountModel b JOIN b.owner u WHERE u.firstName = :firstName AND b.typeId = 1")
+    List<BankAccountModel> findAccountsByFirstName(@Param("firstName") String firstName);
+
 }

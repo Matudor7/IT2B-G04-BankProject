@@ -31,16 +31,6 @@ public class BankAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<String> getBankAccountByFirstName(@RequestParam("first_name") String firstName) {
-        String iban = String.valueOf(bankAccountService.getIbanByFirstName(firstName));
-        if (iban != null) {
-            return ResponseEntity.ok(iban);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping
     @ApiOperation(value = "Get accounts", notes = "Retrieve accounts based on filters")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved accounts", response = BankAccountModel.class, responseContainer = "List"),
@@ -54,11 +44,17 @@ public class BankAccountController {
             @RequestParam(value = "balance", required = false) Double balance,
             @RequestParam(value = "absoluteLimit", required = false) Integer absoluteLimit,
             @RequestParam(value = "typeId", required = false) Integer typeId,
-            @RequestParam(value = "firstname", required = false) String firstName
+            @RequestParam(value = "first_name", required = false) String firstName
     ) {
-        List<BankAccountModel> accounts = bankAccountService.findAccountByAttributes(iban, ownerId, statusId, balance, absoluteLimit, typeId, firstName);
+        List<BankAccountModel> accounts;
+        if (firstName != null) {
+            accounts = bankAccountService.findAccountByFirstName(firstName);
+        } else {
+            accounts = bankAccountService.findAccountByAttributes(iban, ownerId, statusId, balance, absoluteLimit, typeId);
+        }
         return ResponseEntity.ok(accounts);
     }
+
 
     @PostMapping
     @ApiOperation(value = "Create Account", notes = "Successfully created account")

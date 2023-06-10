@@ -19,8 +19,8 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId, String firstName) {
-        return (List<BankAccountModel>) bankAccountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId, firstName);
+    public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
+        return (List<BankAccountModel>) bankAccountRepository.findAccountByAttributes(iban, ownerId, statusId, amount, absoluteLimit, typeId);
     }
 
 
@@ -125,7 +125,13 @@ public class BankAccountService {
         }
     }
 
-    public Optional<String> getIbanByFirstName(String firstName) {
-        return bankAccountRepository.findIbanByFirstName(firstName);
+    public List<BankAccountModel> findAccountByFirstName(String firstName) {
+        List<BankAccountModel> accounts = bankAccountRepository.findAccountsByFirstName(firstName);
+
+        if (accounts.isEmpty()) {
+            throw new IllegalArgumentException("No bank accounts found for the given first name: " + firstName);
+        }
+
+        return accounts;
     }
 }
