@@ -124,4 +124,24 @@ public class BankAccountService {
             throw new IllegalArgumentException("Type ID is required.");
         }
     }
+
+    public List<BankAccountModel> findAccountByFirstName(String firstName) {
+        List<BankAccountModel> accounts = bankAccountRepository.findAccountsByFirstName(firstName);
+
+        if (accounts.isEmpty()) {
+            throw new IllegalArgumentException("No bank accounts found for the given first name: " + firstName);
+        }
+
+        return accounts;
+    }
+
+    public List<BankAccountModel> findAccountByLastName(String lastName) {
+        List<BankAccountModel> accounts = bankAccountRepository.findAccountsByLastName(lastName);
+
+        if (accounts.isEmpty()) {
+            throw new IllegalArgumentException("No bank accounts found for the given last name: " + lastName);
+        }
+
+        return accounts;
+    }
 }

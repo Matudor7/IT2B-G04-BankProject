@@ -9,6 +9,8 @@ import nl.inholland.it2bank.model.*;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +43,22 @@ public class BankAccountController {
             @RequestParam(value = "statusId", required = false) Integer statusId,
             @RequestParam(value = "balance", required = false) Double balance,
             @RequestParam(value = "absoluteLimit", required = false) Integer absoluteLimit,
-            @RequestParam(value = "typeId", required = false) Integer typeId
+            @RequestParam(value = "typeId", required = false) Integer typeId,
+            @RequestParam(value = "first_name", required = false) String firstName,
+            @RequestParam(value = "last_name", required = false) String lastName
     ) {
-        List<BankAccountModel> accounts = bankAccountService.findAccountByAttributes(iban, ownerId, statusId, balance, absoluteLimit, typeId);
+        List<BankAccountModel> accounts;
+        if (firstName != null) {
+            accounts = bankAccountService.findAccountByFirstName(firstName);
+        } else if (lastName != null) {
+            accounts = bankAccountService.findAccountByLastName(lastName);
+        }
+        else {
+            accounts = bankAccountService.findAccountByAttributes(iban, ownerId, statusId, balance, absoluteLimit, typeId);
+        }
         return ResponseEntity.ok(accounts);
     }
+
 
     @PostMapping
     @ApiOperation(value = "Create Account", notes = "Successfully created account")
