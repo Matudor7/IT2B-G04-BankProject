@@ -54,10 +54,11 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     }
 
     List<UserModel> findAll(Specification<UserModel> userModelSpecification);
+
+    //@Query("SELECT u FROM UserModel u WHERE u.email= :email")
+    //Optional<UserModel> findUserByEmail(@Param("email") String email);
     Optional<UserModel> findUserByEmail(String email);
     boolean existsByEmail(String email);
-    boolean existsByPhoneNumber(String phoneNumber);
-    boolean existsByBsn(Long bsn);
 }
 
 
