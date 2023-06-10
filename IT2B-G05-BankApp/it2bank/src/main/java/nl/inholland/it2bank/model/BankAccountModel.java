@@ -1,8 +1,6 @@
 package nl.inholland.it2bank.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,11 +11,35 @@ public class BankAccountModel {
 
     @Id
     private String iban;
+
+    @Column(insertable = false, updatable = false)
+    private Integer ownerId;
+
+    private Integer statusId;
+    private Double balance;
+    private Integer absoluteLimit;
+    private Integer typeId;
+
+    @ManyToOne
+    @JoinColumn(name = "ownerId", referencedColumnName = "id")
+    private UserModel owner;
+
+    public BankAccountModel(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
+        this.iban = iban;
+        this.ownerId = ownerId;
+        this.statusId = statusId;
+        this.balance = balance;
+        this.absoluteLimit = absoluteLimit;
+        this.typeId = typeId;
+    }
+
     public String getIban() {
         return iban;
     }
 
-    public void setIban(String iban) { this.iban = iban; }
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
 
     public Integer getOwnerId() {
         return ownerId;
@@ -59,19 +81,11 @@ public class BankAccountModel {
         this.typeId = typeId;
     }
 
-    public BankAccountModel(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
-        this.iban = iban;
-        this.ownerId = ownerId;
-        this.statusId = statusId;
-        this.balance = balance;
-        this.absoluteLimit = absoluteLimit;
-        this.typeId = typeId;
+    public UserModel getOwner() {
+        return owner;
     }
 
-    @Column(nullable = false)
-    private Integer ownerId;
-    private Integer statusId;
-    private Double balance;
-    private Integer absoluteLimit;
-    private Integer typeId;
+    public void setOwner(UserModel owner) {
+        this.owner = owner;
+    }
 }
