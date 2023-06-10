@@ -134,4 +134,14 @@ public class BankAccountService {
 
         return accounts;
     }
+
+    public List<BankAccountModel> findAccountByLastName(String lastName) {
+        List<BankAccountModel> accounts = bankAccountRepository.findAccountsByLastName(lastName);
+
+        if (accounts.isEmpty()) {
+            throw new IllegalArgumentException("No bank accounts found for the given last name: " + lastName);
+        }
+
+        return accounts;
+    }
 }
