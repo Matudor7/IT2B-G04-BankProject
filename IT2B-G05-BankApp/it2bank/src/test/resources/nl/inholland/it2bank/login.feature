@@ -6,11 +6,11 @@ Feature: Logging in scenarios
     Then I receive a token
 
   Scenario: Log in with correct username but wrong password
-    Given I have invalid username but valid password
+    Given I have invalid email but valid password
     When I call the login endpoint
     Then I should get http status 403
 
   Scenario: Log in with valid username but invalid password
-    Given I have valid username but invalid password
+    Given I have valid email but invalid password
     When I call the login endpoint
     Then I should get http status 403
