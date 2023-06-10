@@ -1,8 +1,12 @@
 package nl.inholland.it2bank;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.SneakyThrows;
+import lombok.extern.java.Log;
+import nl.inholland.it2bank.config.SSLUtils;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
+@Log
 public class UsersStepDefinitions extends BaseStepDefinitions {
 
     @Autowired
@@ -22,6 +27,13 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
     private ResponseEntity<String> response;
 
     HttpHeaders httpHeaders = new HttpHeaders();
+
+    @SneakyThrows
+    @Before
+    public void init() {
+        SSLUtils.turnOffSslChecking();
+        log.info("Turned off SSL checking");
+    }
 
     @Given("The endpoint for {string} is available for method {string}")
     public void theEndpointForIsAvailableForMethod(String endpoint, String method) {
