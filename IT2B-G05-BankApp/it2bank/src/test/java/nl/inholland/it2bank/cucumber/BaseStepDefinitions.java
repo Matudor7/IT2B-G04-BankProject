@@ -1,4 +1,4 @@
-package nl.inholland.it2bank;
+package nl.inholland.it2bank.cucumber;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;

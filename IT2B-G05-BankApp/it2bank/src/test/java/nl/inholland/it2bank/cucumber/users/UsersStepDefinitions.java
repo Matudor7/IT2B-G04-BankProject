@@ -1,5 +1,7 @@
-package nl.inholland.it2bank;
+package nl.inholland.it2bank.cucumber.users;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -7,8 +9,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
+import nl.inholland.it2bank.cucumber.BaseStepDefinitions;
 import nl.inholland.it2bank.config.SSLUtils;
-import nl.inholland.it2bank.model.dto.UserDTO;
+import nl.inholland.it2bank.model.dto.LoginDTO;
+import nl.inholland.it2bank.model.dto.TokenDTO;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +29,11 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private ObjectMapper mapper;
+
+    private String token;
 
     private ResponseEntity<String> response;
 
@@ -110,6 +118,7 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
     public void iProvideAnEditedUser() {
         httpHeaders.clear();
         httpHeaders.add("Content-Type", "Application/json");
+        httpHeaders.add("Authorization", "Bearer " + token);
 
         response = restTemplate.exchange(
                 "/users/3",
@@ -128,6 +137,41 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
                                     "dailyLimit": 1000
                                 }
                                 """, httpHeaders),
+                String.class
+        );
+    }
+
+    @Given("I am logged in")
+    public void iAmLoggedIn() throws JsonProcessingException{
+        httpHeaders.clear();
+        httpHeaders.add("Content-Type", "application/json");
+
+        LoginDTO loginDTO = new LoginDTO("bankje@gmail.com", "Bankje!");
+        token = getToken(loginDTO);
+    }
+
+    private String getToken(LoginDTO loginDTO) throws JsonProcessingException {
+        response = restTemplate.exchange(
+                "/login", HttpMethod.POST,
+                new HttpEntity<>(mapper.writeValueAsString(loginDTO), httpHeaders),
+                String.class
+        );
+
+        TokenDTO tokenDTO = mapper.readValue(response.getBody(), TokenDTO.class);
+
+        return tokenDTO.token();
+    }
+
+    @When("I want to delete user with ID {int}")
+    public void iWantToDeleteUserWithID(int userId) {
+        httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
+
+        response = restTemplate.exchange(
+                "/users/3",
+                HttpMethod.DELETE,
+                new HttpEntity<>(
+                        null, httpHeaders),
                 String.class
         );
     }
