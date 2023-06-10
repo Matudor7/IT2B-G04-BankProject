@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.config.SSLUtils;
+import nl.inholland.it2bank.model.dto.UserDTO;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -28,7 +29,7 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
 
     private ResponseEntity<String> response;
 
-    HttpHeaders httpHeaders = new HttpHeaders();
+    private HttpHeaders httpHeaders = new HttpHeaders();
 
     @SneakyThrows
     @Before
@@ -75,11 +76,59 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
 
     @When("I provide registration form with user details")
     public void iProvideRegistrationFormWithUserDetails() {
+        httpHeaders.clear();
+        httpHeaders.add("Content-Type", "Application/json");
+
+        response = restTemplate.exchange(
+                "/users",
+                HttpMethod.POST,
+                new HttpEntity<>(
+                        """
+                                {
+                                        "firstName": "Big",
+                                        "lastName": "Boss",
+                                        "bsn": 121312454454,
+                                        "phoneNumber": "0116777777",
+                                        "email": "nakedsnake@gmail.com",
+                                        "password": "$2a$12$qG0w6PENZgVnH7Jl2tA4nut66yfZGzVcyT/wmCOgZsaeLghoItZNa",
+                                        "role": "User",
+                                        "dailyLimit": 50.0,
+                                        "transactionLimit": 100.0
+                                }
+                                """, httpHeaders),
+                String.class
+        );
     }
 
     @Then("I should get status {int}")
-    public void iRetrieveUser(int statusCode) {
-
+    public void iShouldGetStatus(int statusCode) {
+        int actualStatusCode = response.getStatusCode().value();
+        Assertions.assertEquals(statusCode,actualStatusCode);
     }
 
+    @When("I provide an edited user")
+    public void iProvideAnEditedUser() {
+        httpHeaders.clear();
+        httpHeaders.add("Content-Type", "Application/json");
+
+        response = restTemplate.exchange(
+                "/users/3",
+                HttpMethod.PUT,
+                new HttpEntity<>(
+                        """
+                                {
+                                    "firstName": "Softerer",
+                                    "lastName": "Kitten",
+                                    "bsn": 123435791,
+                                    "phoneNumber": "0620117001",
+                                    "email": "null@email.com",
+                                    "password": "nullPass",
+                                    "role": "User",
+                                    "transactionLimit": 500,
+                                    "dailyLimit": 1000
+                                }
+                                """, httpHeaders),
+                String.class
+        );
+    }
 }
