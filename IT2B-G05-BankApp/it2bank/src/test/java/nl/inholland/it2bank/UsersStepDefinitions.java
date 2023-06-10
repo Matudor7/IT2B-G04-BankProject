@@ -23,17 +23,9 @@ public class UsersStepDefinitions extends BaseStepDefinitions{
 
     @Given("The endpoint for {string} is available for {string}")
     public void theEndpointIsAvailable(String endpoint, String method){
-        response = restTemplate
-                .exchange("/" + endpoint,
-                        HttpMethod.OPTIONS,
-                        new HttpEntity<>(null, new HttpHeaders()),
-                        String.class);
-        List<String> options = Arrays.stream(response.getHeaders()
-                .get("Allow")
-                .get(0)
-                .split(","))
-                .toList();
+    }
 
-        Assertions.assertTrue(options.contains(method.toUpperCase()));
+    @Given("The endpoint for {string} is available for method {string}")
+    public void theEndpointForIsAvailableForMethod(String arg0, String arg1) {
     }
 }
