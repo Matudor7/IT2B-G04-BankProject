@@ -13,7 +13,6 @@ import nl.inholland.it2bank.model.dto.LoginDTO;
 import nl.inholland.it2bank.model.dto.TokenDTO;
 import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ import java.util.List;
 @Log
 public class UserController {
 
-    @Autowired
+
     private final UserService userService;
 
     public UserController(@Lazy UserService userService) {
