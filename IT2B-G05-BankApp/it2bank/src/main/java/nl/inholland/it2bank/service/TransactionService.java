@@ -9,7 +9,9 @@ import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -26,14 +28,14 @@ public class TransactionService {
         this.userService = userService;
     }
 
-    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
+    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime dateTime, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, dateTime, comment); }
 
     public TransactionModel addTransaction(TransactionDTO transactionDto) {
         TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
 
-        UserModel userModel = userService.getUserById(transactionModel.getUserPerforming().getId());
-        BankAccountModel accountFrom = bankAccountService.getAccountByIban(transactionModel.getAccountFrom().getIban()).orElseThrow();
-        BankAccountModel accountTo = bankAccountService.getAccountByIban(transactionModel.getAccountTo().getIban()).orElseThrow();
+        UserModel userModel = userService.getUserById(transactionModel.getUserPerforming());
+        BankAccountModel accountFrom = bankAccountService.getAccountByIban(transactionModel.getAccountFrom()).orElseThrow();
+        BankAccountModel accountTo = bankAccountService.getAccountByIban(transactionModel.getAccountTo()).orElseThrow();
 
         try {
             updateDailyLimit(userModel, transactionModel, accountFrom);
@@ -52,7 +54,10 @@ public class TransactionService {
         transaction.setAccountFrom(transactionDto.accountFrom());
         transaction.setAccountTo(transactionDto.accountTo());
         transaction.setAmount(transactionDto.amount());
-        transaction.setTime(transactionDto.time());
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = currentDateTime.format(formatter);
+        transaction.setDateTime(LocalDateTime.parse(formattedDateTime));
         transaction.setComment(transactionDto.comment());
 
         return transaction;
