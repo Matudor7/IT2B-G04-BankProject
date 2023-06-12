@@ -160,6 +160,16 @@ public class BankAccountService {
         return accounts;
     }
 
+    public List<BankAccountModel> findAccountByFullName(String firstName, String lastName) {
+        List<BankAccountModel> accounts = bankAccountRepository.findAccountsByFullName(firstName, lastName);
+
+        if (accounts.isEmpty()) {
+            throw new IllegalArgumentException("No bank accounts found for the given first name: " + firstName + " and last name: " + lastName);
+        }
+
+        return accounts;
+    }
+
     public boolean checkBalanceBeforeDeactivate(BankAccountModel bankAccountModel){
         if(bankAccountModel.getBalance() == 0)
             return true;

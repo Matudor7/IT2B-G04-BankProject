@@ -49,9 +49,13 @@ public class BankAccountController {
             @RequestParam(value = "last_name", required = false) String lastName
     ) {
         List<BankAccountModel> accounts;
-        if (firstName != null) {
+
+
+        if (firstName != null && lastName != null){
+            accounts = bankAccountService.findAccountByFullName(firstName, lastName);
+        } else if (firstName != null) {
             accounts = bankAccountService.findAccountByFirstName(firstName);
-        } else if (lastName != null) {
+        }else if (lastName != null) {
             accounts = bankAccountService.findAccountByLastName(lastName);
         }
         else {

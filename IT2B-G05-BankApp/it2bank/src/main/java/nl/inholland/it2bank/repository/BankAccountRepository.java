@@ -56,4 +56,7 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
 
     @Query("SELECT b FROM BankAccountModel b JOIN b.owner u WHERE u.lastName = :lastName AND b.typeId = 1")
     List<BankAccountModel> findAccountsByLastName(@Param("lastName") String lastName);
+
+    @Query("SELECT b FROM BankAccountModel b JOIN b.owner u WHERE u.firstName = :firstName AND u.lastName = :lastName AND b.typeId = 1")
+    List<BankAccountModel> findAccountsByFullName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 }
