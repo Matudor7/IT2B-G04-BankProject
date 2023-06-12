@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.*;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
+import nl.inholland.it2bank.model.dto.ExceptionDTO;
 import nl.inholland.it2bank.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -80,14 +81,16 @@ public class BankAccountController {
     })
 
     public ResponseEntity<Object> updateBankAccountByIban(@PathVariable String iban, @RequestBody BankAccountDTO bankAccountDto) {
-        Optional<BankAccountModel> existingAccount = bankAccountService.getAccountByIban(iban);
-
-        if (existingAccount.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        try{
+            bankAccountService.updateBankAccount(iban, bankAccountDto);
+            return ResponseEntity.status(200).body(bankAccountDto);
+        }catch(Exception e){
+            return handleException(e);
         }
+    }
 
-        BankAccountModel updatedAccount = bankAccountService.saveAccount(bankAccountDto);
-
-        return ResponseEntity.ok(updatedAccount);
+    private ResponseEntity handleException(Exception e){
+        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getClass().getName(), e.getMessage());
+        return ResponseEntity.status(400).body(exceptionDTO);
     }
 }

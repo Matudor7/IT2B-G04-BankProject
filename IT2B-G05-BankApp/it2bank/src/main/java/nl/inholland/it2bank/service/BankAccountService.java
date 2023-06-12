@@ -53,6 +53,11 @@ public class BankAccountService {
     public void updateBankAccount(String iban, BankAccountDTO updatedBankAccount) {
         BankAccountModel existingBankAccount = this.getAccountByIban(iban).orElseThrow(()-> new EntityNotFoundException("Account not found"));
 
+        if(existingBankAccount.getStatusId() != updatedBankAccount.statusId()){
+            if(!checkBalanceBeforeDeactivate(existingBankAccount)){
+                throw new IllegalArgumentException("The balance of the bank account should be 0.");
+            }
+        }
         existingBankAccount.setOwnerId(updatedBankAccount.ownerId());
         existingBankAccount.setStatusId(updatedBankAccount.statusId());
         existingBankAccount.setBalance(updatedBankAccount.balance());
@@ -143,5 +148,11 @@ public class BankAccountService {
         }
 
         return accounts;
+    }
+
+    public boolean checkBalanceBeforeDeactivate(BankAccountModel bankAccountModel){
+        if(bankAccountModel.getBalance() == 0)
+            return true;
+        return false;
     }
 }
