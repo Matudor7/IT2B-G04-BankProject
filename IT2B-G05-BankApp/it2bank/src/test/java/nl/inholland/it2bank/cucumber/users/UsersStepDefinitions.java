@@ -168,7 +168,7 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
         httpHeaders.add("Authorization", "Bearer " + token);
 
         response = restTemplate.exchange(
-                "/users/3",
+                "/users/" + userId,
                 HttpMethod.DELETE,
                 new HttpEntity<>(
                         null, httpHeaders),

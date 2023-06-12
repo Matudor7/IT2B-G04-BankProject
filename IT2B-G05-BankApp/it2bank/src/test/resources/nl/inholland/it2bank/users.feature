@@ -4,7 +4,7 @@ Feature: User CRUD scenarios
         Given The endpoint for "users" is available for method "GET"
         And I am logged in
         When I retrieve all users
-        Then I should receive 4 users
+        Then I should receive 7 users
 
     Scenario: Registering a user
         Given The endpoint for "users" is available for method "POST"
