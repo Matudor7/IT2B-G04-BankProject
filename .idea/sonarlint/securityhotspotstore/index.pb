@@ -9,8 +9,6 @@ P
  IT2B-G05-BankApp/it2bank/pom.xml,c\2\c28bfba8287dfce115800f3497b572e4385f5d2e
 Ñ
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountStatus.java,e\0\e0b9c6cbd457b9486086ae747afbc1973c08a82d
-Ä
-PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserModel.java,a\c\ac95fff8ca08813b0a2d19cd420425667bbadace
 É
 SIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.java,5\3\536bd027a1d869473fc26d66e0a34afe3c2a0406
 ç
@@ -19,7 +17,5 @@ SIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.
 VIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/util/JwtTokenProvider.java,1\8\18b294d21fdb4e6bf3469da03e90d03a31752785
 Ñ
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java,c\3\c3f7646a45af4a7f08657516fc77347c7f72d342
-ä
-ZIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/UserRepository.java,5\6\56db9ca2b5d3180d81de128792e14d68dd2e06f4
 Ç
 RIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountType.java,2\9\2987b9ad29b218787003c15b2e95840f0a045a96

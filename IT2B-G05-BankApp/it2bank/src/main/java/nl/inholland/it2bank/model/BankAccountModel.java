@@ -1,5 +1,6 @@
 package nl.inholland.it2bank.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class BankAccountModel {
 
     @ManyToOne
     @JoinColumn(name = "ownerId", referencedColumnName = "id")
+    @JsonBackReference
     private UserModel owner;
 
     public BankAccountModel(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {

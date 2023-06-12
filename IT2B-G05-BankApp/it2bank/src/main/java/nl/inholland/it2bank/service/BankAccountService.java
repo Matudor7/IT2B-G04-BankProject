@@ -2,8 +2,10 @@ package nl.inholland.it2bank.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.it2bank.model.BankAccountModel;
+import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.repository.BankAccountRepository;
+import nl.inholland.it2bank.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +16,11 @@ import java.util.Random;
 public class BankAccountService {
 
     private BankAccountRepository bankAccountRepository;
+    private UserRepository userRepository;
 
-    public BankAccountService(BankAccountRepository bankAccountRepository) {
+    public BankAccountService(BankAccountRepository bankAccountRepository, UserRepository userRepository) {
         this.bankAccountRepository = bankAccountRepository;
+        this.userRepository = userRepository;
     }
 
     public List<BankAccountModel> findAccountByAttributes(String iban, Integer ownerId, Integer statusId, Double amount, Integer absoluteLimit, Integer typeId) {
@@ -72,6 +76,12 @@ public class BankAccountService {
         BankAccountModel account = new BankAccountModel();
 
         account.setIban(generateIban());
+
+
+        UserModel owner = userRepository.findById(bankAccountDto.ownerId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid ownerId: " + bankAccountDto.ownerId()));
+
+        account.setOwner(owner);
         account.setOwnerId(bankAccountDto.ownerId());
         account.setStatusId(bankAccountDto.statusId());
         account.setBalance(bankAccountDto.balance());

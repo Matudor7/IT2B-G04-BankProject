@@ -15,8 +15,6 @@ SIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountModel.
 ]IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/controller/AccountController.java,f\2\f21260cae39c50afc984f988ac8929f2d0a81e4b
 †
 VIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/util/JwtTokenProvider.java,1\8\18b294d21fdb4e6bf3469da03e90d03a31752785
-Š
-ZIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/repository/UserRepository.java,5\6\56db9ca2b5d3180d81de128792e14d68dd2e06f4
 „
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/UserService.java,c\3\c3f7646a45af4a7f08657516fc77347c7f72d342
 ‚
