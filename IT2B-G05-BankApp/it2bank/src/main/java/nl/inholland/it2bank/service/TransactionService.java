@@ -75,16 +75,19 @@ public class TransactionService {
     }
 
     private void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
-        if (!checkDailyLimit(userModel, transactionModel)) {
-            throw new Exception("Daily limit exceeded!");
-        }
+        if(bankAccountModel.getIban() != "NL01INHO0000000001")
+        {
+            if (!checkDailyLimit(userModel, transactionModel)) {
+                throw new Exception("Daily limit exceeded!");
+            }
 
-        if (!checkTransactionLimit(userModel, transactionModel)) {
-            throw new Exception("Transaction limit exceeded!");
-        }
+            if (!checkTransactionLimit(userModel, transactionModel)) {
+                throw new Exception("Transaction limit exceeded!");
+            }
 
-        if (!checkAbsoluteLimit(bankAccountModel, transactionModel)) {
-            throw new Exception("Absolute limit exceeded!");
+            if (!checkAbsoluteLimit(bankAccountModel, transactionModel)) {
+                throw new Exception("Absolute limit exceeded!");
+            }
         }
 
         userModel.setDailyLimit(userModel.getDailyLimit() - transactionModel.getAmount());
