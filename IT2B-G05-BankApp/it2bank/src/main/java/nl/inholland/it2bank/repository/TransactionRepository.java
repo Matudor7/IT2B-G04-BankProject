@@ -18,38 +18,35 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionModel, Long> {
 
-    default List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime time, String comment) {
-        return findAll(new Specification<TransactionModel>() {
-            @Override
-            public Predicate toPredicate(Root<TransactionModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<>();
+    default List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime dateTime, String comment) {
+        return findAll((Specification<TransactionModel>) (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
-                if (userPerforming != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("userPerforming"), userPerforming));
-                }
-
-                if (accountFrom != null && !accountFrom.isEmpty()) {
-                    predicates.add(criteriaBuilder.equal(root.get("accountFrom"), accountFrom));
-                }
-
-                if (accountTo != null && !accountTo.isEmpty()) {
-                    predicates.add(criteriaBuilder.equal(root.get("accountTo"), accountTo));
-                }
-
-                if (amount != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("amount"), amount));
-                }
-
-                if (time != null) {
-                    predicates.add(criteriaBuilder.equal(root.get("time"), time));
-                }
-
-                if (comment != null && !comment.isEmpty()) {
-                    predicates.add(criteriaBuilder.equal(root.get("comment"), comment));
-                }
-
-                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            if (userPerforming != null) {
+                predicates.add(criteriaBuilder.equal(root.get("userPerforming"), userPerforming));
             }
+
+            if (accountFrom != null && !accountFrom.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("accountFrom"), accountFrom));
+            }
+
+            if (accountTo != null && !accountTo.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("accountTo"), accountTo));
+            }
+
+            if (amount != null) {
+                predicates.add(criteriaBuilder.equal(root.get("amount"), amount));
+            }
+
+            if (dateTime != null) {
+                predicates.add(criteriaBuilder.equal(root.get("dateTime"), dateTime));
+            }
+
+            if (comment != null && !comment.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("comment"), comment));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });
     }
 

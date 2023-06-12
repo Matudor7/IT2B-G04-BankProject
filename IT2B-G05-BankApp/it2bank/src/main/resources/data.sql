@@ -30,6 +30,6 @@ VALUES ('NL01INHO0000000030', 2, 0, 1000, 0, 1);
 INSERT INTO bank_account_model (iban, owner_id, status_id, balance, absolute_limit, type_id)
 VALUES ('NL01INHO0000000048', 4, 0, 1000, 0, 0);
 INSERT INTO transaction_model (user_performing, account_from, account_to, amount, date_time, comment)
-VALUES (3, 'NL01INHO0000000001', 'NL01INHO0000000030', 134.0, '2023-06-12 10:04:00', 'test');
+VALUES (3, 'NL01INHO0000000001', 'NL01INHO0000000030', 134.0, '2023-06-12T10:04:00', 'test');
 INSERT INTO transaction_model (user_performing, account_from, account_to, amount, date_time, comment)
-VALUES (4, 'NL01INHO0000000022', 'NL01INHO0000000030', 12.0, '2023-06-12 10:45:00', 'test');
+VALUES (4, 'NL01INHO0000000022', 'NL01INHO0000000030', 12.0, '2023-06-12T10:45:00', 'test');

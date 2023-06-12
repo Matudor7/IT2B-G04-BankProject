@@ -64,11 +64,7 @@ public class TransactionModel {
         this.amount = amount;
     }
 
-    public LocalDateTime getTime() {
-        return dateTime;
-    }
-
-    public void setTime(LocalDateTime dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

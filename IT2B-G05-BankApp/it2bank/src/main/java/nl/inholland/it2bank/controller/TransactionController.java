@@ -39,10 +39,10 @@ public class TransactionController {
             @RequestParam(value = "accountFrom", required = false) String accountFrom,
             @RequestParam(value = "accountTo", required = false) String accountTo,
             @RequestParam(value = "amount", required = false) Double amount,
-            @RequestParam(value = "dateTime", required = false) LocalDateTime time,
+            @RequestParam(value = "dateTime", required = false) LocalDateTime dateTime,
             @RequestParam(value = "comment", required = false) String comment
     ) {
-        List<TransactionModel> transactions = transactionService.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);
+        List<TransactionModel> transactions = transactionService.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, dateTime, comment);
         return ResponseEntity.ok(transactions);
     }
 

@@ -26,7 +26,7 @@ public class TransactionService {
         this.userService = userService;
     }
 
-    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
+    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime dateTime, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, dateTime, comment); }
 
     public TransactionModel addTransaction(TransactionDTO transactionDto) {
         TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
@@ -52,7 +52,7 @@ public class TransactionService {
         transaction.setAccountFrom(transactionDto.accountFrom());
         transaction.setAccountTo(transactionDto.accountTo());
         transaction.setAmount(transactionDto.amount());
-        transaction.setTime(transactionDto.dateTime());
+        transaction.setDateTime(transactionDto.dateTime());
         transaction.setComment(transactionDto.comment());
 
         return transaction;
