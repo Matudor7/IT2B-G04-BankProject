@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -39,7 +39,7 @@ public class TransactionController {
             @RequestParam(value = "accountFrom", required = false) String accountFrom,
             @RequestParam(value = "accountTo", required = false) String accountTo,
             @RequestParam(value = "amount", required = false) Double amount,
-            @RequestParam(value = "time", required = false) LocalTime time,
+            @RequestParam(value = "dateTime", required = false) LocalDateTime time,
             @RequestParam(value = "comment", required = false) String comment
     ) {
         List<TransactionModel> transactions = transactionService.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment);

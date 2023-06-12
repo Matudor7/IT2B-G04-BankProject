@@ -9,7 +9,7 @@ import nl.inholland.it2bank.model.dto.UserDTO;
 import nl.inholland.it2bank.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class TransactionService {
         this.userService = userService;
     }
 
-    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
+    public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime time, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, time, comment); }
 
     public TransactionModel addTransaction(TransactionDTO transactionDto) {
         TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
@@ -52,7 +52,7 @@ public class TransactionService {
         transaction.setAccountFrom(transactionDto.accountFrom());
         transaction.setAccountTo(transactionDto.accountTo());
         transaction.setAmount(transactionDto.amount());
-        transaction.setTime(transactionDto.time());
+        transaction.setTime(transactionDto.dateTime());
         transaction.setComment(transactionDto.comment());
 
         return transaction;
