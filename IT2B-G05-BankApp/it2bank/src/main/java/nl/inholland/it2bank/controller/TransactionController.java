@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.java.Log;
 import nl.inholland.it2bank.model.TransactionModel;
+import nl.inholland.it2bank.model.dto.ExceptionDTO;
 import nl.inholland.it2bank.model.dto.TransactionDTO;
 import nl.inholland.it2bank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,15 @@ public class TransactionController {
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
     public ResponseEntity<Object> addTransaction(@RequestBody TransactionDTO transactionDto){
+        try{
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(transactionService.addTransaction(transactionDto));
+        }catch(Exception e){
+            return handleException(e);
+        }
+    }
+    private ResponseEntity handleException(Exception e){
+        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getClass().getName(), e.getMessage());
+        return ResponseEntity.status(400).body(exceptionDTO);
     }
 }

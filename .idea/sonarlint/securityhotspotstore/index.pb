@@ -9,8 +9,6 @@ P
  IT2B-G05-BankApp/it2bank/pom.xml,c\2\c28bfba8287dfce115800f3497b572e4385f5d2e
 „
 TIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/AccountStatus.java,e\0\e0b9c6cbd457b9486086ae747afbc1973c08a82d
-‡
-WIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/TransactionModel.java,6\4\6455f68b0e7916b21e3cd579cbdd065dee2e2891
 €
 PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserModel.java,a\c\ac95fff8ca08813b0a2d19cd420425667bbadace
 ƒ

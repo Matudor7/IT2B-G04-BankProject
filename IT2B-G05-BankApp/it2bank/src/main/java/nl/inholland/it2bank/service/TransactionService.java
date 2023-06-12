@@ -55,9 +55,7 @@ public class TransactionService {
         transaction.setAccountTo(transactionDto.accountTo());
         transaction.setAmount(transactionDto.amount());
         LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formattedDateTime = currentDateTime.format(formatter);
-        transaction.setDateTime(LocalDateTime.parse(formattedDateTime));
+        transaction.setDateTime(LocalDateTime.now());
         transaction.setComment(transactionDto.comment());
 
         return transaction;
