@@ -7,6 +7,8 @@ import jakarta.persistence.criteria.Root;
 import nl.inholland.it2bank.model.BankAccountModel;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -48,4 +50,10 @@ public interface BankAccountRepository extends JpaRepository<BankAccountModel, L
     List<BankAccountModel> findAll(Specification<BankAccountModel> accountModelSpecification);
 
     Optional<BankAccountModel> findByIban(String finalIban);
+
+    @Query("SELECT b FROM BankAccountModel b JOIN b.owner u WHERE u.firstName = :firstName AND b.typeId = 1")
+    List<BankAccountModel> findAccountsByFirstName(@Param("firstName") String firstName);
+
+    @Query("SELECT b FROM BankAccountModel b JOIN b.owner u WHERE u.lastName = :lastName AND b.typeId = 1")
+    List<BankAccountModel> findAccountsByLastName(String lastName);
 }
