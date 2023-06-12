@@ -6,27 +6,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BankAccountServiceTest {
 
-    @Test
-    void findAccountByAttributes() {
-    }
 
-    @Test
-    void addAccount() {
-    }
-
-    @Test
-    void getAccountByIban() {
-    }
-
-    @Test
-    void saveAccount() {
-    }
-
-    @Test
-    void generateIban() {
-    }
-
-    @Test
-    void isIbanPresent() {
-    }
 }
