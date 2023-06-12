@@ -8,6 +8,14 @@ VALUES ('Solid', 'Snake', 34567890, '0612345678', 'solidsnake@gmail.com', '$2a$1
 -- This below is the bank itself bank account. DO NOT remove this.
 INSERT INTO user_model(first_name, last_name, bsn, phone_number, email, password, role, daily_limit, transaction_limit) -- the password for this account is "Bankje!" but hashed --
 VALUES ('Bank', 'je', 00000000, '0612345678', 'bankje@gmail.com', '$2a$10$8JSYaqGtWoZvaGhkbrI5/eUxwtlIHrmcDlJWgYlq5CMjVtSMwkBdG', 1, 100, 50);
+-- This below is the bank itself bank account. DO NOT remove this.
+INSERT INTO user_model(first_name, last_name, bsn, phone_number, email, password, role, daily_limit, transaction_limit) -- the password for this account is "Bankje!" but hashed --
+VALUES ('Liquid', 'Snake', 34567899, '0612545678', 'liquidsnake@gmail.com', '$2a$10$8JSYaqGtWoZvaGhkbrI5/eUxwtlIHrmcDlJWgYlq5CMjVtSMwkBdG', 0, 100, 50);
+INSERT INTO user_model(first_name, last_name, bsn, phone_number, email, password, role, daily_limit, transaction_limit) -- the password for this account is "Bankje!" but hashed --
+VALUES ('Otacon', 'Emmerich', 45678901, '0612876678', 'octaconemmerich@gmail.com', '$2a$10$8JSYaqGtWoZvaGhkbrI5/eUxwtlIHrmcDlJWgYlq5CMjVtSMwkBdG', 0, 100, 50);
+INSERT INTO user_model(first_name, last_name, bsn, phone_number, email, password, role, daily_limit, transaction_limit) -- the password for this account is "Bankje!" but hashed --
+VALUES ('Liquid', 'Ocelot', 56789012, '0613245678', 'liquidocelot@gmail.com', '$2a$10$8JSYaqGtWoZvaGhkbrI5/eUxwtlIHrmcDlJWgYlq5CMjVtSMwkBdG', 0, 100, 50);
+
 INSERT INTO bank_account_model (iban, owner_id, status_id, balance, absolute_limit, type_id)
 VALUES ('NL01INHO0000000001', 4, 0, 10000000, 0, 1);
 INSERT INTO bank_account_model (iban, owner_id, status_id, balance, absolute_limit, type_id)
