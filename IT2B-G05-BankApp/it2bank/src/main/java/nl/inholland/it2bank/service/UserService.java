@@ -38,7 +38,7 @@ public class UserService {
         return userRepository.save(this.mapObjectToUser(userDto));
     }
 
-    public UserModel mapObjectToUser(UserDTO userDto){
+    private UserModel mapObjectToUser(UserDTO userDto){
         UserModel user = new UserModel();
 
         user.setFirstName(userDto.firstName());
