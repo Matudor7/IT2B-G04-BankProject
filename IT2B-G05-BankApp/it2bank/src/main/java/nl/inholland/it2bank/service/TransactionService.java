@@ -54,7 +54,6 @@ public class TransactionService {
         transaction.setAccountFrom(transactionDto.accountFrom());
         transaction.setAccountTo(transactionDto.accountTo());
         transaction.setAmount(transactionDto.amount());
-        LocalDateTime currentDateTime = LocalDateTime.now();
         transaction.setDateTime(LocalDateTime.now());
         transaction.setComment(transactionDto.comment());
 
