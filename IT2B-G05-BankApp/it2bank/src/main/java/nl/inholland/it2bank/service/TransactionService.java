@@ -1,6 +1,7 @@
 package nl.inholland.it2bank.service;
 
 import nl.inholland.it2bank.model.BankAccountModel;
+import nl.inholland.it2bank.model.BankAccountType;
 import nl.inholland.it2bank.model.TransactionModel;
 import nl.inholland.it2bank.model.UserModel;
 import nl.inholland.it2bank.model.dto.BankAccountDTO;
@@ -30,7 +31,7 @@ public class TransactionService {
 
     public List<TransactionModel> findTransactionByAttributes(Integer userPerforming, String accountFrom, String accountTo, Double amount, LocalDateTime dateTime, String comment) {return (List<TransactionModel>) transactionRepository.findTransactionByAttributes(userPerforming, accountFrom, accountTo, amount, dateTime, comment); }
 
-    public TransactionModel addTransaction(TransactionDTO transactionDto) {
+    public TransactionModel addTransaction(TransactionDTO transactionDto) throws Exception {
         TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
 
         BankAccountModel accountFrom = bankAccountService.getAccountByIban(transactionModel.getAccountFrom()).orElseThrow();
@@ -60,13 +61,16 @@ public class TransactionService {
         return transaction;
     }
 
-    private void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) {
+    private void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) throws Exception {
             accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
             accountTo.setBalance(accountTo.getBalance() + transactionModel.getAmount());
 
             BankAccountDTO accountFromDto = new BankAccountDTO(accountFrom);
             BankAccountDTO accountToDto = new BankAccountDTO(accountTo);
 
+            if (!checkOwner(accountFrom, accountTo) && checkType(accountFrom, accountTo)) {
+                throw new Exception("Can't transfer to another saving account...");
+            }
             bankAccountService.saveAccount(accountFromDto);
             bankAccountService.saveAccount(accountToDto);
     }
@@ -107,6 +111,18 @@ public class TransactionService {
 
     private boolean checkAbsoluteLimit(BankAccountModel accountFrom, TransactionModel transactionModel) {
         if (accountFrom.getBalance() - transactionModel.getAmount() >= accountFrom.getAbsoluteLimit())
+            return true;
+        return false;
+    }
+
+    private boolean checkOwner(BankAccountModel accountFrom, BankAccountModel accountTo){
+        if (accountFrom.getOwnerId() == accountTo.getOwnerId())
+            return true;
+        return false;
+    }
+
+    private boolean checkType(BankAccountModel accountFrom, BankAccountModel accountTo){
+        if (accountFrom.getTypeId() == accountTo.getTypeId() && accountFrom.getTypeId().intValue() != BankAccountType.valueOf("Savings").ordinal())
             return true;
         return false;
     }
