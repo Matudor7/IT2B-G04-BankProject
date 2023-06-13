@@ -61,14 +61,14 @@ public class TransactionService {
     }
 
     private void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) {
-        accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
-        accountTo.setBalance(accountTo.getBalance() + transactionModel.getAmount());
+            accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
+            accountTo.setBalance(accountTo.getBalance() + transactionModel.getAmount());
 
-        BankAccountDTO accountFromDto = new BankAccountDTO(accountFrom);
-        BankAccountDTO accountToDto = new BankAccountDTO(accountTo);
+            BankAccountDTO accountFromDto = new BankAccountDTO(accountFrom);
+            BankAccountDTO accountToDto = new BankAccountDTO(accountTo);
 
-        bankAccountService.saveAccount(accountFromDto);
-        bankAccountService.saveAccount(accountToDto);
+            bankAccountService.saveAccount(accountFromDto);
+            bankAccountService.saveAccount(accountToDto);
     }
 
     private void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
@@ -85,6 +85,8 @@ public class TransactionService {
             if (!checkAbsoluteLimit(bankAccountModel, transactionModel)) {
                 throw new Exception("Absolute limit exceeded!");
             }
+        }else {
+            return;
         }
 
         userModel.setDailyLimit(userModel.getDailyLimit() - transactionModel.getAmount());
