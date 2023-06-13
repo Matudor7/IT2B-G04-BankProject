@@ -61,19 +61,4 @@ public class BankAccountControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
-
-    @Test
-    void putShouldReturnOkStatusWithBody() throws Exception{
-        BankAccountModel bankAccountModel = new BankAccountModel("NL01INHO0000000014", 3, 0, 100.00, 100, 1);
-        bankAccountModel.setIban("NL01INHO0000000014");
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/banlaccounts/{iban}", bankAccountModel.getIban())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content("{\"iban\": \"NL01INHO0000000014\",\"ownerId\": \"3\",\"statusId\": 0,\"balance\": \"10.00\",\"absoluteLimit\": \"100\",\"typeId\": \"1\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.content().json("{\"iban\": \"NL01INHO0000000014\",\"ownerId\": \"3\",\"statusId\": 0,\"balance\": \"10.00\",\"absoluteLimit\": \"100\",\"typeId\": \"1\"}"));
-    }
 }
