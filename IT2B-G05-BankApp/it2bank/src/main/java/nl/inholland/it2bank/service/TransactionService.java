@@ -33,9 +33,9 @@ public class TransactionService {
     public TransactionModel addTransaction(TransactionDTO transactionDto) {
         TransactionModel transactionModel = this.mapObjectToTransaction(transactionDto);
 
-        UserModel userModel = userService.getUserById(transactionModel.getUserPerforming());
         BankAccountModel accountFrom = bankAccountService.getAccountByIban(transactionModel.getAccountFrom()).orElseThrow();
         BankAccountModel accountTo = bankAccountService.getAccountByIban(transactionModel.getAccountTo()).orElseThrow();
+        UserModel userModel = userService.getUserById(accountFrom.getOwnerId());
 
         try {
             updateDailyLimit(userModel, transactionModel, accountFrom);
