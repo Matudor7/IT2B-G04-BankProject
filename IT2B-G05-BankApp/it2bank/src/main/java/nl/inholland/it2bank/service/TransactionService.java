@@ -68,11 +68,11 @@ public class TransactionService {
             BankAccountDTO accountFromDto = new BankAccountDTO(accountFrom);
             BankAccountDTO accountToDto = new BankAccountDTO(accountTo);
 
-            if (!checkOwner(accountFrom, accountTo) && checkType(accountFrom, accountTo)) {
+            if (!checkOwner(accountFrom, accountTo) && !checkType(accountFrom, accountTo)) {
                 throw new Exception("Can't transfer to another saving account...");
             }
-            bankAccountService.saveAccount(accountFromDto);
-            bankAccountService.saveAccount(accountToDto);
+            bankAccountService.updateBankAccount(accountFromDto.iban(), accountFromDto);
+            bankAccountService.updateBankAccount(accountToDto.iban(), accountToDto);
     }
 
     private void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
@@ -116,13 +116,13 @@ public class TransactionService {
     }
 
     private boolean checkOwner(BankAccountModel accountFrom, BankAccountModel accountTo){
-        if (accountFrom.getOwnerId() == accountTo.getOwnerId())
+        if (accountFrom.getOwnerId().equals(accountTo.getOwnerId()))
             return true;
         return false;
     }
 
     private boolean checkType(BankAccountModel accountFrom, BankAccountModel accountTo){
-        if (accountFrom.getTypeId() == accountTo.getTypeId() && accountFrom.getTypeId().intValue() != BankAccountType.valueOf("Savings").ordinal())
+        if (accountFrom.getTypeId().equals(accountTo.getTypeId())  && accountFrom.getTypeId().intValue() != BankAccountType.valueOf("Savings").ordinal())
             return true;
         return false;
     }
