@@ -2,7 +2,6 @@ Feature: Bank Account CRUD scenarios
 
     Scenario: Getting all bank accounts
         Given The endpoint "bankaccounts" is available for method "GET"
-        And I am logged in for "bankaccounts" endpoint
         When I retrieve all bank accounts
         Then I should receive 3 accounts
 

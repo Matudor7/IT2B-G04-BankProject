@@ -1,5 +1,6 @@
 package nl.inholland.it2bank.cucumber.users;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.Before;
@@ -9,6 +10,8 @@ import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
 import nl.inholland.it2bank.config.SSLUtils;
 import nl.inholland.it2bank.cucumber.BaseStepDefinitions;
+import nl.inholland.it2bank.model.dto.LoginDTO;
+import nl.inholland.it2bank.model.dto.TokenDTO;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -24,6 +27,8 @@ public class bankAccountStepDefinitions extends BaseStepDefinitions {
     private ObjectMapper mapper;
     private ResponseEntity<String> response;
 
+    private String token;
+
     private HttpHeaders httpHeaders = new HttpHeaders();
     private boolean loggedIn;
 
@@ -32,27 +37,40 @@ public class bankAccountStepDefinitions extends BaseStepDefinitions {
     public void init() {
         SSLUtils.turnOffSslChecking();
     }
-    @Given("The endpoint {string} is available for method {string}")
-    public void theEndpointIsAvailableForBankAccounts(String endpoint, String method) {
+    public void login() throws JsonProcessingException {
+        httpHeaders.clear();
+        httpHeaders.add("Content-Type", "application/json");
+
+        LoginDTO loginDTO = new LoginDTO("bankje@gmail.com", "Bankje!");
+        token = getToken(loginDTO);
+    }
+    private String getToken(LoginDTO loginDTO) throws JsonProcessingException {
         response = restTemplate.exchange(
-                "/" + endpoint,
-                HttpMethod.OPTIONS,
-                new HttpEntity<>(null, new HttpHeaders()),
+                "/login", HttpMethod.POST,
+                new HttpEntity<>(mapper.writeValueAsString(loginDTO), httpHeaders),
                 String.class
         );
+
+        TokenDTO tokenDTO = mapper.readValue(response.getBody(), TokenDTO.class);
+
+        return tokenDTO.token();
+    }
+
+    @Given("The endpoint {string} is available for method {string}")
+    public void theEndpointIsAvailableForBankAccounts(String endpoint, String method) throws JsonProcessingException {
+        login();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", "Bearer " + token);
+
+        ResponseEntity<String> response = restTemplate.exchange("/" + endpoint, HttpMethod.OPTIONS,
+                new HttpEntity<>(null, httpHeaders), String.class);
 
         List<String> options = Arrays.stream(response.getHeaders()
                         .get("Allow")
                         .get(0)
                         .split(","))
                 .toList();
-
         Assertions.assertTrue(options.contains(method.toUpperCase()));
-    }
-
-    @Given("I am logged in for \"bankaccounts\" endpoint")
-    public void iAmLoggedInBankAccount() {
-        this.loggedIn = true;
     }
 
     @When("I retrieve all bank accounts")
