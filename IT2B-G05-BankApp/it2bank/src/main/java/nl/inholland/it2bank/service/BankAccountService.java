@@ -72,7 +72,7 @@ public class BankAccountService {
     }
 
 
-    private BankAccountModel mapObjectToAccount(BankAccountDTO bankAccountDto) {
+    public BankAccountModel mapObjectToAccount(BankAccountDTO bankAccountDto) {
         BankAccountModel account = new BankAccountModel();
 
         account.setIban(generateIban());

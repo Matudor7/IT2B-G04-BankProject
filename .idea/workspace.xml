@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae8bb1b9-7c64-46de-9c31-a4a0595a79f4" name="Changes" comment="Fixed error with passwordEncryption">
-      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/controller/BankAccountControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/controller/BankAccountControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/BankAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/BankAccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/service/BankAccountServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/IT2B-G05-BankApp/it2bank/src/test/java/nl/inholland/it2bank/service/BankAccountServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,82 +73,82 @@
       <recent name="nl.inholland.it2bank.model.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BankAccountControllerTest.putShouldReturnOkStatusWithBody">
-    <configuration name="BankAccountControllerTest.putShouldReturnOkStatusWithBody" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.BankAccountServiceTest.findAccountByFullNameShouldReturnAccounts">
+    <configuration name="BankAccountServiceTest.findAccountByFirstNameShouldReturnAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="it2bank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.inholland.it2bank.controller.*" />
+          <option name="PATTERN" value="nl.inholland.it2bank.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.controller" />
-      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.controller.BankAccountControllerTest" />
-      <option name="METHOD_NAME" value="putShouldReturnOkStatusWithBody" />
+      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.service" />
+      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.service.BankAccountServiceTest" />
+      <option name="METHOD_NAME" value="findAccountByFirstNameShouldReturnAccounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BankAccountModelTest.accountUserFieldIsNotNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BankAccountServiceTest.findAccountByFirstNameShouldThrowExceptionIfNoAccountsFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="it2bank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.inholland.it2bank.model.*" />
+          <option name="PATTERN" value="nl.inholland.it2bank.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.model" />
-      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.model.BankAccountModelTest" />
-      <option name="METHOD_NAME" value="accountUserFieldIsNotNull" />
+      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.service" />
+      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.service.BankAccountServiceTest" />
+      <option name="METHOD_NAME" value="findAccountByFirstNameShouldThrowExceptionIfNoAccountsFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BankAccountModelTest.bankAccountBalanceIsNotNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BankAccountServiceTest.findAccountByFullNameShouldReturnAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="it2bank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.inholland.it2bank.model.*" />
+          <option name="PATTERN" value="nl.inholland.it2bank.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.model" />
-      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.model.BankAccountModelTest" />
-      <option name="METHOD_NAME" value="bankAccountBalanceIsNotNull" />
+      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.service" />
+      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.service.BankAccountServiceTest" />
+      <option name="METHOD_NAME" value="findAccountByFullNameShouldReturnAccounts" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BankAccountModelTest.bankAccountBalanceIsUpdating" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BankAccountServiceTest.updateBankAccountShouldUpdateAccountProperties" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="it2bank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.inholland.it2bank.model.*" />
+          <option name="PATTERN" value="nl.inholland.it2bank.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.model" />
-      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.model.BankAccountModelTest" />
-      <option name="METHOD_NAME" value="bankAccountBalanceIsUpdating" />
+      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.service" />
+      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.service.BankAccountServiceTest" />
+      <option name="METHOD_NAME" value="updateBankAccountShouldUpdateAccountProperties" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BankAccountModelTest.newAccountShouldNotBeNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BankAccountServiceTest.updateUserShouldChangeUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="it2bank" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="nl.inholland.it2bank.model.*" />
+          <option name="PATTERN" value="nl.inholland.it2bank.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.model" />
-      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.model.BankAccountModelTest" />
-      <option name="METHOD_NAME" value="newAccountShouldNotBeNull" />
+      <option name="PACKAGE_NAME" value="nl.inholland.it2bank.service" />
+      <option name="MAIN_CLASS_NAME" value="nl.inholland.it2bank.service.BankAccountServiceTest" />
+      <option name="METHOD_NAME" value="updateUserShouldChangeUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -159,11 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BankAccountControllerTest.putShouldReturnOkStatusWithBody" />
-        <item itemvalue="JUnit.BankAccountModelTest.bankAccountBalanceIsNotNull" />
-        <item itemvalue="JUnit.BankAccountModelTest.bankAccountBalanceIsUpdating" />
-        <item itemvalue="JUnit.BankAccountModelTest.accountUserFieldIsNotNull" />
-        <item itemvalue="JUnit.BankAccountModelTest.newAccountShouldNotBeNull" />
+        <item itemvalue="JUnit.BankAccountServiceTest.findAccountByFullNameShouldReturnAccounts" />
+        <item itemvalue="JUnit.BankAccountServiceTest.findAccountByFirstNameShouldThrowExceptionIfNoAccountsFound" />
+        <item itemvalue="JUnit.BankAccountServiceTest.findAccountByFirstNameShouldReturnAccounts" />
+        <item itemvalue="JUnit.BankAccountServiceTest.updateBankAccountShouldUpdateAccountProperties" />
+        <item itemvalue="JUnit.BankAccountServiceTest.updateUserShouldChangeUser" />
       </list>
     </recent_temporary>
   </component>
