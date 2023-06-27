@@ -3,22 +3,33 @@ package nl.inholland.it2bank.cucumber.users;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
 import nl.inholland.it2bank.config.SSLUtils;
 import nl.inholland.it2bank.cucumber.BaseStepDefinitions;
+import nl.inholland.it2bank.model.BankAccountModel;
+import nl.inholland.it2bank.model.dto.BankAccountDTO;
 import nl.inholland.it2bank.model.dto.LoginDTO;
 import nl.inholland.it2bank.model.dto.TokenDTO;
+import nl.inholland.it2bank.service.BankAccountService;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class bankAccountStepDefinitions extends BaseStepDefinitions {
     @Autowired
     private TestRestTemplate restTemplate;
@@ -28,6 +39,7 @@ public class bankAccountStepDefinitions extends BaseStepDefinitions {
     private ResponseEntity<String> response;
 
     private String token;
+    private BankAccountService bankAccountService;
 
     private HttpHeaders httpHeaders = new HttpHeaders();
     private boolean loggedIn;
@@ -89,13 +101,13 @@ public class bankAccountStepDefinitions extends BaseStepDefinitions {
         String body = (String) response.getBody();
         int actualAmount = JsonPath.read(body, "$.size()");
 
-        Assertions.assertEquals(expectedCount, actualAmount);
+        assertEquals(expectedCount, actualAmount);
     }
 
     @Then("I should be getting status {int}")
     public void iShouldGetStatusForBankAccount(int expectedStatusCode) {
         int actualStatusCode = response.getStatusCode().value();
-        Assertions.assertEquals(expectedStatusCode,actualStatusCode);
+        assertEquals(expectedStatusCode,actualStatusCode);
     }
 
     @When("I provide registration form with bank account details")
@@ -118,7 +130,24 @@ httpHeaders.clear();
     }
 
     @When("I update the bank account with IBAN {string} using the following details:")
-    public void iUpdateTheBankAccountWithIBANUsingTheFollowingDetails(String arg0) {
+    public void updateBankAccount(String iban, DataTable dataTable) {
+        BankAccountDTO bankAccountDTO = new BankAccountDTO((BankAccountModel) dataTable.asMap());
+     //TODO implement
+    }
 
+    @Then("I should receive a status of {int}")
+    public void verifyResponseStatus(int expectedStatus) {
+        assertEquals(expectedStatus, response.getStatusCodeValue());
+    }
+
+    @Then("the updated bank account details should match the provided values")
+    public void verifyUpdatedBankAccountDetails(DataTable dataTable) {
+        BankAccountDTO expectedBankAccountDTO = new BankAccountDTO((BankAccountModel) dataTable.asMap());
+        assertEquals(expectedBankAccountDTO.iban(), bankAccount.getIban());
+        assertEquals(expectedBankAccountDTO.ownerId(), bankAccount.getOwnerId());
+        assertEquals(expectedBankAccountDTO.statusId(), bankAccount.getStatusId());
+        assertEquals(expectedBankAccountDTO.balance(), bankAccount.getBalance());
+        assertEquals(expectedBankAccountDTO.absoluteLimit(), bankAccount.getAbsoluteLimit());
+        assertEquals(expectedBankAccountDTO.typeId(), bankAccount.getTypeId());
     }
 }
