@@ -3,7 +3,7 @@ Feature: Bank Account CRUD scenarios
     Scenario: Getting all bank accounts
         Given The endpoint "bankaccounts" is available for method "GET"
         When I retrieve all bank accounts
-        Then I should receive 3 accounts
+        Then I should receive 5 accounts
 
     Scenario: Creating a new a bank account
         Given The endpoint "bankaccounts" is available for method "POST"
