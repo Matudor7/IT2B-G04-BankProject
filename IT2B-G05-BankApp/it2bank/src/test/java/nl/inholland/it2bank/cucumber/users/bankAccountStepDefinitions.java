@@ -2,9 +2,13 @@ package nl.inholland.it2bank.cucumber.users;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.SneakyThrows;
+import nl.inholland.it2bank.config.SSLUtils;
+import nl.inholland.it2bank.cucumber.BaseStepDefinitions;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -12,9 +16,7 @@ import org.springframework.http.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-
-public class bankAccountStepDefinitions {private String endpoint;
+public class bankAccountStepDefinitions extends BaseStepDefinitions {
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -22,9 +24,14 @@ public class bankAccountStepDefinitions {private String endpoint;
     private ObjectMapper mapper;
     private ResponseEntity<String> response;
 
-    private final HttpHeaders httpHeaders = new HttpHeaders();
+    private HttpHeaders httpHeaders = new HttpHeaders();
     private boolean loggedIn;
 
+    @SneakyThrows
+    @Before
+    public void init() {
+        SSLUtils.turnOffSslChecking();
+    }
     @Given("The endpoint {string} is available for method {string}")
     public void theEndpointIsAvailableForBankAccounts(String endpoint, String method) {
         response = restTemplate.exchange(
@@ -43,7 +50,7 @@ public class bankAccountStepDefinitions {private String endpoint;
         Assertions.assertTrue(options.contains(method.toUpperCase()));
     }
 
-    @Given("I am logged in for \"accounts\" endpoint")
+    @Given("I am logged in for \"bankaccounts\" endpoint")
     public void iAmLoggedInBankAccount() {
         this.loggedIn = true;
     }
@@ -90,5 +97,10 @@ httpHeaders.clear();
                 new HttpEntity<>(body, httpHeaders),
                 String.class
         );
+    }
+
+    @When("I update the bank account with IBAN {string} using the following details:")
+    public void iUpdateTheBankAccountWithIBANUsingTheFollowingDetails(String arg0) {
+
     }
 }
