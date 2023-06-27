@@ -13,10 +13,14 @@ Feature: Bank Account CRUD scenarios
     Scenario: Updating a bank account by IBAN
         Given The endpoint "/bankaccounts/{iban}" is available for method "PUT"
         When I update the bank account with IBAN "{iban}" using the following details:
-            | Field        | Value        |
-            | owner        | John Doe     |
-            | balance      | 1000.0       |
-            | accountType  | Savings      |
+            | Field           | Value       |
+            | iban            | 1234567890  |
+            | ownerId         | 1           |
+            | statusId        | 2           |
+            | balance         | 1000.0      |
+            | absoluteLimit   | 5000        |
+            | typeId          | 3           |
         Then I should receive a status of 200
         And the updated bank account details should match the provided values
+
 
