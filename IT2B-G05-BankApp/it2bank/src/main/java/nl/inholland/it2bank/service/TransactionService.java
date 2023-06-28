@@ -38,13 +38,6 @@ public class TransactionService {
         BankAccountModel accountTo = bankAccountService.getAccountByIban(transactionModel.getAccountTo()).orElseThrow();
         UserModel userModel = userService.getUserById(accountFrom.getOwnerId());
 
-        try {
-            updateDailyLimit(userModel, transactionModel, accountFrom);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        updateBalance(accountFrom, accountTo, transactionModel);
-
         return transactionRepository.save(transactionModel);
     }
 
@@ -61,7 +54,7 @@ public class TransactionService {
         return transaction;
     }
 
-    private void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) throws Exception {
+    void updateBalance(BankAccountModel accountFrom, BankAccountModel accountTo, TransactionModel transactionModel) throws Exception {
             accountFrom.setBalance(accountFrom.getBalance() - transactionModel.getAmount());
             accountTo.setBalance(accountTo.getBalance() + transactionModel.getAmount());
 
@@ -75,7 +68,7 @@ public class TransactionService {
             bankAccountService.updateBankAccount(accountToDto.iban(), accountToDto);
     }
 
-    private void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
+    void updateDailyLimit(UserModel userModel, TransactionModel transactionModel, BankAccountModel bankAccountModel) throws Exception {
         if(bankAccountModel.getIban().equals("NL01INHO0000000001"))
         {
             return;

@@ -138,6 +138,16 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.github.ngeor</groupId>
+            <artifactId>utc-time-zone-mapper</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+		<dependency>
+			<groupId>com.github.ngeor</groupId>
+			<artifactId>utc-time-zone-mapper</artifactId>
+			<version>1.0.3</version>
+		</dependency>
 
 	</dependencies>
 

@@ -151,9 +151,4 @@ class BankAccountServiceTest {
         // Verify that the bankAccountRepository.findAccountsByFirstName method was called
         Mockito.verify(bankAccountRepository).findAccountsByFirstName(firstName);
     }
-
-
-
-
-
 }
