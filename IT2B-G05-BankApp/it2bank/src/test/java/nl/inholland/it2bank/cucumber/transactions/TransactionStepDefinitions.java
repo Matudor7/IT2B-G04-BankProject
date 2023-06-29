@@ -1,4 +1,4 @@
-package nl.inholland.it2bank.cucumber;
+package nl.inholland.it2bank.cucumber.transactions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +12,6 @@ import nl.inholland.it2bank.config.SSLUtils;
 import nl.inholland.it2bank.cucumber.BaseStepDefinitions;
 import nl.inholland.it2bank.model.dto.LoginDTO;
 import nl.inholland.it2bank.model.dto.TokenDTO;
-import nl.inholland.it2bank.service.BankAccountService;
-import nl.inholland.it2bank.service.TransactionService;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -36,16 +34,15 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     private ResponseEntity<String> response;
 
     private String token;
-    private TransactionService transactionService;
 
     private HttpHeaders httpHeaders = new HttpHeaders();
-    private boolean loggedIn;
 
     @SneakyThrows
     @Before
     public void init() {
         SSLUtils.turnOffSslChecking();
     }
+
     public void login() throws JsonProcessingException {
         httpHeaders.clear();
         httpHeaders.add("Content-Type", "application/json");
@@ -53,6 +50,7 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
         LoginDTO loginDTO = new LoginDTO("bankje@gmail.com", "Bankje!");
         token = getToken(loginDTO);
     }
+
     private String getToken(LoginDTO loginDTO) throws JsonProcessingException {
         response = restTemplate.exchange(
                 "/login", HttpMethod.POST,
@@ -65,8 +63,8 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
         return tokenDTO.token();
     }
 
-    @Given("The endpoint {string} is available for method {string}")
-    public void theEndpointIsAvailableTransactions(String endpoint, String method) throws JsonProcessingException {
+    @Given("The endpoint named {string} is available for method {string}")
+    public void theEndpointIsAvailable(String endpoint, String method) throws JsonProcessingException {
         login();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + token);
@@ -94,8 +92,8 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     }
 
     @Then("I should receive {int} transactions")
-    public void iShouldTransactions(int expectedCount) {
-        String body = (String) response.getBody();
+    public void iShouldReceiveTransactions(int expectedCount) {
+        String body = response.getBody();
         int actualAmount = JsonPath.read(body, "$.size()");
 
         assertEquals(expectedCount, actualAmount);
@@ -104,29 +102,25 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     @When("I provide registration form with transaction details")
     public void iProvideRegistrationFormWithTransactionDetails() {
         httpHeaders.clear();
-        httpHeaders.add("Content-Type", "Application/json");
+        httpHeaders.add("Content-Type", "application/json");
+
+        String requestBody = """
+                {
+                    "userPerforming": 1,
+                    "accountFrom": "NL01INHO0000000002",
+                    "accountTo": "NL01INHO0000000003",
+                    "amount": 100,
+                    "time": "2023-06-28T15:30:00",
+                    "comment": "comment"
+                 
+                }
+                """;
 
         response = restTemplate.exchange(
-                "/users",
+                "/transactions",
                 HttpMethod.POST,
-                new HttpEntity<>(
-                        """
-                                {
-                                     "userPerforming": 1,
-                                     "accountFrom": "NL01INHO0000000002",
-                                     "accountTo": "NL01INHO0000000003",
-                                     "amount": 100,
-                                     "time": "2023-06-28T15:30:00",
-                                     "comment": "comment"
-                                }
-                                """, httpHeaders),
+                new HttpEntity<>(requestBody, httpHeaders),
                 String.class
         );
-    }
-
-    @Then("I should be getting status {int}")
-    public void iShouldGetStatusForTransaction(int expectedStatusCode) {
-        int actualStatusCode = response.getStatusCode().value();
-        assertEquals(expectedStatusCode,actualStatusCode);
     }
 }
