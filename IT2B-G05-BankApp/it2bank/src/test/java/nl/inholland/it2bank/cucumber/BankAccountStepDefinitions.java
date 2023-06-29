@@ -45,14 +45,17 @@ public class BankAccountStepDefinitions extends BaseStepDefinitions {
     @Before
     public void init() {
         SSLUtils.turnOffSslChecking();
+
     }
-    public void login() throws JsonProcessingException {
+    @Given("I am logged in for bank accounts")
+    public void iAmLoggedIn() throws JsonProcessingException{
         httpHeaders.clear();
         httpHeaders.add("Content-Type", "application/json");
 
         LoginDTO loginDTO = new LoginDTO("bankje@gmail.com", "Bankje!");
         token = getToken(loginDTO);
     }
+
     private String getToken(LoginDTO loginDTO) throws JsonProcessingException {
         response = restTemplate.exchange(
                 "/login", HttpMethod.POST,
@@ -67,7 +70,6 @@ public class BankAccountStepDefinitions extends BaseStepDefinitions {
 
     @Given("The endpoint {string} is available for method {string}")
     public void theEndpointIsAvailableForBankAccounts(String endpoint, String method) throws JsonProcessingException {
-        login();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + token);
 
@@ -85,6 +87,7 @@ public class BankAccountStepDefinitions extends BaseStepDefinitions {
     @When("I retrieve all bank accounts")
     public void iRetrieveAllBankAccounts() {
         httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
         response = restTemplate.exchange(
                 "/bankaccounts",
                 HttpMethod.GET,
@@ -94,29 +97,32 @@ public class BankAccountStepDefinitions extends BaseStepDefinitions {
     }
 
     @Then("I should receive {int} accounts")
-    public void iShouldReceiveAccounts(int expectedCount) {
+    public void iShouldReceiveAccounts(int expectedCount){
         String body = (String) response.getBody();
         int actualAmount = JsonPath.read(body, "$.size()");
-
-        assertEquals(expectedCount, actualAmount);
+        Assertions.assertEquals(expectedCount, actualAmount);
     }
 
     @Then("I should be getting status {int}")
-    public void iShouldGetStatusForBankAccount(int expectedStatusCode) {
+    public void iShouldGetStatusForBankAccount(int expectedStatusCode) throws JsonProcessingException {
+        httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
         int actualStatusCode = response.getStatusCode().value();
         assertEquals(expectedStatusCode,actualStatusCode);
     }
 
     @When("I provide registration form with bank account details")
-    public void iProvideRegistrationFormWithBankAccountDetails() {
+    public void iProvideRegistrationFormWithBankAccountDetails() throws JsonProcessingException {
 httpHeaders.clear();
+httpHeaders.add("Authorization", "Bearer " + token);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         String body = """
                 {
-                    "accountNumber": "NL01INHO0000000001",
-                    "balance": 1000,
-                    "creditLimit": 1000,
-                    "accountType": "SAVINGS"
+                  "ownerId": 2,
+                  "statusId": 2,
+                  "balance": 550,
+                  "absoluteLimit": 500,
+                  "typeId": 1
                 }""";
         response = restTemplate.exchange(
                 "/bankaccounts",
@@ -126,49 +132,56 @@ httpHeaders.clear();
         );
     }
 
-   @When("I update the bank account with IBAN {string} using the following details:")
-    public void updateBankAccount(String iban, DataTable dataTable) {
-        Map<String, String> dataMap = dataTable.asMap(String.class, String.class);
-        BankAccountDTO bankAccountDTO = new BankAccountDTO(
-                iban,
-                Integer.parseInt(dataMap.get("ownerId")),
-                Integer.parseInt(dataMap.get("statusId")),
-                Double.parseDouble(dataMap.get("balance")),
-                Integer.parseInt(dataMap.get("absoluteLimit")),
-                Integer.parseInt(dataMap.get("typeId"))
-        );
+   @When("I update the bank account with IBAN {string} using the following details")
+    public void updateBankAccount(String iban) {
+       httpHeaders.clear();
+       httpHeaders.add("Authorization", "Bearer " + token);
+       httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setBearerAuth(token);
-
-        HttpEntity<BankAccountDTO> requestEntity = new HttpEntity<>(bankAccountDTO, httpHeaders);
+       httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+       String body = """
+                {
+                  "iban": "NL01INHO0000000030",
+                  "ownerId": 2,
+                  "statusId": 2,
+                  "balance": 0,
+                  "absoluteLimit": 500,
+                  "typeId": 1
+                }""";
 
         response = restTemplate.exchange(
                 "/bankaccounts/" + iban,
                 HttpMethod.PUT,
-                requestEntity,
+                new HttpEntity<>(body, httpHeaders),
                 String.class
         );
     }
 
     @Then("I should receive a status of {int}")
     public void verifyResponseStatus(int expectedStatus) {
+        httpHeaders.add("Authorization", "Bearer " + token);
         assertEquals(expectedStatus, response.getStatusCodeValue());
     }
 
     @Then("the updated bank account details should match the provided values")
-    public void verifyUpdatedBankAccountDetails(DataTable dataTable) throws JsonProcessingException {
-        BankAccountDTO expectedBankAccountDTO = new BankAccountDTO((BankAccountModel) dataTable.asMap());
+    public void verifyUpdatedBankAccountDetails() throws JsonProcessingException {
+        BankAccountModel expectedBankAccount = new BankAccountModel();
+        // Set the expected values for the bank account
+        expectedBankAccount.setIban("NL01INHO0000000030");
+        expectedBankAccount.setOwnerId(2L);
+        expectedBankAccount.setStatusId(2);
+        expectedBankAccount.setBalance(0.0);
+        expectedBankAccount.setAbsoluteLimit(500);
+        expectedBankAccount.setTypeId(1);
 
         String responseBody = response.getBody();
         BankAccountModel updatedBankAccount = mapper.readValue(responseBody, BankAccountModel.class);
 
-        assertEquals(expectedBankAccountDTO.iban(), updatedBankAccount.getIban());
-        assertEquals(expectedBankAccountDTO.ownerId(), updatedBankAccount.getOwnerId());
-        assertEquals(expectedBankAccountDTO.statusId(), updatedBankAccount.getStatusId());
-        assertEquals(expectedBankAccountDTO.balance(), updatedBankAccount.getBalance());
-        assertEquals(expectedBankAccountDTO.absoluteLimit(), updatedBankAccount.getAbsoluteLimit());
-        assertEquals(expectedBankAccountDTO.typeId(), updatedBankAccount.getTypeId());
+        assertEquals(expectedBankAccount.getIban(), updatedBankAccount.getIban());
+        assertEquals(expectedBankAccount.getOwnerId(), updatedBankAccount.getOwnerId());
+        assertEquals(expectedBankAccount.getStatusId(), updatedBankAccount.getStatusId());
+        assertEquals(expectedBankAccount.getBalance(), updatedBankAccount.getBalance());
+        assertEquals(expectedBankAccount.getAbsoluteLimit(), updatedBankAccount.getAbsoluteLimit());
+        assertEquals(expectedBankAccount.getTypeId(), updatedBankAccount.getTypeId());
     }
 }

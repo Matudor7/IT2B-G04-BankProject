@@ -11,7 +11,5 @@ class It2bankApplicationTests {
 
 	@Test
 	void contextLoads() {
-		It2bankApplication.main(new String[]{});
 	}
-
 }

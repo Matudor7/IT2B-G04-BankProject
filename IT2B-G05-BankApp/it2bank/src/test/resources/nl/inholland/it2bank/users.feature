@@ -23,5 +23,5 @@ Feature: User CRUD scenarios
 
     Scenario: Trying to delete an employee
         Given I am logged in
-        When I want to delete user with ID 3
+        When I want to delete user with ID 2
         Then I should get status 400

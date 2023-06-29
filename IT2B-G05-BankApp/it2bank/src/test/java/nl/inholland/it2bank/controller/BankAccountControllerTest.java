@@ -38,7 +38,7 @@ public class BankAccountControllerTest {
 
         Mockito.when(bankAccountService.findAccountByAttributes(null, null, null, null, null, null))
                 .thenReturn(List.of(
-                        new BankAccountModel("NL01INHO0000000014", 3, 0, 10.00, 100, 1)
+                        new BankAccountModel("NL01INHO0000000014", 3L, 0, 10.00, 100, 1)
                 ));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/bankaccounts").contentType(MediaType.APPLICATION_JSON))
@@ -49,7 +49,7 @@ public class BankAccountControllerTest {
 
     @Test
     void postShouldReturnCreatedStatus() throws Exception{
-        BankAccountDTO bankAccountDTO = new BankAccountDTO("NL01INHO0000000014", 3, 0, 10.00, 100, 1);
+        BankAccountDTO bankAccountDTO = new BankAccountDTO("NL01INHO0000000014", 3L, 0, 10.00, 100, 1);
 
         Mockito.when(bankAccountService.addBankAccount(bankAccountDTO))
                 .thenReturn(new BankAccountModel());
@@ -64,7 +64,7 @@ public class BankAccountControllerTest {
 
     @Test
     void putShouldReturnOkStatusWithBody() throws Exception{
-        BankAccountModel bankAccount = new BankAccountModel("NL01INHO0000000001", 4, 0, 100000.00, 0, 1);
+        BankAccountModel bankAccount = new BankAccountModel("NL01INHO0000000001", 4L, 0, 100000.00, 0, 1);
         bankAccount.setIban(bankAccount.getIban());
         mockMvc.perform(MockMvcRequestBuilders.put("/bankaccounts/{iban}", bankAccount.getIban())
                         .contentType(MediaType.APPLICATION_JSON)
