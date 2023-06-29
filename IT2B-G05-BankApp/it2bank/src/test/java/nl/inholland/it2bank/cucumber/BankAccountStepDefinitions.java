@@ -113,8 +113,8 @@ public class BankAccountStepDefinitions extends BaseStepDefinitions {
 
     @When("I provide registration form with bank account details")
     public void iProvideRegistrationFormWithBankAccountDetails() throws JsonProcessingException {
-httpHeaders.clear();
-httpHeaders.add("Authorization", "Bearer " + token);
+        httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         String body = """
                 {

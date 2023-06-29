@@ -1,4 +1,4 @@
-package nl.inholland.it2bank.cucumber.transactions;
+package nl.inholland.it2bank.cucumber;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,7 +43,8 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
         SSLUtils.turnOffSslChecking();
     }
 
-    public void login() throws JsonProcessingException {
+    @Given("I am logged in for transactions")
+    public void iAmLoggedIn() throws JsonProcessingException{
         httpHeaders.clear();
         httpHeaders.add("Content-Type", "application/json");
 
@@ -65,8 +66,7 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
 
     @Given("The endpoint named {string} is available for method {string}")
     public void theEndpointIsAvailable(String endpoint, String method) throws JsonProcessingException {
-        login();
-        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.clear();
         httpHeaders.add("Authorization", "Bearer " + token);
 
         ResponseEntity<String> response = restTemplate.exchange("/" + endpoint, HttpMethod.OPTIONS,
@@ -83,6 +83,8 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     @When("I retrieve all transactions")
     public void iRetrieveAllTransactions() {
         httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
+
         response = restTemplate.exchange(
                 "/transactions",
                 HttpMethod.GET,
@@ -92,7 +94,7 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     }
 
     @Then("I should receive {int} transactions")
-    public void iShouldReceiveTransactions(int expectedCount) {
+    public void iShouldReceiveTransactions(int expectedCount) throws JsonProcessingException {
         String body = response.getBody();
         int actualAmount = JsonPath.read(body, "$.size()");
 
@@ -100,21 +102,22 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
     }
 
     @When("I provide registration form with transaction details")
-    public void iProvideRegistrationFormWithTransactionDetails() {
+    public void iProvideRegistrationFormWithTransactionDetails() throws JsonProcessingException {
         httpHeaders.clear();
         httpHeaders.add("Content-Type", "application/json");
+        httpHeaders.add("Authorization", "Bearer " + token);
 
         String requestBody = """
-                {
-                    "userPerforming": 1,
-                    "accountFrom": "NL01INHO0000000002",
-                    "accountTo": "NL01INHO0000000003",
-                    "amount": 100,
-                    "time": "2023-06-28T15:30:00",
-                    "comment": "comment"
-                 
-                }
-                """;
+            {
+                "userPerforming": 1,
+                "accountFrom": "NL01INHO0000000014",
+                "accountTo": "NL01INHO0000000030",
+                "amount": 20,
+                "time": "2023-06-28T15:30:00",
+                "comment": "comment"
+             
+            }
+            """;
 
         response = restTemplate.exchange(
                 "/transactions",
@@ -122,5 +125,11 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
                 new HttpEntity<>(requestBody, httpHeaders),
                 String.class
         );
+    }
+
+    @Then("I should receive a status of transaction {int}")
+    public void verifyResponseStatus(int expectedStatus) {
+        httpHeaders.add("Authorization", "Bearer " + token);
+        assertEquals(expectedStatus, response.getStatusCodeValue());
     }
 }
