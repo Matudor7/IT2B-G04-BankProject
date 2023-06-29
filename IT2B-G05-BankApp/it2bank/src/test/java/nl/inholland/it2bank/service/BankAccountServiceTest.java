@@ -37,8 +37,8 @@ class BankAccountServiceTest {
     }
 @Test
     void findBankAccountsShouldReturnAllBankAccounts(){
-        BankAccountModel bankie1 = new BankAccountModel("NL01INHO0000000014", 3, 0, 1000.0, 0, 1);
-        BankAccountModel bankie2 = new BankAccountModel("NL01INHO0000000001", 4, 0, 1000000.0, 0, 1);
+        BankAccountModel bankie1 = new BankAccountModel("NL01INHO0000000114", 3, 0, 1000.0, 0, 1);
+        BankAccountModel bankie2 = new BankAccountModel("NL01INHO0000000123", 4, 0, 1000000.0, 0, 1);
         List<BankAccountModel> bankies = new ArrayList<>();
         bankies.add(bankie1);
         bankies.add(bankie2);
@@ -59,9 +59,9 @@ class BankAccountServiceTest {
     }
     @Test
     void addBankAccountShouldReturnNewBankie() {
-        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000122", 1, 0, 10000.0, 0, 0);
 
-        BankAccountModel newBankie = new BankAccountModel("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        BankAccountModel newBankie = new BankAccountModel("NL01INHO0000000122", 1, 0, 10000.0, 0, 0);
 
         BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, userRepository);
         // use the userRepository.findById() method
@@ -76,8 +76,8 @@ class BankAccountServiceTest {
 
     @Test
     void getAccountByIbanShouldReturnBankAccount() {
-        String iban = "NL01INHO0000000022";
-        BankAccountModel expectedAccount = new BankAccountModel("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        String iban = "NL01INHO0000000122";
+        BankAccountModel expectedAccount = new BankAccountModel("NL01INHO0000000122", 1, 0, 10000.0, 0, 0);
 
         Mockito.when(bankAccountRepository.findByIban(iban)).thenReturn(Optional.of(expectedAccount));
 
@@ -88,24 +88,24 @@ class BankAccountServiceTest {
     }
     @Test
     void updateBankAccountShouldUpdateAccountProperties(){
-        BankAccountModel existingBankie = new BankAccountModel("NL01INHO0000000022", 1, 1, 20000.0, 1000, 1);
-        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1, 1, 20000.0, 0, 1);
+        BankAccountModel existingBankAccount = new BankAccountModel("NL01INHO0000000122", 1, 1, 20000.0, 1000, 1);
+        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000122", 1, 1, 20000.0, 0, 1);
 
-        existingBankie.setIban(bankieDto.iban());
-        existingBankie.setOwnerId(bankieDto.ownerId());
-        existingBankie.setStatusId(bankieDto.statusId());
-        existingBankie.setBalance(bankieDto.balance());
-        existingBankie.setAbsoluteLimit(bankieDto.absoluteLimit());
-        existingBankie.setTypeId(bankieDto.typeId());
+        existingBankAccount.setIban(bankieDto.iban());
+        existingBankAccount.setOwnerId(bankieDto.ownerId());
+        existingBankAccount.setStatusId(bankieDto.statusId());
+        existingBankAccount.setBalance(bankieDto.balance());
+        existingBankAccount.setAbsoluteLimit(bankieDto.absoluteLimit());
+        existingBankAccount.setTypeId(bankieDto.typeId());
 
-        Mockito.when(bankAccountRepository.save(existingBankie)).thenReturn(existingBankie);
-        Mockito.when(bankAccountRepository.findByIban(existingBankie.getIban())).thenReturn(Optional.of(existingBankie));
+        Mockito.when(bankAccountRepository.save(existingBankAccount)).thenReturn(existingBankAccount);
+        Mockito.when(bankAccountRepository.findByIban(existingBankAccount.getIban())).thenReturn(Optional.of(existingBankAccount));
 
-        bankAccountService.updateBankAccount(existingBankie.getIban(), bankieDto);
+        bankAccountService.updateBankAccount(existingBankAccount.getIban(), bankieDto);
 
-        BankAccountModel updatedBankie = new BankAccountModel(existingBankie.getIban(), existingBankie.getOwnerId(), existingBankie.getStatusId(), existingBankie.getBalance(), existingBankie.getAbsoluteLimit(), existingBankie.getTypeId());
+        BankAccountModel updatedBankie = new BankAccountModel(existingBankAccount.getIban(), existingBankAccount.getOwnerId(), existingBankAccount.getStatusId(), existingBankAccount.getBalance(), existingBankAccount.getAbsoluteLimit(), existingBankAccount.getTypeId());
 
-        Assertions.assertEquals(updatedBankie, existingBankie);
+        Assertions.assertEquals(updatedBankie, existingBankAccount);
     }
     @Test
     void findAccountByFullNameShouldReturnAccounts() {
