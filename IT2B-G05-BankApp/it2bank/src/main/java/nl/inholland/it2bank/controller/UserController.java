@@ -53,7 +53,7 @@ public class UserController {
             @RequestParam(value = "transactionLimit", required = false) Double transactionLimit,
             @RequestParam(value = "dailyLimit", required = false) Double dailyLimit
     ) {
-        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
+        List<UserModel> users = userService.findUserByAttributes(Long.valueOf(id), firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
         return ResponseEntity.ok(users);
     }
 

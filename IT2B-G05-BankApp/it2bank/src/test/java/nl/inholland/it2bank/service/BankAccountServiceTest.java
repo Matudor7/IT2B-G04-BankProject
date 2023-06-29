@@ -61,13 +61,16 @@ class BankAccountServiceTest {
     void addBankAccountShouldReturnNewBankie() {
         BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
 
-        BankAccountModel newBankie = new BankAccountModel("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
+        UserModel userModel = new UserModel();
+        userModel.setId(1L);
+        Mockito.when(userRepository.findById(bankieDto.ownerId())).thenReturn(Optional.of(userModel));
+
+        BankAccountModel newBankie = bankAccountService.mapObjectToAccount(bankieDto);
 
         BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, userRepository);
         // use the userRepository.findById() method
-        Mockito.when(userRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(new UserModel()));
 
-        Mockito.when(bankAccountRepository.save(Mockito.any(BankAccountModel.class))).thenReturn(newBankie);
+        Mockito.when(bankAccountRepository.save(newBankie)).thenReturn(newBankie);
 
         BankAccountModel bankAccount = bankAccountService.addBankAccount(bankieDto);
 
