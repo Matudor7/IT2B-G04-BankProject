@@ -59,27 +59,15 @@ class BankAccountServiceTest {
     }
     @Test
     void addBankAccountShouldReturnNewBankie() {
-        BankAccountDTO bankAccountDto = new BankAccountDTO("NL01INHO0000000022", 1L, 0, 0.0, 0, 0);
+        BankAccountDTO bankAccountDto = new BankAccountDTO(null, 1L, 0, 0.0, 0, 0);
 
-        UserModel userModel = new UserModel();
-        userModel.setId(1L);
-        userModel.setFirstName("Revolver");
-        userModel.setLastName("Ocelot");
-        userModel.setRole(UserRoles.Employee);
-        userModel.setBsn(124456789L);
-        userModel.setPhoneNumber("0689876578");
-        userModel.setEmail("revolver@gmail.com");
-        userModel.setPassword(new BCryptPasswordEncoder().encode("RevolverOcelot"));
-        userModel.setTransactionLimit(50.0);
-        userModel.setDailyLimit(100.0);
-
-        Mockito.when(userRepository.findById(bankAccountDto.ownerId())).thenReturn(Optional.of(userModel));
+        Mockito.when(userRepository.findById(bankAccountDto.ownerId())).thenReturn(Optional.of(new UserModel()));
 
         BankAccountModel anotherBankAccount = bankAccountService.mapObjectToAccount(bankAccountDto);
         BankAccountModel savedBankAccount = new BankAccountModel();
         savedBankAccount.setIban(anotherBankAccount.getIban());
 
-        Mockito.when(bankAccountRepository.save(anotherBankAccount)).thenReturn(new BankAccountModel());
+        Mockito.when(bankAccountRepository.save(anotherBankAccount)).thenReturn(anotherBankAccount);
 
         savedBankAccount = bankAccountService.addBankAccount(bankAccountDto);
 
