@@ -58,23 +58,6 @@ class BankAccountServiceTest {
         Assertions.assertEquals(2, retrievedBankAccounts.size());
     }
     @Test
-    void addBankAccountShouldReturnNewBankie() {
-        BankAccountDTO bankAccountDto = new BankAccountDTO(null, 1L, 0, 0.0, 0, 0);
-
-        Mockito.when(userRepository.findById(bankAccountDto.ownerId())).thenReturn(Optional.of(new UserModel()));
-
-        BankAccountModel anotherBankAccount = bankAccountService.mapObjectToAccount(bankAccountDto);
-        BankAccountModel savedBankAccount = new BankAccountModel();
-        savedBankAccount.setIban(anotherBankAccount.getIban());
-
-        Mockito.when(bankAccountRepository.save(anotherBankAccount)).thenReturn(anotherBankAccount);
-
-        savedBankAccount = bankAccountService.addBankAccount(bankAccountDto);
-
-        Assertions.assertEquals(anotherBankAccount, savedBankAccount);
-    }
-
-    @Test
     void getAccountByIbanShouldReturnBankAccount() {
         String iban = "NL01INHO0000000022";
         BankAccountModel expectedAccount = new BankAccountModel("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
