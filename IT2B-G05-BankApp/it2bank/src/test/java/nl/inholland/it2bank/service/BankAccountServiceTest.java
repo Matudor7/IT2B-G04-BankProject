@@ -37,8 +37,8 @@ class BankAccountServiceTest {
     }
 @Test
     void findBankAccountsShouldReturnAllBankAccounts(){
-        BankAccountModel bankie1 = new BankAccountModel("NL01INHO0000000014", 3, 0, 1000.0, 0, 1);
-        BankAccountModel bankie2 = new BankAccountModel("NL01INHO0000000001", 4, 0, 1000000.0, 0, 1);
+        BankAccountModel bankie1 = new BankAccountModel("NL01INHO0000000014", 3L, 0, 1000.0, 0, 1);
+        BankAccountModel bankie2 = new BankAccountModel("NL01INHO0000000001", 4L, 0, 1000000.0, 0, 1);
         List<BankAccountModel> bankies = new ArrayList<>();
         bankies.add(bankie1);
         bankies.add(bankie2);
@@ -59,9 +59,9 @@ class BankAccountServiceTest {
     }
     @Test
     void addBankAccountShouldReturnNewBankie() {
-        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
 
-        BankAccountModel newBankie = new BankAccountModel("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        BankAccountModel newBankie = new BankAccountModel("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
 
         BankAccountService bankAccountService = new BankAccountService(bankAccountRepository, userRepository);
         // use the userRepository.findById() method
@@ -77,7 +77,7 @@ class BankAccountServiceTest {
     @Test
     void getAccountByIbanShouldReturnBankAccount() {
         String iban = "NL01INHO0000000022";
-        BankAccountModel expectedAccount = new BankAccountModel("NL01INHO0000000022", 1, 0, 10000.0, 0, 0);
+        BankAccountModel expectedAccount = new BankAccountModel("NL01INHO0000000022", 1L, 0, 10000.0, 0, 0);
 
         Mockito.when(bankAccountRepository.findByIban(iban)).thenReturn(Optional.of(expectedAccount));
 
@@ -88,8 +88,8 @@ class BankAccountServiceTest {
     }
     @Test
     void updateBankAccountShouldUpdateAccountProperties(){
-        BankAccountModel existingBankie = new BankAccountModel("NL01INHO0000000022", 1, 1, 20000.0, 1000, 1);
-        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1, 1, 20000.0, 0, 1);
+        BankAccountModel existingBankie = new BankAccountModel("NL01INHO0000000022", 1L, 1, 20000.0, 1000, 1);
+        BankAccountDTO bankieDto = new BankAccountDTO("NL01INHO0000000022", 1L, 1, 20000.0, 0, 1);
 
         existingBankie.setIban(bankieDto.iban());
         existingBankie.setOwnerId(bankieDto.ownerId());
@@ -113,11 +113,11 @@ class BankAccountServiceTest {
         String firstName = "Revolver";
         String lastName = "Ocelot";
         List<BankAccountModel> expectedAccounts = new ArrayList<>();
-        expectedAccounts.add(new BankAccountModel("NL01INHO0000000030", 0, 0, 1000.0, 0, 1));
-        expectedAccounts.add(new BankAccountModel("NL01INHO0000000031", 1, 0, 1000.0, 0, 1));
-        expectedAccounts.add(new BankAccountModel("NL01INHO0000000032", 2, 0, 1000.0, 0, 1));
-        expectedAccounts.add(new BankAccountModel("NL01INHO0000000033", 3, 0, 1000.0, 0, 1));
-        expectedAccounts.add(new BankAccountModel("NL01INHO0000000034", 4, 0, 1000.0, 0, 1));
+        expectedAccounts.add(new BankAccountModel("NL01INHO0000000030", 0L, 0, 1000.0, 0, 1));
+        expectedAccounts.add(new BankAccountModel("NL01INHO0000000031", 1L, 0, 1000.0, 0, 1));
+        expectedAccounts.add(new BankAccountModel("NL01INHO0000000032", 2L, 0, 1000.0, 0, 1));
+        expectedAccounts.add(new BankAccountModel("NL01INHO0000000033", 3L, 0, 1000.0, 0, 1));
+        expectedAccounts.add(new BankAccountModel("NL01INHO0000000034", 4L, 0, 1000.0, 0, 1));
 
 
 

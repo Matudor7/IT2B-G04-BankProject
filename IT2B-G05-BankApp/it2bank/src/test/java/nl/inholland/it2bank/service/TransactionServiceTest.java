@@ -64,8 +64,8 @@ class TransactionServiceTest {
     void addTransactionShouldReturnNewTransaction() throws Exception {
 
         TransactionDTO transactionDto = new TransactionDTO(1, "NL01INHO0000000022", "NL01INHO0000000030", 500.0, "comment");
-        BankAccountModel accountFrom = new BankAccountModel("NL01INHO0000000022", 1, 0, 1000.0, 0, 1);
-        BankAccountModel accountTo = new BankAccountModel("NL01INHO0000000030", 2, 0, 2000.0, 0, 1);
+        BankAccountModel accountFrom = new BankAccountModel("NL01INHO0000000022", 1L, 0, 1000.0, 0, 1);
+        BankAccountModel accountTo = new BankAccountModel("NL01INHO0000000030", 2L, 0, 2000.0, 0, 1);
         TransactionModel newTransaction = new TransactionModel(1, accountFrom.getIban(), accountTo.getIban(), 500.0, LocalDateTime.now(), "comment");
         UserModel userModel = new UserModel();
 

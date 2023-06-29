@@ -68,7 +68,7 @@ public class BankAccountController {
     @PostMapping
     @ApiOperation(value = "Create Account", notes = "Successfully created account")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully created account", response = BankAccountModel.class, responseContainer = "List"),
+            @ApiResponse(code = 201, message = "Successfully created account", response = BankAccountModel.class, responseContainer = "List"),
             @ApiResponse(code = 401, message = "Access token is missing or invalid"),
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })

@@ -14,7 +14,7 @@ public class BankAccountModel {
     private String iban;
 
     @Column(insertable = false, updatable = false)
-    private Integer ownerId;
+    private Long ownerId;
 
     private Integer statusId;
     private Double balance;
@@ -26,7 +26,7 @@ public class BankAccountModel {
     @JsonBackReference
     private UserModel owner;
 
-    public BankAccountModel(String iban, Integer ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
+    public BankAccountModel(String iban, Long ownerId, Integer statusId, Double balance, Integer absoluteLimit, Integer typeId) {
         this.iban = iban;
         this.ownerId = ownerId;
         this.statusId = statusId;
@@ -43,11 +43,11 @@ public class BankAccountModel {
         this.iban = iban;
     }
 
-    public Integer getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(Integer ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
