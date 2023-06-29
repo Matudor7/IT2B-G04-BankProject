@@ -23,6 +23,7 @@ import org.springframework.http.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -125,10 +126,30 @@ httpHeaders.clear();
         );
     }
 
-    @When("I update the bank account with IBAN {string} using the following details:")
+   @When("I update the bank account with IBAN {string} using the following details:")
     public void updateBankAccount(String iban, DataTable dataTable) {
-        BankAccountDTO bankAccountDTO = new BankAccountDTO((BankAccountModel) dataTable.asMap());
-     //TODO implement
+        Map<String, String> dataMap = dataTable.asMap(String.class, String.class);
+        BankAccountDTO bankAccountDTO = new BankAccountDTO(
+                iban,
+                Integer.parseInt(dataMap.get("ownerId")),
+                Integer.parseInt(dataMap.get("statusId")),
+                Double.parseDouble(dataMap.get("balance")),
+                Integer.parseInt(dataMap.get("absoluteLimit")),
+                Integer.parseInt(dataMap.get("typeId"))
+        );
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setBearerAuth(token);
+
+        HttpEntity<BankAccountDTO> requestEntity = new HttpEntity<>(bankAccountDTO, httpHeaders);
+
+        response = restTemplate.exchange(
+                "/bankaccounts/" + iban,
+                HttpMethod.PUT,
+                requestEntity,
+                String.class
+        );
     }
 
     @Then("I should receive a status of {int}")
@@ -137,13 +158,17 @@ httpHeaders.clear();
     }
 
     @Then("the updated bank account details should match the provided values")
-    public void verifyUpdatedBankAccountDetails(DataTable dataTable) {
+    public void verifyUpdatedBankAccountDetails(DataTable dataTable) throws JsonProcessingException {
         BankAccountDTO expectedBankAccountDTO = new BankAccountDTO((BankAccountModel) dataTable.asMap());
-        assertEquals(expectedBankAccountDTO.iban(), bankAccount.getIban());
-        assertEquals(expectedBankAccountDTO.ownerId(), bankAccount.getOwnerId());
-        assertEquals(expectedBankAccountDTO.statusId(), bankAccount.getStatusId());
-        assertEquals(expectedBankAccountDTO.balance(), bankAccount.getBalance());
-        assertEquals(expectedBankAccountDTO.absoluteLimit(), bankAccount.getAbsoluteLimit());
-        assertEquals(expectedBankAccountDTO.typeId(), bankAccount.getTypeId());
+
+        String responseBody = response.getBody();
+        BankAccountModel updatedBankAccount = mapper.readValue(responseBody, BankAccountModel.class);
+
+        assertEquals(expectedBankAccountDTO.iban(), updatedBankAccount.getIban());
+        assertEquals(expectedBankAccountDTO.ownerId(), updatedBankAccount.getOwnerId());
+        assertEquals(expectedBankAccountDTO.statusId(), updatedBankAccount.getStatusId());
+        assertEquals(expectedBankAccountDTO.balance(), updatedBankAccount.getBalance());
+        assertEquals(expectedBankAccountDTO.absoluteLimit(), updatedBankAccount.getAbsoluteLimit());
+        assertEquals(expectedBankAccountDTO.typeId(), updatedBankAccount.getTypeId());
     }
 }
