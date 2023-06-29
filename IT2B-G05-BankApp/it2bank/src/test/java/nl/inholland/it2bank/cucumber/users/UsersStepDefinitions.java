@@ -48,6 +48,9 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
 
     @Given("The endpoint for {string} is available for method {string}")
     public void theEndpointForIsAvailableForMethod(String endpoint, String method) {
+        httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
+
         response = restTemplate
                 .exchange("/" + endpoint,
                         HttpMethod.OPTIONS,
@@ -65,6 +68,7 @@ public class UsersStepDefinitions extends BaseStepDefinitions {
     @When("I retrieve all users")
     public void iRetrieveAllUsers() {
         httpHeaders.clear();
+        httpHeaders.add("Authorization", "Bearer " + token);
         response = restTemplate.exchange(
                 "/users",
                 HttpMethod.GET,

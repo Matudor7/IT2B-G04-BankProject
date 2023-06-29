@@ -43,7 +43,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "Malformed request syntax")
     })
     public ResponseEntity<List<UserModel>> getUsersByAttributes(
-            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "id", required = false) Long id,
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
             @RequestParam(value = "bsn", required = false) Long bsn,
@@ -53,7 +53,7 @@ public class UserController {
             @RequestParam(value = "transactionLimit", required = false) Double transactionLimit,
             @RequestParam(value = "dailyLimit", required = false) Double dailyLimit
     ) {
-        List<UserModel> users = userService.findUserByAttributes(Long.valueOf(id), firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
+        List<UserModel> users = userService.findUserByAttributes(id, firstName, lastName, bsn, phoneNumber, email, role, transactionLimit, dailyLimit);
         return ResponseEntity.ok(users);
     }
 

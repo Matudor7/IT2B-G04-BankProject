@@ -1,8 +1,8 @@
 Feature: User CRUD scenarios
 
     Scenario: Getting all users
-        Given The endpoint for "users" is available for method "GET"
-        And I am logged in
+        Given I am logged in
+        And The endpoint for "users" is available for method "GET"
         When I retrieve all users
         Then I should receive 7 users
 
