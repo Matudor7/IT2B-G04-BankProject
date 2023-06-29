@@ -30,8 +30,10 @@ public class BankAccountService {
 
     public BankAccountModel addBankAccount(BankAccountDTO bankAccountDto) {
         validateBankAccountDto(bankAccountDto);
-        return bankAccountRepository.save(this.mapObjectToAccount(bankAccountDto));
+        BankAccountModel bankAccount = mapObjectToAccount(bankAccountDto);
+        return bankAccountRepository.save(bankAccount);
     }
+
 
     public Optional<BankAccountModel> getAccountByIban(String finalIban) {
         return bankAccountRepository.findByIban(finalIban);
@@ -76,7 +78,6 @@ public class BankAccountService {
         BankAccountModel account = new BankAccountModel();
 
         account.setIban(generateIban());
-
 
         UserModel owner = userRepository.findById(bankAccountDto.ownerId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ownerId: " + bankAccountDto.ownerId()));
