@@ -1,8 +1,6 @@
 
 ‡
 WIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/service/AccountService.java,3\5\35ef226923ea8f943d82e52a0fee52032ce67054
-ƒ
-SIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/It2bankApplication.java,1\2\123e01cedbdaecca78225546d920b0e3da2f6007
 €
 PIT2B-G05-BankApp/it2bank/src/main/java/nl/inholland/it2bank/model/UserRoles.java,d\0\d0b1f6844dfe2597447216024cf713a9d68e237f
 P

@@ -1,4 +1,4 @@
-package nl.inholland.it2bank.cucumber.users;
+package nl.inholland.it2bank.cucumber;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +82,7 @@ public class TransactionStepDefinitions extends BaseStepDefinitions {
         Assertions.assertTrue(options.contains(method.toUpperCase()));
     }
 
-    @When("I retrieve all transctions")
+    @When("I retrieve all transactions")
     public void iRetrieveAllTransactions() {
         httpHeaders.clear();
         response = restTemplate.exchange(

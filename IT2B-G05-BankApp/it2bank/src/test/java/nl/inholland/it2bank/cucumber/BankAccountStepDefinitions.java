@@ -1,4 +1,4 @@
-package nl.inholland.it2bank.cucumber.users;
+package nl.inholland.it2bank.cucumber;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
